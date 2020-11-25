@@ -26,7 +26,7 @@ const NavBarDashBoard = (props) => {
       <AppBar position="static" style={{ background: "#2A3D45" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Benchmark
+            CareOrg
           </Typography>
           <Button
             component={Link}
@@ -35,46 +35,6 @@ const NavBarDashBoard = (props) => {
             className={classes.menuButton}
           >
             Home
-          </Button>
-          <Button
-            component={Link}
-            to="/about"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            About
-          </Button>
-          <Button
-            component={Link}
-            to="/evaluation"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            Evaluation
-          </Button>
-          <Button
-            component={Link}
-            to="/submit"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            Submit
-          </Button>
-          <Button
-            component={Link}
-            to="/dataset"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            Dataset
-          </Button>
-          <Button
-            component={Link}
-            to="/license"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            License
           </Button>
           <Button component={Link} to={props.btnLink} color="inherit">
             {props.btnName}

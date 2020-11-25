@@ -36,7 +36,7 @@ const NavBarDashBoard = () => {
       <AppBar position="static" style={{ background: "#2A3D45" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Benchmark
+            CareOrg
           </Typography>
           <Button component={Link} to="/" color="inherit">
             Home

@@ -1,11 +1,11 @@
 export const login = async (username, password) => {
   localStorage.removeItem("token");
-  let res = await fetch("http://localhost:8000/api/login/", {
+  let res = await fetch("http://localhost:8000/api/user/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email: username,password: password }),
   });
   let response = await res.json();
   if (response.token) {
@@ -15,7 +15,7 @@ export const login = async (username, password) => {
 };
 
 export const signup = async (email, name, password) => {
-  let res = await fetch("http://localhost:8000/api/profile/", {
+  let res = await fetch("http://localhost:8000/api/user/", { // The route in thebackend which is supposed to get the token
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,8 +24,13 @@ export const signup = async (email, name, password) => {
   });
   let response = await res.json();
   if (response.email & response.name) {
-    localStorage.setItem("username", response.email);
-    localStorage.setItem("name", response.name);
+    try{
+      login(email, password)
+    }
+    catch(e){
+      console.log(e)
+    }
+    
   }
   return res.ok;
 };

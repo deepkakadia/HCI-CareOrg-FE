@@ -13,21 +13,13 @@ class Dashboard extends Component {
     this.props.history.push("/login");
   };
 
-  componentDidMount(){
-    this.getName()
-  }
-
-  async getName() {
-    const data = await axios.get(`http://localhost:8000/api/profile/?search=${this.props.location.state.name}`)
-    this.setState({name: data.data[0].name})
-  }
   render() {
     return (
       <div>
         <div>
           <NavBarDashBoard />
         </div>
-        <h2>{this.state.name} this our Dashboard</h2>
+        <h2>{this.state.name} This our Dashboard</h2>
         <form action="/login" method="get">
           <input type="submit" value="Login" name="Submit" id="form_login" />
         </form>

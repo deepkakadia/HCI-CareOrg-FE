@@ -72,7 +72,7 @@ const NavBarDashBoard = (props) => {
       <AppBar position="static" style={{ background: "#2A3D45" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Benchmark
+            CareOrg
           </Typography>
           <Button
             component={Link}
@@ -81,46 +81,6 @@ const NavBarDashBoard = (props) => {
             className={classes.menuButton}
           >
             Home
-          </Button>
-          <Button
-            component={Link}
-            to="/about"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            About
-          </Button>
-          <Button
-            component={Link}
-            to="/evaluation"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            Evaluation
-          </Button>
-          <Button
-            component={Link}
-            to="/submit"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            Submit
-          </Button>
-          <Button
-            component={Link}
-            to="/dataset"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            Dataset
-          </Button>
-          <Button
-            component={Link}
-            to="/license"
-            color="inherit"
-            className={classes.menuButton}
-          >
-            License
           </Button>
           {islogin === true ? (
             <Button onClick={handleClick} color="inherit">
@@ -131,35 +91,6 @@ const NavBarDashBoard = (props) => {
               Login / Signup
             </Button>
           )}
-          <div>
-            <Button
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              Account
-            </Button>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Dashboard</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-          </div>
         </Toolbar>
       </AppBar>
     </div>
