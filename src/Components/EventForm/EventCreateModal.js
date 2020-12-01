@@ -45,6 +45,19 @@ export default class EventCreateModal extends Component {
 
     // this function handles createEvent submit button 
     hanldeSubmit() {
+        if (this.state.goal_amount.length == 0 || isNaN(this.state.goal_amount) || this.state.goal_amount <= 0) {
+            this.setState({ goal_amountError: true })
+        }
+        if (this.state.eventTitle.length == 0 || typeof (this.state.eventTitle) != 'string') {
+            this.setState({ titleError: true })
+        }
+        if (this.state.eventDescription.length == 0 || typeof (this.state.eventDescription) != 'string') {
+            this.setState({ descriptionError: true })
+        }
+        else {
+            this.handleClickOpen()
+            //Make axios call to post to backend
+        }
 
     }
 
@@ -155,14 +168,37 @@ export default class EventCreateModal extends Component {
                                         />
                                     </Grid>
 
-                                    <Grid item>
+
+                                    <Grid item width={25}>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                            <KeyboardDatePicker
+                                                inputVariant="outlined"
+                                                name="startDate"
+                                                format="MM/dd/yyyy"
+                                                margin="dense"
+                                                readOnly={true}
+                                                disabled={true}
+                                                label="Campaign start date"
+                                                value={new Date()}
+                                                onFocus={this.handleInputFocus}
+                                                KeyboardButtonProps={{
+                                                    'aria-label': 'change date',
+                                                }}
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                            />
+                                        </MuiPickersUtilsProvider>
+                                    </Grid>
+
+                                    <Grid item width="25%">
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
                                                 inputVariant="outlined"
                                                 name="expiryDate"
                                                 format="MM/dd/yyyy"
                                                 margin="dense"
-                                                id="date-picker-inline"
+
                                                 label="Campaign expiry date"
                                                 value={this.state.expiryDate}
                                                 onChange={this.validateExpiryDate}
@@ -207,12 +243,12 @@ export default class EventCreateModal extends Component {
                     </DialogContent>
 
                     <DialogActions>
-                        <Button autoFocus onClick={this.handleClickOpen} color="primary">
+                        <Button autoFocus onClick={this.hanldeSubmit} color="primary" disabled={this.state.descriptionError || this.state.expiryDateError || this.state.goal_amountError}>
                             Create
                         </Button>
                     </DialogActions>
                 </Dialog>
-            </div>
+            </div >
         )
     }
 }
