@@ -11,6 +11,7 @@ import HomePage from "./Components/HomePage";
 import EventCreateModal from './Components/EventForm/EventCreateModal'
 import ModalHome from './Components/EventForm/ModalHome'
 import ModalHome2 from './Components/DonateNowComponent/ModalHome'
+import orgProfileFormCreate from './Components/OrganizationForm/orgProfileFormCreate'
 class App extends Component {
     render() {
         return (
@@ -30,6 +31,7 @@ class App extends Component {
                         <Route exact path="/createEvent" component={EventCreateModal}></Route>
                         <Route path="/test" component={ModalHome}></Route>
                         <Route path="/donate" component={ModalHome2}></Route>
+                        <Route path="/org" component={orgProfileFormCreate}></Route>
                         <Route component={NotFound404}></Route>
                     </Switch>
                 </Router>
