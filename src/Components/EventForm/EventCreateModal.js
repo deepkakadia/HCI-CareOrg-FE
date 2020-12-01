@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Container, InputAdornment } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid, Container, InputAdornment, Input } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 
@@ -26,9 +24,11 @@ export default class EventCreateModal extends Component {
             titleError: false,
             descriptionError: false,
             expiryDateError: false,
-            goal_amountError: false
+            goal_amountError: false,
+            event_image: ''
 
         }
+        this.baseState = this.state
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.hanldeSubmit = this.hanldeSubmit.bind(this)
         this.validateEventTitle = this.validateEventTitle.bind(this)
@@ -36,6 +36,7 @@ export default class EventCreateModal extends Component {
         this.handleInputFocus = this.handleInputFocus.bind(this)
         this.validateEventDescription = this.validateEventDescription.bind(this)
         this.validateExpiryDate = this.validateExpiryDate.bind(this)
+        this.hanldeClickClose = this.hanldeClickClose.bind(this)
     }
 
     // This funciton handles modal toggle status
@@ -43,7 +44,17 @@ export default class EventCreateModal extends Component {
         this.setState({ modalOpen: !this.state.modalOpen });
     }
 
-    // this function handles createEvent submit button 
+    /**
+     *This function handles modal close toggle and resets state 
+     */
+    hanldeClickClose() {
+        this.setState(this.baseState)
+    }
+
+    /**
+     * Handles the Create button for the Evemt form
+     *
+     */
     hanldeSubmit() {
         if (this.state.goal_amount.length == 0 || isNaN(this.state.goal_amount) || this.state.goal_amount <= 0) {
             this.setState({ goal_amountError: true })
@@ -55,8 +66,12 @@ export default class EventCreateModal extends Component {
             this.setState({ descriptionError: true })
         }
         else {
-            this.handleClickOpen()
+
+            //On handle close make axios request before using handleClose()
             //Make axios call to post to backend
+            //Upload event image 
+
+            this.hanldeClickClose();
         }
 
     }
@@ -117,10 +132,10 @@ export default class EventCreateModal extends Component {
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     Create Event
                 </Button>
-                <Dialog onClose={this.handleClickOpen} aria-labelledby="customized-dialog-title" open={this.state.modalOpen}>
+                <Dialog onClose={this.hanldeClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen}>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
                         Create New Campaign
-                         <IconButton aria-label="close" onClick={this.handleClickOpen}>
+                         <IconButton aria-label="close" onClick={this.hanldeClickClose}>
                             <CloseIcon />
                         </IconButton>
                     </DialogTitle>
@@ -169,7 +184,7 @@ export default class EventCreateModal extends Component {
                                     </Grid>
 
 
-                                    <Grid item width={25}>
+                                    <Grid item>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
                                                 inputVariant="outlined"
@@ -191,7 +206,7 @@ export default class EventCreateModal extends Component {
                                         </MuiPickersUtilsProvider>
                                     </Grid>
 
-                                    <Grid item width="25%">
+                                    <Grid item>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
                                                 inputVariant="outlined"
@@ -214,6 +229,8 @@ export default class EventCreateModal extends Component {
                                         </MuiPickersUtilsProvider>
                                     </Grid>
 
+
+
                                     <Grid item >
                                         <TextField
                                             error={this.state.goal_amountError}
@@ -229,6 +246,27 @@ export default class EventCreateModal extends Component {
                                             onFocus={this.handleInputFocus}
                                             variant="outlined"
                                         />
+                                    </Grid>
+
+                                    <Grid item>
+                                        <TextField
+                                            type="file"
+                                            label="Upload an image"
+                                            name='event_image'
+                                            variant="outlined"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            inputProps={
+                                                {
+                                                    accept: "image/png, image/jpeg"
+                                                }
+                                            }
+                                            onChange={this.handleInputChange}
+                                            onFocus={this.handleInputFocus}
+                                            helperText="png or jpeg only"
+                                        >
+                                        </TextField>
                                     </Grid>
 
                                 </Grid>

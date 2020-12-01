@@ -23,7 +23,7 @@ export default class EventEditModal extends Component {
             expiryDate: eventDetails.expiryDate,
             goal_amount: eventDetails.goal_amount,
             start_date: eventDetails.start_date,
-
+            event_image: '',
             titleError: false,
             descriptionError: false,
             expiryDateError: false,
@@ -31,6 +31,7 @@ export default class EventEditModal extends Component {
 
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleClickClose = this.handleClickClose.bind(this);
         this.hanldeSubmit = this.hanldeSubmit.bind(this)
         this.validateEventTitle = this.validateEventTitle.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
@@ -38,12 +39,19 @@ export default class EventEditModal extends Component {
         this.validateEventDescription = this.validateEventDescription.bind(this)
         this.validateExpiryDate = this.validateExpiryDate.bind(this)
         this.handleReset = this.handleReset.bind(this)
-
+        this.hanldeEventImageUpload = this.hanldeEventImageUpload.bind(this)
     }
 
     // This funciton handles modal toggle status
     handleClickOpen() {
         this.setState({ modalOpen: !this.state.modalOpen });
+    }
+    /**
+     * This function resets the state and handles close
+     */
+    handleClickClose() {
+        this.setState({ modalOpen: !this.state.modalOpen });
+        this.handleReset()
     }
 
     // this function handles createEvent submit button 
@@ -60,6 +68,7 @@ export default class EventEditModal extends Component {
         else {
             this.handleClickOpen()
             //Make axios call to PUT to backend using the current state
+            //Check for if image uploaded
         }
 
     }
@@ -69,6 +78,10 @@ export default class EventEditModal extends Component {
         this.setState({ expiryDate: e })
     }
 
+    /**
+     * This function validates the goal amount
+     * @param {event} e 
+     */
     validateAmount = (e) => {
         if (e.target.value.length == 0 || isNaN(e.target.value) || e.target.value <= 0) {
             this.setState({ goal_amountError: true })
@@ -79,6 +92,16 @@ export default class EventEditModal extends Component {
 
         }
         this.handleInputChange(e)
+    }
+
+    /**
+     * Handles image upload 
+     * @param {event} e 
+     */
+    hanldeEventImageUpload = (e) => {
+        console.log(e)
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
     }
 
     //Validations Functions
@@ -113,8 +136,8 @@ export default class EventEditModal extends Component {
             eventTitle: this.props.eventDetails.eventTitle,
             eventDescription: this.props.eventDetails.eventDescription,
             goal_amount: this.props.eventDetails.goal_amount,
-            expiryDate: this.props.eventDetails.expiryDate
-
+            expiryDate: this.props.eventDetails.expiryDate,
+            event_image: ''
         })
 
     }
@@ -135,8 +158,8 @@ export default class EventEditModal extends Component {
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     Edit
                 </Button>
-                <Dialog onClose={this.handleClickOpen} aria-labelledby="customized-dialog-title" open={this.state.modalOpen}>
-                    <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
+                <Dialog onClose={this.handleClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen}>
+                    <DialogTitle id="customized-dialog-title" onClose={this.handleClickClose}>
                         Edit Campaign
                          <IconButton aria-label="close" onClick={this.handleClickOpen}>
                             <CloseIcon />
@@ -247,6 +270,28 @@ export default class EventEditModal extends Component {
                                             onFocus={this.handleInputFocus}
                                             variant="outlined"
                                         />
+                                    </Grid>
+
+                                    <Grid item>
+                                        <TextField
+                                            type="file"
+                                            label="Upload an image"
+                                            name='event_image'
+                                            variant="outlined"
+                                            value={this.state.event_image}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            inputProps={
+                                                {
+                                                    accept: "image/png, image/jpeg"
+                                                }
+                                            }
+                                            onChange={this.hanldeEventImageUpload}
+                                            onFocus={this.handleInputFocus}
+                                            helperText="png or jpeg only"
+                                        >
+                                        </TextField>
                                     </Grid>
 
                                 </Grid>

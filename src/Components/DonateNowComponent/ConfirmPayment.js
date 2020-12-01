@@ -2,6 +2,8 @@ import { Container, Typography, Grid, Button } from '@material-ui/core'
 import React, { Component } from 'react'
 
 export class ConfirmPayment extends Component {
+
+    //On handle close make axios request before using handleClose()
     render() {
         const { cardDetails, handleBack } = this.props
         return (
