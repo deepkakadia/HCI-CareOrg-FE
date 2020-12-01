@@ -8,21 +8,22 @@ import Typography from '@material-ui/core/Typography';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 
-export default class EventCreateModal extends Component {
+export default class EventEditModal extends Component {
 
 
 
     constructor(props) {
         super(props);
 
-
+        const { eventDetails } = this.props
         this.state = {
             modalOpen: false,
-            eventTitle: '',
-            eventDescription: '',
-            expiryDate: new Date().setDate(new Date().getDate() + 1),
-            goal_amount: '',
-            start_date: new Date(),
+            eventTitle: eventDetails.eventTitle,
+            eventDescription: eventDetails.eventDescription,
+            expiryDate: eventDetails.expiryDate,
+            goal_amount: eventDetails.goal_amount,
+            start_date: eventDetails.start_date,
+
             titleError: false,
             descriptionError: false,
             expiryDateError: false,
@@ -36,6 +37,8 @@ export default class EventCreateModal extends Component {
         this.handleInputFocus = this.handleInputFocus.bind(this)
         this.validateEventDescription = this.validateEventDescription.bind(this)
         this.validateExpiryDate = this.validateExpiryDate.bind(this)
+        this.handleReset = this.handleReset.bind(this)
+
     }
 
     // This funciton handles modal toggle status
@@ -56,7 +59,7 @@ export default class EventCreateModal extends Component {
         }
         else {
             this.handleClickOpen()
-            //Make axios call to post to backend
+            //Make axios call to PUT to backend using the current state
         }
 
     }
@@ -69,6 +72,7 @@ export default class EventCreateModal extends Component {
     validateAmount = (e) => {
         if (e.target.value.length == 0 || isNaN(e.target.value) || e.target.value <= 0) {
             this.setState({ goal_amountError: true })
+
         }
         else {
             this.setState({ goal_amountError: false })
@@ -87,6 +91,7 @@ export default class EventCreateModal extends Component {
 
         }
         this.handleInputChange(e)
+
     }
     validateEventDescription = (e) => {
         if (e.target.value.length == 0 || typeof (e.target.value) != 'string') {
@@ -100,6 +105,19 @@ export default class EventCreateModal extends Component {
     }
 
 
+    // Resets state to default previous values from props
+    handleReset() {
+
+
+        this.setState({
+            eventTitle: this.props.eventDetails.eventTitle,
+            eventDescription: this.props.eventDetails.eventDescription,
+            goal_amount: this.props.eventDetails.goal_amount,
+            expiryDate: this.props.eventDetails.expiryDate
+
+        })
+
+    }
 
     // Handle Field change
     handleInputChange = (e) => {
@@ -115,11 +133,11 @@ export default class EventCreateModal extends Component {
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Create Event
+                    Edit
                 </Button>
                 <Dialog onClose={this.handleClickOpen} aria-labelledby="customized-dialog-title" open={this.state.modalOpen}>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
-                        Create New Campaign
+                        Edit Campaign
                          <IconButton aria-label="close" onClick={this.handleClickOpen}>
                             <CloseIcon />
                         </IconButton>
@@ -243,8 +261,11 @@ export default class EventCreateModal extends Component {
                     </DialogContent>
 
                     <DialogActions>
+                        <Button autoFocus onClick={this.handleReset} color="secondary">
+                            Reset
+                        </Button>
                         <Button autoFocus onClick={this.hanldeSubmit} color="primary" disabled={this.state.descriptionError || this.state.expiryDateError || this.state.goal_amountError}>
-                            Create
+                            Save
                         </Button>
                     </DialogActions>
                 </Dialog>
