@@ -8,29 +8,30 @@ import PrivateRoute from "./Components/PrivateRoutes";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./Components/HomePage";
-
+import EventCreateModal from './Components/EventForm/EventCreateModal'
 class App extends Component {
-  render() {
-    return (
-      <div>
-        <Router>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/Dashboard"
-              component={Dashboard }
-            ></PrivateRoute>
-            {/* <PrivateRoute exact path="/Dashboard" render={(props) => <Dashboard {...props}/>}/> */}
+    render() {
+        return (
+            <div>
+                <Router>
+                    <Switch>
+                        <PrivateRoute
+                            exact
+                            path="/Dashboard"
+                            component={Dashboard}
+                        ></PrivateRoute>
+                        {/* <PrivateRoute exact path="/Dashboard" render={(props) => <Dashboard {...props}/>}/> */}
 
-            <Route exact path="/" component={HomePage}></Route>
-            <Route exact path="/login" component={Login}></Route>
-            <Route exact path="/signup" component={SignUp}></Route>
-            <Route component={NotFound404}></Route>
-          </Switch>
-        </Router>
-      </div>
-    );
-  }
+                        <Route exact path="/" component={HomePage}></Route>
+                        <Route exact path="/login" component={Login}></Route>
+                        <Route exact path="/signup" component={SignUp}></Route>
+                        <Route exact path="/createEvent" component={EventCreateModal}></Route>
+                        <Route component={NotFound404}></Route>
+                    </Switch>
+                </Router>
+            </div>
+        );
+    }
 }
 
 export default App;
