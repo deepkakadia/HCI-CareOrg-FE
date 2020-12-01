@@ -168,8 +168,8 @@ export default class PaymentForm extends Component {
                                 />
 
                             </Grid>
-                        </Grid>
-                        <Grid container spacing={3} justify='center'>
+
+
                             <Grid item size={6} width="50%">
                                 <TextField
                                     error={this.state.cardNameError}
@@ -187,8 +187,8 @@ export default class PaymentForm extends Component {
 
                                 />
                             </Grid>
-                        </Grid>
-                        <Grid container spacing={3} justify='center'>
+
+
                             <Grid item size={6} width="50%">
                                 <TextField
                                     error={this.state.cardExpiryError}
@@ -205,8 +205,8 @@ export default class PaymentForm extends Component {
                                     }}
                                 />
                             </Grid>
-                        </Grid>
-                        <Grid container spacing={3} justify='center'>
+
+
                             <Grid item size={6} width="50%">
                                 <TextField
                                     error={this.state.cardCVCError}
@@ -223,22 +223,23 @@ export default class PaymentForm extends Component {
                                     }}
                                 />
                             </Grid>
-                        </Grid>
 
-                        {/* Next Stepper Button */}
-                        <Grid container justify='center' className="App-form1" spacing={2}>
-                            <Grid item xs={2}>
-                                <Button
-                                    variant="contained" color="primary" onClick={handleBack}>
-                                    Back
+
+                            {/* Next Stepper Button */}
+                            <Grid container justify='center' className="App-form1" spacing={2}>
+                                <Grid item xs={2}>
+                                    <Button
+                                        variant="contained" color="primary" onClick={handleBack}>
+                                        Back
                                 </Button>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Button
-                                    disabled={(this.state.cardError || this.state.cardNameError || this.state.cardExpiryError || this.state.cardCVCError)}
-                                    variant="contained" color="primary" onClick={this.handleSubmit}>
-                                    Next
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Button
+                                        disabled={(this.state.cardError || this.state.cardNameError || this.state.cardExpiryError || this.state.cardCVCError)}
+                                        variant="contained" color="primary" onClick={this.handleSubmit}>
+                                        Next
                                 </Button>
+                                </Grid>
                             </Grid>
                         </Grid>
 

@@ -43,17 +43,15 @@ export class AmountValueDetail extends Component {
         return (
             <div>
                 <form>
-                    <Container alignItems='center' >
+                    <Container >
 
-                        <Grid container className='App-form'>
+                        <Grid container className='App-form' direction={'column'} justify='center' spacing={3}>
                             <Grid item xs={12}>
-                                <Box component="span" >
-                                    <Typography variant="h5"> I want to donate </Typography>
-                                    <Typography variant="h2"> Redcross foundation </Typography>
-                                </Box>
+
+                                <Typography variant="h5"> I want to donate Redcross foundation </Typography>
+
                             </Grid>
-                        </Grid>
-                        <Grid container className='App-form'>
+
                             <Grid item xs={12}>
                                 <TextField
                                     error={this.state.cardError}
@@ -69,11 +67,9 @@ export class AmountValueDetail extends Component {
                                     variant="outlined"
                                 />
                             </Grid>
-                        </Grid>
-                        <Grid container className='App-form'>
+
                             <Grid item xs={12}>
-                                <Typography variant="h5"> To support </Typography>
-                                <Typography variant="h2"> Covid-19 relief fund </Typography>
+                                <Typography variant="h5"> To support Covid-19 relief fund </Typography>
                             </Grid>
                         </Grid>
 
@@ -81,13 +77,14 @@ export class AmountValueDetail extends Component {
 
 
                         {/* Next Stepper Button */}
-                        <Grid container justify='center'>
+                        <Grid container justify='center' className="App-form1" spacing={2}>
                             <Grid item xs={2}>
                                 <Button
                                     disabled={this.state.cardError}
                                     variant="contained" color="primary" onClick={this.handleSubmit}>
                                     Next
                                 </Button>
+
                             </Grid>
                         </Grid>
 

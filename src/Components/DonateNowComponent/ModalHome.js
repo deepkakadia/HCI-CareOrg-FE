@@ -1,5 +1,5 @@
 import React from 'react'
-import DonateNowCard from './DonateNowCard'
+import DonateNowModal from './DonateNowModal'
 import { Grid, Container } from '@material-ui/core'
 
 
@@ -24,7 +24,7 @@ function ModalHome2() {
 
                     </Grid>
                     <Grid item xs={2}>
-                        <DonateNowCard></DonateNowCard>
+                        <DonateNowModal></DonateNowModal>
                     </Grid>
 
 
