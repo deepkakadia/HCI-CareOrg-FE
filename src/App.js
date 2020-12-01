@@ -9,6 +9,8 @@ import PrivateRoute from "./Components/PrivateRoutes";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import EventCreateModal from './Components/EventForm/EventCreateModal'
+import ModalHome from './Components/EventForm/ModalHome'
+import ModalHome2 from './Components/DonateNowComponent/ModalHome'
 class App extends Component {
     render() {
         return (
@@ -26,6 +28,8 @@ class App extends Component {
                         <Route exact path="/login" component={Login}></Route>
                         <Route exact path="/signup" component={SignUp}></Route>
                         <Route exact path="/createEvent" component={EventCreateModal}></Route>
+                        <Route path="/test" component={ModalHome}></Route>
+                        <Route path="/donate" component={ModalHome2}></Route>
                         <Route component={NotFound404}></Route>
                     </Switch>
                 </Router>
