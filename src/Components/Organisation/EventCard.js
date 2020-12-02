@@ -16,11 +16,12 @@ class EventCard extends Component {
         if (desc.length > 150) {
             desc = desc.substring(0, 100) + "..."
         }
+        const imagePath = `/CampaignPhotos/camp_${this.props.details.id}.jpg`;
         return (
             <Card>
                 <CardMedia
                     //give style to image
-                    image="./contemplating.jpg"
+                    image={imagePath}
                     title="Contemplative Reptile"
                     style={{ objectFit: 'fill', height: '200px' }}
                 >

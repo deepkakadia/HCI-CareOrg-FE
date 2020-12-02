@@ -5,7 +5,7 @@ import EventCard from "./EventCard";
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 class EventTable extends Component {
@@ -38,13 +38,18 @@ class EventTable extends Component {
         return (
             <Container maxWidth="lg">
                 <Grid container spacing={2}>
-                    <Grid container justify="left" style={{ padding: "10px" }}>
-                        <Box width="100%">
+                    <Grid container justify="center" style={{ padding: "10px" }}>
+                        <Box width="100%" textAlign="center">
                             <Typography variant="h4">
                                 Campaigns
                             </Typography>
-                            <Divider />
                         </Box>
+                        {
+                            this.props.userDetails.is_organisation &&
+                            <Box textAlign="center">
+                                <Button Button variant="contained" color="primary"> Create Campaign</Button>
+                            </Box>
+                        }
 
                     </Grid>
                     {eventArray.map(x => (
