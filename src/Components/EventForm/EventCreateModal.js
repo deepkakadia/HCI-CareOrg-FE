@@ -214,6 +214,7 @@ export default class EventCreateModal extends Component {
                                                     shrink: true,
                                                 }}
                                                 keyboardIcon={<div></div>}
+                                                helperText="Campaign Start date cannot be changed"
                                             />
                                         </MuiPickersUtilsProvider>
                                     </Grid>
@@ -276,7 +277,7 @@ export default class EventCreateModal extends Component {
                                             }
                                             onChange={this.handleInputChange}
                                             onFocus={this.handleInputFocus}
-                                            helperText="Upload png or jpeg only"
+                                            helperText="Upload .png or .jpeg format only"
                                         >
                                         </TextField>
                                     </Grid>
