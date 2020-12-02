@@ -28,14 +28,13 @@ class OrgDash extends Component {
             'description': 'donate money to feed poor and malnourished',
             'location': 'India',
             'industry': 'Food',
-
         }
 
         const userDetails = {
             "id": 1,
             "email": "meet@123.com",
             "name": "Meet Patel",
-            "is_organisation": false
+            "is_organisation": true
         }
         // from props
         // (current) a list of feeditems for that organisation 
@@ -123,6 +122,7 @@ class OrgDash extends Component {
                 'received_amount': 3000,
             },
         ]
+
         const backImage = `/OrganisationPhotos/org_bg_${orgDetails.user_profile}.jpg`
 
         return (
@@ -150,7 +150,7 @@ class OrgDash extends Component {
                 </Grid>
                 <Divider />
                 <EventTable feedItems={feedItems} userDetails={userDetails} orgDetails={orgDetails} />
-                {/* <DonationHistory /> */}
+                <DonationHistory />
             </Container >
         );
     }
