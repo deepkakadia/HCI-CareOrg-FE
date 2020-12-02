@@ -11,7 +11,6 @@ import HomePage from "./Components/HomePage";
 import EventCreateModal from './Components/EventForm/EventCreateModal'
 import ModalHome from './Components/EventForm/ModalHome'
 import ModalHome2 from './Components/DonateNowComponent/ModalHome'
-import orgProfileFormEdit from './Components/OrganizationForm/orgProfileFormEdit'
 import orgDash from './Components/Organisation/OrgDash'
 
 class App extends Component {
@@ -34,7 +33,6 @@ class App extends Component {
                         <Route path="/test" component={ModalHome}></Route>
                         <Route path="/donate" component={ModalHome2}></Route>
                         <Route path="/org" component={orgDash}></Route>
-                        <Route path="/test2" component={orgProfileFormEdit}></Route>
                         <Route component={NotFound404}></Route>
                     </Switch>
                 </Router>
