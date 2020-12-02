@@ -7,6 +7,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import EventCreateModal from "../EventForm/EventCreateModal";
 
 class EventTable extends Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class EventTable extends Component {
                         {
                             this.props.userDetails.is_organisation &&
                             <Box textAlign="center">
-                                <Button Button variant="contained" color="primary"> Create Campaign</Button>
+                                <EventCreateModal userDetails={this.props.userDetails} />
                             </Box>
                         }
 

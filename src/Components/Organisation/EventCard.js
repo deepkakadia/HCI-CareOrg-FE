@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
+import DonateNowModal from "../DonateNowComponent/DonateNowModal";
+import EventEditModal from "../EventForm/EventEditModal";
 
 class EventCard extends Component {
     render() {
@@ -45,8 +47,8 @@ class EventCard extends Component {
                         <Box textAlign="center">
                             {
                                 this.props.userDetails.is_organisation
-                                    ? <Button Button variant="contained" color="primary"> Edit </Button>
-                                    : <Button Button variant="contained" color="secondary"> Donate </Button>
+                                    ? <EventEditModal eventDetails={this.props.details} userDetails={this.props.userDetails} />
+                                    : <DonateNowModal details={this.props.details} userDetails={this.props.userDetails} />
                             }
                         </Box>
                     </Box>
