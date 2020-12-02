@@ -15,28 +15,41 @@ export default class EventCreateModal extends Component {
 
 
         this.state = {
+
             modalOpen: false,
-            eventTitle: '',
-            eventDescription: '',
-            expiryDate: new Date().setDate(new Date().getDate() + 1),
+            event_title: '',
+            event_description: '',
             goal_amount: '',
-            start_date: new Date(),
+            created_on: new Date(2020, 9, 1),
+            expires_on: new Date().setDate(new Date().getDate() + 1),
+            event_image: '',
+
+            // Form Validation state
             titleError: false,
             descriptionError: false,
-            expiryDateError: false,
+            expires_onError: false,
             goal_amountError: false,
-            event_image: ''
+
 
         }
+
+        //Stores the initial state used for resetting 
         this.baseState = this.state
-        this.handleClickOpen = this.handleClickOpen.bind(this);
-        this.hanldeSubmit = this.hanldeSubmit.bind(this)
-        this.validateEventTitle = this.validateEventTitle.bind(this)
+
+        // Input Validation functions
+        this.validateevent_title = this.validateevent_title.bind(this)
+        this.validateevent_description = this.validateevent_description.bind(this)
+        this.validateexpires_on = this.validateexpires_on.bind(this)
+
+        // Input onChange functions
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleInputFocus = this.handleInputFocus.bind(this)
-        this.validateEventDescription = this.validateEventDescription.bind(this)
-        this.validateExpiryDate = this.validateExpiryDate.bind(this)
+
+        //Event Create Modal Toggle
+        this.handleClickOpen = this.handleClickOpen.bind(this);
         this.hanldeClickClose = this.hanldeClickClose.bind(this)
+        this.handleOnCreate = this.handleOnCreate.bind(this)
+
     }
 
     // This funciton handles modal toggle status
@@ -55,14 +68,14 @@ export default class EventCreateModal extends Component {
      * Handles the Create button for the Evemt form
      *
      */
-    hanldeSubmit() {
+    handleOnCreate() {
         if (this.state.goal_amount.length == 0 || isNaN(this.state.goal_amount) || this.state.goal_amount <= 0) {
             this.setState({ goal_amountError: true })
         }
-        if (this.state.eventTitle.length == 0 || typeof (this.state.eventTitle) != 'string') {
+        if (this.state.event_title.length == 0 || typeof (this.state.event_title) != 'string') {
             this.setState({ titleError: true })
         }
-        if (this.state.eventDescription.length == 0 || typeof (this.state.eventDescription) != 'string') {
+        if (this.state.event_description.length == 0 || typeof (this.state.event_description) != 'string') {
             this.setState({ descriptionError: true })
         }
         else {
@@ -77,8 +90,8 @@ export default class EventCreateModal extends Component {
     }
 
     //This funciton handle date change for expiry date
-    validateExpiryDate = (e) => {
-        this.setState({ expiryDate: e })
+    validateexpires_on = (e) => {
+        this.setState({ expires_on: e })
     }
 
     validateAmount = (e) => {
@@ -93,7 +106,7 @@ export default class EventCreateModal extends Component {
     }
 
     //Validations Functions
-    validateEventTitle = (e) => {
+    validateevent_title = (e) => {
         if (e.target.value.length == 0 || typeof (e.target.value) != 'string') {
             this.setState({ titleError: true })
         }
@@ -103,7 +116,7 @@ export default class EventCreateModal extends Component {
         }
         this.handleInputChange(e)
     }
-    validateEventDescription = (e) => {
+    validateevent_description = (e) => {
         if (e.target.value.length == 0 || typeof (e.target.value) != 'string') {
             this.setState({ descriptionError: true })
         }
@@ -130,9 +143,9 @@ export default class EventCreateModal extends Component {
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Create Event
+                    Create New Campaign
                 </Button>
-                <Dialog onClose={this.hanldeClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen}>
+                <Dialog onClose={this.hanldeClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
                         Create New Campaign
                          <IconButton aria-label="close" onClick={this.hanldeClickClose}>
@@ -149,16 +162,15 @@ export default class EventCreateModal extends Component {
                                             label="Campaign Name"
                                             error={this.state.titleError}
                                             type="text"
-                                            name="eventTitle"
-                                            placeholder="Campaign Name"
-                                            value={this.state.eventTitle}
-                                            onChange={this.validateEventTitle}
+                                            name="event_title"
+                                            value={this.state.event_title}
+                                            onChange={this.validateevent_title}
                                             onFocus={this.handleInputFocus}
                                             variant="outlined"
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
-
+                                            required
                                         />
                                     </Grid>
 
@@ -170,16 +182,15 @@ export default class EventCreateModal extends Component {
                                             error={this.state.descriptionError}
                                             type="text"
                                             multiline={true}
-                                            name="eventDescription"
-                                            placeholder="Campaign Description"
-                                            value={this.state.eventDescription}
-                                            onChange={this.validateEventDescription}
+                                            name="event_description"
+                                            value={this.state.event_description}
+                                            onChange={this.validateevent_description}
                                             onFocus={this.handleInputFocus}
                                             variant="outlined"
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
-
+                                            required
                                         />
                                     </Grid>
 
@@ -188,13 +199,13 @@ export default class EventCreateModal extends Component {
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
                                                 inputVariant="outlined"
-                                                name="startDate"
+                                                name="created_on"
                                                 format="MM/dd/yyyy"
                                                 margin="dense"
                                                 readOnly={true}
                                                 disabled={true}
-                                                label="Campaign start date"
-                                                value={this.state.start_date}
+                                                label="Campaign Start Date"
+                                                value={this.state.created_on}
                                                 onFocus={this.handleInputFocus}
                                                 KeyboardButtonProps={{
                                                     'aria-label': 'change date',
@@ -202,6 +213,7 @@ export default class EventCreateModal extends Component {
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
+                                                keyboardIcon={<div></div>}
                                             />
                                         </MuiPickersUtilsProvider>
                                     </Grid>
@@ -210,13 +222,13 @@ export default class EventCreateModal extends Component {
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
                                                 inputVariant="outlined"
-                                                name="expiryDate"
+                                                name="expires_on"
                                                 format="MM/dd/yyyy"
                                                 margin="dense"
 
-                                                label="Campaign expiry date"
-                                                value={this.state.expiryDate}
-                                                onChange={this.validateExpiryDate}
+                                                label="Campaign End Date"
+                                                value={this.state.expires_on}
+                                                onChange={this.validateexpires_on}
                                                 onFocus={this.handleInputFocus}
                                                 KeyboardButtonProps={{
                                                     'aria-label': 'change date',
@@ -224,6 +236,7 @@ export default class EventCreateModal extends Component {
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
+                                                InputAdornmentProps={{ position: 'start' }}
                                                 minDate={new Date().setDate(new Date().getDate() + 1)}
                                             />
                                         </MuiPickersUtilsProvider>
@@ -240,7 +253,6 @@ export default class EventCreateModal extends Component {
                                             label="Goal Amount"
                                             type='tel'
                                             name='goal_amount'
-                                            placeholder='Enter Goal Amount'
                                             value={this.state.goal_amount}
                                             onChange={this.validateAmount}
                                             onFocus={this.handleInputFocus}
@@ -264,7 +276,7 @@ export default class EventCreateModal extends Component {
                                             }
                                             onChange={this.handleInputChange}
                                             onFocus={this.handleInputFocus}
-                                            helperText="png or jpeg only"
+                                            helperText="Upload png or jpeg only"
                                         >
                                         </TextField>
                                     </Grid>
@@ -281,7 +293,7 @@ export default class EventCreateModal extends Component {
                     </DialogContent>
 
                     <DialogActions>
-                        <Button autoFocus onClick={this.hanldeSubmit} color="primary" disabled={this.state.descriptionError || this.state.expiryDateError || this.state.goal_amountError}>
+                        <Button autoFocus onClick={this.handleOnCreate} color="primary" disabled={this.state.descriptionError || this.state.expires_onError || this.state.goal_amountError}>
                             Create
                         </Button>
                     </DialogActions>
