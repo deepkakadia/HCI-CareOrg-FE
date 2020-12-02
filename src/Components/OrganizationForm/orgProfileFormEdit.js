@@ -6,15 +6,19 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 
 
-export class orgProfileFormCreate extends Component {
+
+export class orgProfileFormEdit extends Component {
 
     constructor(props) {
         super(props);
 
+        //Props for existing org details
+        const { orgDetails } = this.props
+
         this.state = {
-            orgDescription: '',
-            orgLocation: '',
-            orgIndustry: '',
+            orgDescription: orgDetails.orgDescription,
+            orgLocation: orgDetails.orgLocation,
+            orgIndustry: orgDetails.orgIndustry,
             open: false,
 
             orgDescriptionError: false,
@@ -22,6 +26,7 @@ export class orgProfileFormCreate extends Component {
             orgIndustryError: false
 
         }
+        this.baseState = this.state
         this.validateOrgDescription = this.validateOrgDescription.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleInputFocus = this.handleInputFocus.bind(this)
@@ -33,18 +38,24 @@ export class orgProfileFormCreate extends Component {
     }
 
 
+    /**
+     * Handles Snack bar close toogle
+     * 
+     */
     handleClose() {
         this.setState({ open: false })
-
     }
+    /**
+     * Handles Snack bar open toogle
+     */
     handleOpen() {
         this.setState({ open: true })
     }
 
     /**
-  * Handles the Create button for the Evemt form
-  *
-  */
+     * Handles the save button for the Evemt form
+     *
+     */
     hanldeSubmit() {
         if (this.state.orgDescription.length === 0 || typeof (this.state.orgDescription) != 'string') {
             this.setState({ orgDescriptionError: true })
@@ -220,7 +231,12 @@ export class orgProfileFormCreate extends Component {
                                                         error={this.state.orgDescriptionError || this.state.orgIndustryError || this.state.orgLocationError}
                                                         onClick={this.hanldeSubmit}>
                                                         Save
-                                            </Button>
+                                                    </Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button variant="contained" color="primary">
+                                                        Cancel
+                                                    </Button>
                                                 </Grid>
                                             </Grid>
 
@@ -247,4 +263,4 @@ export class orgProfileFormCreate extends Component {
     }
 }
 
-export default orgProfileFormCreate
+export default orgProfileFormEdit
