@@ -57,7 +57,7 @@ const styles = theme => ({
 class OrganisationSignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", OrganisationName: "", password: "",confirmpassword: ""};
+    this.state = { email: "", orgname: "", password: "",confirmpassword: ""};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -73,17 +73,21 @@ class OrganisationSignUp extends React.Component {
   }
 
   async handleSubmit(event) {
+    if(this.state.password != this.state.confirmpassword){
+      alert("Passwords do not match")
+      return 
+    }
     event.preventDefault();
     let check = await signup(
-      this.state.username,
-      this.state.name,
-      this.state.password
+      this.state.email,
+      this.state.orgname,
+      this.state.password,
+      true,
     );
     console.log(check);
     if (check) {
       const { history } = this.props;
-      alert("New Account Created, Please login again!");
-      history.push("/login");
+      history.push("/Dashboard");
     } else {
       alert("Incorrect Credentials!");
     }
@@ -109,10 +113,10 @@ class OrganisationSignUp extends React.Component {
               type="text"
               label="OrganisationName"
               fullWidth
-              name="organisationname"
+              name="orgname"
               variant="outlined"
               color="primary"
-              value={this.state.OrganisationName}
+              value={this.state.orgname}
               onChange={this.handleChange}
               required
               autoFocus

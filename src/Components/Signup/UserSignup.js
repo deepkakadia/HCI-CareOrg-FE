@@ -57,7 +57,7 @@ const styles = theme => ({
 class UserSignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", firstname: "",lastname:"", password: "",confirmpassword: ""};
+    this.state = { email: "", username: "", password: "",confirmpassword: ""};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -73,17 +73,20 @@ class UserSignUp extends React.Component {
   }
 
   async handleSubmit(event) {
+    if(this.state.password != this.state.confirmpassword){
+      alert("Passwords do not match")
+      return 
+    }
     event.preventDefault();
     let check = await signup(
+      this.state.email,
       this.state.username,
-      this.state.name,
-      this.state.password
+      this.state.password,
+      false
     );
-    console.log(check);
     if (check) {
       const { history } = this.props;
-      alert("New Account Created, Please login again!");
-      history.push("/login");
+      history.push("/Dashboard");
     } else {
       alert("Incorrect Credentials!");
     }
@@ -107,24 +110,12 @@ class UserSignUp extends React.Component {
           <form className={classes.form} onSubmit={this.handleSubmit}>
           <TextField
               type="text"
-              label="Firstname"
+              label="Username"
               fullWidth
-              name="firstname"
+              name="username"
               variant="outlined"
               color="primary"
               value={this.state.firstname}
-              onChange={this.handleChange}
-              required
-              autoFocus
-            />
-            <TextField
-              type="text"
-              label="Lastname"
-              fullWidth
-              name="lastname"
-              variant="outlined"
-              color="primary"
-              value={this.state.lastname}
               onChange={this.handleChange}
               required
               autoFocus
