@@ -9,6 +9,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
 import DonateNowModal from "../DonateNowComponent/DonateNowModal";
 import EventEditModal from "../EventForm/EventEditModal";
+import LearnMoreComponent from './LearnMoreComponent'
 
 class EventCard extends Component {
     render() {
@@ -42,7 +43,7 @@ class EventCard extends Component {
                 <CardActions>
                     <Box display="flex" width="100%" alignItems="center">
                         <Box flexGrow={1}>
-                            <Button size="small" color="primary"> Learn More </Button>
+                            <LearnMoreComponent eventDetails={this.props.details}></LearnMoreComponent>
                         </Box>
                         <Box textAlign="center">
                             {
