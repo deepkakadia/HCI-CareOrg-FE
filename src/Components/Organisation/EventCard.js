@@ -48,7 +48,7 @@ class EventCard extends Component {
                             {
                                 this.props.userDetails.is_organisation
                                     ? <EventEditModal eventDetails={this.props.details} userDetails={this.props.userDetails} />
-                                    : <DonateNowModal details={this.props.details} userDetails={this.props.userDetails} />
+                                    : <DonateNowModal orgDetails={this.props.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
                             }
                         </Box>
                     </Box>

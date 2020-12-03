@@ -101,6 +101,7 @@ class DonateNowModal extends Component {
             number: number,
             amount: amount
         }
+        const { details, orgDetails } = this.props
 
 
 
@@ -112,7 +113,8 @@ class DonateNowModal extends Component {
                     Donate Now
             </Button>
 
-                <Dialog onClose={this.handleClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen}>
+                <Dialog onClose={this.handleClickClose} open={this.state.modalOpen}
+                    disableBackdropClick disableEscapeKeyDown aria-labelledby="Make a Donation">
 
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickClose}>
                         Make a Donation
@@ -120,20 +122,16 @@ class DonateNowModal extends Component {
                             <CloseIcon />
                         </IconButton>
                     </DialogTitle>
-
                     <DialogContent dividers>
-
                         <HorizontalLabelPositionBelowStepper stepCount={this.state.StepCount}></HorizontalLabelPositionBelowStepper>
-
-
-                        {this.state.StepCount == 0 &&
-                            <AmountValueDetail stepCount={this.state.StepCount} handleNext={this.handleNext} cardDetails={cardDetails} handleInputChange={this.handleInputChange} handleInputFocus={this.handleInputFocus} />
+                        {this.state.StepCount === 0 &&
+                            <AmountValueDetail eventDetails={details} orgDetails={orgDetails} stepCount={this.state.StepCount} handleNext={this.handleNext} cardDetails={cardDetails} handleInputChange={this.handleInputChange} handleInputFocus={this.handleInputFocus} />
                         }
-                        {this.state.StepCount == 1 &&
+                        {this.state.StepCount === 1 &&
                             <PaymentForm stepCount={this.state.StepCount} handleBack={this.handleBack} handleNext={this.handleNext} cardDetails={cardDetails} handleInputChange={this.handleInputChange} handleInputFocus={this.handleInputFocus} />
                         }
-                        {this.state.StepCount == 2 &&
-                            <ConfirmPayment stepCount={this.state.StepCount} handleBack={this.handleBack} cardDetails={cardDetails}></ConfirmPayment>
+                        {this.state.StepCount === 2 &&
+                            <ConfirmPayment orgDetails={orgDetails} eventDetails={details} stepCount={this.state.StepCount} handleBack={this.handleBack} cardDetails={cardDetails}></ConfirmPayment>
                         }
                     </DialogContent>
 
