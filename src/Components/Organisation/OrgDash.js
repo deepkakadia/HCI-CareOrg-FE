@@ -21,21 +21,23 @@ class OrgDash extends Component {
 
     render() {
         // get details of the organisation you are visiting from props
-        const orgDetails = {
-            "id": 1,
-            'user_profile': 1,
-            'user_name': 'Bhojnalay @ NYC',
-            'description': 'donate money to feed poor and malnourished',
-            'location': 'India',
-            'industry': 'Food',
-        }
+        // const orgDetails = {
+        //     "id": 1,
+        //     'user_profile': 1,
+        //     'user_name': 'Bhojnalay @ NYC',
+        //     'description': 'donate money to feed poor and malnourished',
+        //     'location': 'India',
+        //     'industry': 'Food',
+        // }
 
-        const userDetails = {
-            "id": 1,
-            "email": "meet@123.com",
-            "name": "Meet Patel",
-            "is_organisation": false
-        }
+        const orgDetails = this.props.orgDetails;
+        const userDetails = this.props.userDetails
+        // const userDetails = {
+        //     "id": 1,
+        //     "email": "meet@123.com",
+        //     "name": "Meet Patel",
+        //     "is_organisation": false
+        // }
         // from props
         // (current) a list of feeditems for that organisation 
         // or 
