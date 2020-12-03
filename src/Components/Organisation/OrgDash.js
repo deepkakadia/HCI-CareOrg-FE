@@ -136,9 +136,7 @@ class OrgDash extends Component {
                     </Grid>
                     <Box display="flex" width="100%" alignItems="center" style={{ margin: "25px 24px 25px 24px", }}>
                         <Box textAlign="center" flexGrow={1}>
-
                             <Typography>{orgDetails.description}</Typography>
-
                         </Box>
                         {userDetails.is_organisation &&
                             // <Box textAlign="center">
