@@ -3,6 +3,8 @@ import Cards from 'react-credit-cards';
 import './payment.css'
 import 'react-credit-cards/es/styles-compiled.css';
 import { TextField, Grid, Container, Button, CardActions, DialogActions } from '@material-ui/core';
+
+
 export default class PaymentForm extends Component {
 
     constructor(props) {
@@ -10,9 +12,13 @@ export default class PaymentForm extends Component {
 
         this.state = {
             cardError: false,
+            cardErrorMessage: '',
             cardNameError: false,
+            cardNameErrorMessage: '',
             cardExpiryError: false,
+            cardExpiryErrorMessage: '',
             cardCVCError: false
+
         }
 
         this.validateCardNumber = this.validateCardNumber.bind(this)
@@ -29,15 +35,17 @@ export default class PaymentForm extends Component {
     handleSubmit() {
         const { cardDetails } = this.props
         if (cardDetails.cvc.length !== 3 || cardDetails.cvc < 0 || isNaN(cardDetails.cvc)) {
-            this.setState({ cardCVCError: true })
+            this.setState({
+                cardCVCError: true, cardCVCErrorMessage: "Please enter a valid 3 digit CVV number"
+            })
 
         }
         if (cardDetails.number.length !== 16 || cardDetails.number < 0 || isNaN(cardDetails.number)) {
-            this.setState({ cardError: true })
+            this.setState({ cardError: true, cardErrorMessage: "Please Enter a valid 16 digits card number " })
 
         }
         if (cardDetails.name.length < 2 || cardDetails.name.length > 26 || typeof (cardDetails.name) != 'string' || !this.validate(cardDetails.name)) {
-            this.setState({ cardNameError: true })
+            this.setState({ cardNameError: true, cardNameErrorMessage: "Please enter a valid Name as printed on the Card" })
 
         }
 
@@ -72,7 +80,7 @@ export default class PaymentForm extends Component {
     //Card CVC number Validation
     validateCardCVC = (e) => {
         if (e.target.value.length !== 3 || e.target.value < 0 || isNaN(e.target.value)) {
-            this.setState({ cardCVCError: true })
+            this.setState({ cardCVCError: true, cardCVCErrorMessage: "Please enter a valid 3 digit CVV number" })
         }
         else {
             this.setState({ cardCVCError: false })
@@ -109,7 +117,7 @@ export default class PaymentForm extends Component {
     //Card Number Validation
     validateCardNumber = (e) => {
         if (e.target.value.length !== 16 || e.target.value < 0 || isNaN(e.target.value)) {
-            this.setState({ cardError: true })
+            this.setState({ cardError: true, cardErrorMessage: "Please Enter a valid 16 digits card number" })
         }
         else {
             this.setState({ cardError: false })
@@ -127,7 +135,7 @@ export default class PaymentForm extends Component {
     //Card Name Validation
     validateCardName = (e) => {
         if (e.target.value.length < 2 || e.target.value.length > 26 || typeof (e.target.value) != 'string' || !this.validate(e.target.value)) {
-            this.setState({ cardNameError: true })
+            this.setState({ cardNameError: true, cardNameErrorMessage: "Please enter a valid Name as printed on the Card" })
         }
         else {
             this.setState({ cardNameError: false })
@@ -137,6 +145,7 @@ export default class PaymentForm extends Component {
     }
 
     render() {
+
         const { cardDetails, handleInputFocus, handleBack } = this.props
         return (
             <div className='App'>
@@ -148,11 +157,12 @@ export default class PaymentForm extends Component {
                     number={cardDetails.number}
                 />
 
-                <Container className='App-form'>
-                    <Grid container spacing={3} justify='center'>
-                        <Grid item size={6} width="50%">
+                <Container>
+                    <Grid container direction="Column" spacing={10} >
+                        <Grid item xs={12} >
 
                             <TextField
+                                required
                                 error={this.state.cardError}
                                 type="tel"
                                 name="number"
@@ -166,13 +176,15 @@ export default class PaymentForm extends Component {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                helperText={this.state.cardError && this.cardErrorMessage}
                             />
 
                         </Grid>
 
 
-                        <Grid item size={6} width="50%">
+                        <Grid item xs={12} >
                             <TextField
+                                required
                                 error={this.state.cardNameError}
                                 type='text'
                                 name='name'
@@ -186,13 +198,15 @@ export default class PaymentForm extends Component {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                helperText={this.state.cardNameError && this.state.cardNameErrorMessage}
 
                             />
                         </Grid>
 
 
-                        <Grid item size={6} width="50%">
+                        <Grid item xs={12}>
                             <TextField
+                                required
                                 error={this.state.cardExpiryError}
                                 type='text'
                                 name='expiry'
@@ -206,12 +220,14 @@ export default class PaymentForm extends Component {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                helperText={this.state.cardExpiryError && this.state.cardExpiryErrorMessage}
                             />
                         </Grid>
 
 
-                        <Grid item size={6} width="50%">
+                        <Grid item xs={12}>
                             <TextField
+                                required
                                 error={this.state.cardCVCError}
                                 type='tel'
                                 name='cvc'
@@ -225,6 +241,7 @@ export default class PaymentForm extends Component {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                helperText={this.state.cardCVCError && this.state.cardCVCErrorMessage}
                             />
                         </Grid>
                     </Grid>
@@ -255,3 +272,27 @@ export default class PaymentForm extends Component {
         );
     }
 }
+
+
+// import { withStyles } from "@material-ui/core/styles";
+
+// const styles = theme => ({
+//     root: {
+//         backgroundColor: "red"
+//     }
+// });
+
+// class ClassComponent extends Component {
+//     state = {
+//         searchNodes: ""
+//     };
+
+//     render() {
+//         const { classes } = this.props;
+//         return (
+//             <div className={classes.root}>Hello!</div>
+//         );
+//     }
+// }
+
+// export default withStyles(styles, { withTheme: true })(ClassComponent);
