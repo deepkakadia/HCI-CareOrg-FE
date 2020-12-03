@@ -9,7 +9,9 @@ import OrganisationSignUp from "./Components/Signup/OraganisationSignUp"
 import UserSignUp from "./Components/Signup/UserSignup"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./Components/HomePage";
-import EventCreateModal from './Components/EventForm/EventCreateModal'
+import EventCreateModal from './Components/EventForm/EventCreateModal';
+import OrgDash from './Components/Organisation/OrgDash';
+
 class App extends Component {
     render() {
         return (
@@ -29,6 +31,10 @@ class App extends Component {
                         <Route exact path="/signuporg" component={OrganisationSignUp}></Route>
                         <Route exact path="/signupuser" component={UserSignUp}></Route>
                         <Route exact path="/createEvent" component={EventCreateModal}></Route>
+                        <Route exact path="/org" component={OrgDash}></Route>
+
+
+
                         <Route component={NotFound404}></Route>
                     </Switch>
                 </Router>

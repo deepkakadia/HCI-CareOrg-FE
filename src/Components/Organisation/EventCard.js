@@ -10,16 +10,41 @@ import Box from '@material-ui/core/Box';
 import DonateNowModal from "../DonateNowComponent/DonateNowModal";
 import EventEditModal from "../EventForm/EventEditModal";
 import LearnMoreComponent from './LearnMoreComponent'
+import Fab from '@material-ui/core/Fab';
+import { Divider } from "@material-ui/core";
 
 class EventCard extends Component {
+    constructor(props) {
+        super(props)
+
+        //this.getCardButton = this.getCardButton.bind(this)
+        this.formatDate = this.formatDate.bind(this)
+    }
+
+
+    formatDate = (date) => {
+        var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        return date.toLocaleDateString([], options);
+    }
+
     render() {
 
-        const { goal_amount, received_amount } = this.props.details
+        const { goal_amount, received_amount, is_Expired } = this.props.details
+
         var desc = this.props.details.event_description
         if (desc.length > 150) {
             desc = desc.substring(0, 100) + "..."
         }
         const imagePath = `/CampaignPhotos/camp_${this.props.details.id}.jpg`;
+
+        var cardButton = null;
+        if (is_Expired) {
+            cardButton = <Button variant="contained" color="secondary" disabled>Expired</Button>
+        } else if (this.props.userDetails.is_organisation) {
+            cardButton = <EventEditModal eventDetails={this.props.details} userDetails={this.props.userDetails} />
+        } else {
+            cardButton = <DonateNowModal orgDetails={this.props.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
+        }
         return (
             <Card>
                 <CardMedia
@@ -30,9 +55,17 @@ class EventCard extends Component {
                 >
                 </CardMedia>
                 <CardContent>
+
                     <Typography gutterBottom variant="h5" component="h2">
                         {this.props.details.event_title}
                     </Typography>
+                    <Typography variant="body2">
+                        {this.props.orgDetails.user_name}
+                    </Typography>
+                    <Typography gutterBottom variant="body2">
+                        Expires On: {this.formatDate(this.props.details.expires_on)}
+                    </Typography>
+
                     <Typography variant="body2" color="textSecondary" component="p">
                         {desc}
                     </Typography>
@@ -46,11 +79,7 @@ class EventCard extends Component {
                             <LearnMoreComponent eventDetails={this.props.details}></LearnMoreComponent>
                         </Box>
                         <Box textAlign="center">
-                            {
-                                this.props.userDetails.is_organisation
-                                    ? <EventEditModal eventDetails={this.props.details} userDetails={this.props.userDetails} />
-                                    : <DonateNowModal orgDetails={this.props.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
-                            }
+                            {cardButton}
                         </Box>
                     </Box>
                 </CardActions>

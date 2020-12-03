@@ -153,7 +153,7 @@ class DonateNowModal extends Component {
 
             //Dialog Component
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="contained" color="secondary" onClick={this.handleClickOpen}>
                     Donate Now
             </Button>
 
