@@ -170,6 +170,7 @@ export default class EventCreateModal extends Component {
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
+                                            helperText={this.state.titleError && "Please Enter a valid name"}
                                             required
                                         />
                                     </Grid>
