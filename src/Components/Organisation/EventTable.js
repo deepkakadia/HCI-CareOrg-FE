@@ -21,7 +21,6 @@ class EventTable extends Component {
             page: 1,
             pageCount: count
         };
-        // pagination method
         this.handlePageChange = this.handlePageChange.bind(this);
     }
 

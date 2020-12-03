@@ -70,11 +70,9 @@ export default function CustomizedDialogs({ eventDetails }) {
                     {eventDetails.event_title}
                 </DialogTitle>
                 <DialogContent dividers>
-                    <Typography gutterBottom>
+                    <Typography gutterBottom align="justify">
                         {eventDetails.event_description}
                     </Typography>
-
-
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose} color="primary">

@@ -9,34 +9,50 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
 import DonateNowModal from "../DonateNowComponent/DonateNowModal";
 import EventEditModal from "../EventForm/EventEditModal";
-import LearnMoreComponent from './LearnMoreComponent'
-import Fab from '@material-ui/core/Fab';
-import { Divider } from "@material-ui/core";
+import LearnMoreComponent from './LearnMoreComponent';
+import { withStyles } from '@material-ui/core/styles';
+
+
+const styles = theme => ({
+    typography: {
+        fontFamily: 'Roboto',
+    },
+    cardDesc: {
+        paddingBottom: "0px",
+    },
+    cardImage: {
+        objectFit: 'fill',
+        height: '200px',
+    },
+});
 
 class EventCard extends Component {
     constructor(props) {
         super(props)
-
         //this.getCardButton = this.getCardButton.bind(this)
         this.formatDate = this.formatDate.bind(this)
     }
 
-
+    //helper method
     formatDate = (date) => {
         var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return date.toLocaleDateString([], options);
     }
 
     render() {
-
+        const { classes } = this.props;
         const { goal_amount, received_amount, is_Expired } = this.props.details
 
+        // shorten user description
         var desc = this.props.details.event_description
-        if (desc.length > 150) {
-            desc = desc.substring(0, 100) + "..."
+        if (desc.length > 75) {
+            desc = desc.substring(0, 75) + "..."
         }
+
+        // paceholder image
         const imagePath = `/CampaignPhotos/camp_${this.props.details.id}.jpg`;
 
+        // setting the required button according to the "signed in user"
         var cardButton = null;
         if (is_Expired) {
             cardButton = <Button variant="contained" color="secondary" disabled>Expired</Button>
@@ -45,18 +61,18 @@ class EventCard extends Component {
         } else {
             cardButton = <DonateNowModal orgDetails={this.props.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
         }
+
         return (
             <Card>
                 <CardMedia
-                    //give style to image
                     image={imagePath}
                     title="Contemplative Reptile"
-                    style={{ objectFit: 'fill', height: '200px' }}
+                    className={classes.cardImage}
                 >
                 </CardMedia>
-                <CardContent>
-
-                    <Typography gutterBottom variant="h5" component="h2">
+                {/* card details */}
+                <CardContent className={classes.cardDesc}>
+                    <Typography variant="h5" component="h2">
                         {this.props.details.event_title}
                     </Typography>
                     <Typography variant="body2">
@@ -70,7 +86,11 @@ class EventCard extends Component {
                         {desc}
                     </Typography>
                 </CardContent>
+                {/* donated amount */}
                 <CardContent>
+                    <Typography>
+                        ${received_amount} raised of ${goal_amount}
+                    </Typography>
                     <LinearProgressWithLabel value={100 * received_amount / goal_amount} />
                 </CardContent>
                 <CardActions>
@@ -101,4 +121,4 @@ function LinearProgressWithLabel(props) {
     );
 }
 
-export default EventCard;
+export default withStyles(styles)(EventCard);
