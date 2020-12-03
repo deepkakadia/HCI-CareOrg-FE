@@ -11,6 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +22,27 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    color: "white",
+    fontFamily: "roboto",
+    font: "bold",
   },
 }));
+
+const StyledButton = withStyles({
+  root: {
+    background: 'black',
+    borderRadius: 5,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    margin: 10,
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Button);
 
 const NavBarDashBoard = (props) => {
   const classes = useStyles();
@@ -31,15 +51,6 @@ const NavBarDashBoard = (props) => {
   const open = Boolean(anchorEl);
 
   const history = useHistory();
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    history.push("/dashboard");
-    setAnchorEl(null);
-  };
 
   const handleClick = () => {
     logout();
@@ -69,28 +80,28 @@ const NavBarDashBoard = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: "#2A3D45" }}>
+      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h3" className={classes.title}>
             CareOrg
           </Typography>
-          <Button
+          <StyledButton
+          
             component={Link}
             to="/"
-            color="inherit"
-            className={classes.menuButton}
           >
             Home
-          </Button>
+          </StyledButton>
           {islogin === true ? (
-            <Button onClick={handleClick} color="inherit">
+            <StyledButton onClick={handleClick}>
               Logout
-            </Button>
+            </StyledButton>
           ) : (
-            <Button component={Link} to="/login" color="inherit">
-              Login / Signup
-            </Button>
+            <StyledButton component={Link} to="/login">
+              Login
+            </StyledButton>
           )}
+          
         </Toolbar>
       </AppBar>
     </div>
