@@ -34,7 +34,7 @@ class OrgDash extends Component {
             "id": 1,
             "email": "meet@123.com",
             "name": "Meet Patel",
-            "is_organisation": true
+            "is_organisation": false
         }
         // from props
         // (current) a list of feeditems for that organisation 

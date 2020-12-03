@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Cards from 'react-credit-cards';
 import './payment.css'
 import 'react-credit-cards/es/styles-compiled.css';
-import { TextField, Grid, Container, Button } from '@material-ui/core';
+import { TextField, Grid, Container, Button, CardActions, DialogActions } from '@material-ui/core';
 export default class PaymentForm extends Component {
 
     constructor(props) {
@@ -147,104 +147,110 @@ export default class PaymentForm extends Component {
                     name={cardDetails.name}
                     number={cardDetails.number}
                 />
-                <form>
-                    <Container className='App-form'>
-                        <Grid container spacing={3} justify='center'>
-                            <Grid item size={6} width="50%">
 
-                                <TextField
-                                    error={this.state.cardError}
-                                    type="tel"
-                                    name="number"
-                                    label="Card Number"
-                                    placeholder="Card Number"
-                                    value={cardDetails.number}
-                                    onChange={this.validateCardNumber}
-                                    onFocus={handleInputFocus}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
+                <Container className='App-form'>
+                    <Grid container spacing={3} justify='center'>
+                        <Grid item size={6} width="50%">
 
-                            </Grid>
+                            <TextField
+                                error={this.state.cardError}
+                                type="tel"
+                                name="number"
+                                label="Card Number"
+                                id="Card Number"
+                                placeholder="Card Number"
+                                value={cardDetails.number}
+                                onChange={this.validateCardNumber}
+                                onFocus={handleInputFocus}
+                                variant="outlined"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
 
-
-                            <Grid item size={6} width="50%">
-                                <TextField
-                                    error={this.state.cardNameError}
-                                    type='text'
-                                    name='name'
-                                    label='Name of Card Holder'
-                                    placeholder='Name'
-                                    value={cardDetails.name}
-                                    onChange={this.validateCardName}
-                                    onFocus={handleInputFocus}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-
-                                />
-                            </Grid>
-
-
-                            <Grid item size={6} width="50%">
-                                <TextField
-                                    error={this.state.cardExpiryError}
-                                    type='text'
-                                    name='expiry'
-                                    placeholder='MMYY Expiry'
-                                    label='Expiry'
-                                    value={cardDetails.expiry}
-                                    onChange={this.validateCardExpiry}
-                                    onFocus={handleInputFocus}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                            </Grid>
-
-
-                            <Grid item size={6} width="50%">
-                                <TextField
-                                    error={this.state.cardCVCError}
-                                    type='tel'
-                                    name='cvc'
-                                    placeholder='CVC'
-                                    label='CVC'
-                                    value={cardDetails.cvc}
-                                    onChange={this.validateCardCVC}
-                                    onFocus={handleInputFocus}
-                                    variant="outlined"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                            </Grid>
-
-
-                            {/* Next Stepper Button */}
-                            <Grid container justify='center' className="App-form1" spacing={2}>
-                                <Grid item xs={2}>
-                                    <Button
-                                        variant="contained" color="primary" onClick={handleBack}>
-                                        Back
-                                </Button>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Button
-                                        disabled={(this.state.cardError || this.state.cardNameError || this.state.cardExpiryError || this.state.cardCVCError)}
-                                        variant="contained" color="primary" onClick={this.handleSubmit}>
-                                        Next
-                                </Button>
-                                </Grid>
-                            </Grid>
                         </Grid>
 
-                    </Container>
-                </form >
+
+                        <Grid item size={6} width="50%">
+                            <TextField
+                                error={this.state.cardNameError}
+                                type='text'
+                                name='name'
+                                label='Name of the Card Holder'
+                                id="Name of the Card Holder"
+                                placeholder='Name'
+                                value={cardDetails.name}
+                                onChange={this.validateCardName}
+                                onFocus={handleInputFocus}
+                                variant="outlined"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+
+                            />
+                        </Grid>
+
+
+                        <Grid item size={6} width="50%">
+                            <TextField
+                                error={this.state.cardExpiryError}
+                                type='text'
+                                name='expiry'
+                                placeholder='MMYY Expiry'
+                                label='Expiry Date'
+                                id="Expiry Date"
+                                value={cardDetails.expiry}
+                                onChange={this.validateCardExpiry}
+                                onFocus={handleInputFocus}
+                                variant="outlined"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+
+
+                        <Grid item size={6} width="50%">
+                            <TextField
+                                error={this.state.cardCVCError}
+                                type='tel'
+                                name='cvc'
+                                placeholder='CVC'
+                                label='CVV'
+                                id="CVV"
+                                value={cardDetails.cvc}
+                                onChange={this.validateCardCVC}
+                                onFocus={handleInputFocus}
+                                variant="outlined"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+                </Container>
+
+                {/* Next Stepper Button */}
+                <DialogActions>
+                    {/* <Grid container justify='center' className="App-form1" spacing={2}>
+                                    <Grid item xs={2}> */}
+                    <Button
+                        variant="contained" color="primary" onClick={handleBack}>
+                        Back
+                                </Button>
+                    {/* </Grid>
+                                    <Grid item xs={2}> */}
+                    <Button
+                        disabled={(this.state.cardError || this.state.cardNameError || this.state.cardExpiryError || this.state.cardCVCError)}
+                        variant="contained" color="primary" onClick={this.handleSubmit}>
+                        Next
+                                </Button>
+                    {/* </Grid>
+                                </Grid> */}
+                </DialogActions>
+
+
+
             </div >
         );
     }
