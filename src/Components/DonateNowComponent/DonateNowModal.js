@@ -7,9 +7,18 @@ import ConfirmPayment from './ConfirmPayment';
 import PaymentForm from './AddPaymentInformation'
 //Dialog
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import { withStyles } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
+const styles = theme => ({
+    root: {
+        backgroundColor: "red"
+    }
+});
 
 
 /**
@@ -86,7 +95,42 @@ class DonateNowModal extends Component {
     }
 
 
+
+
     render() {
+        const styles = theme => ({
+            root: {
+                margin: 0,
+                padding: theme.spacing(2),
+            },
+            closeButton: {
+                position: 'absolute',
+                right: theme.spacing(1),
+                top: theme.spacing(1),
+                color: theme.palette.grey[500],
+            }
+        });
+        // const DialogContent = withStyles((theme) => ({
+        //     root: {
+        //         padding: theme.spacing(2),
+        //     },
+        // }))(MuiDialogContent);
+
+
+        const DialogTitle = withStyles(styles)((props) => {
+            const { children, classes, onClose, ...other } = props;
+            return (
+                <MuiDialogTitle disableTypography className={classes.root} {...other}>
+                    <Typography variant="h6">{children}</Typography>
+                    {onClose ? (
+                        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    ) : null}
+                </MuiDialogTitle>
+            );
+        });
+        const { classes } = this.props;
         const { cvc,
             expiry,
             focus,
@@ -118,9 +162,6 @@ class DonateNowModal extends Component {
 
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickClose}>
                         Make a Donation
-                        <IconButton aria-label="close" onClick={this.handleClickClose}>
-                            <CloseIcon />
-                        </IconButton>
                     </DialogTitle>
                     <DialogContent dividers>
                         <HorizontalLabelPositionBelowStepper stepCount={this.state.StepCount}></HorizontalLabelPositionBelowStepper>
@@ -141,7 +182,7 @@ class DonateNowModal extends Component {
         );
     }
 }
-export default DonateNowModal;
+export default withStyles(styles, { withTheme: true })(DonateNowModal);
 
 
 
