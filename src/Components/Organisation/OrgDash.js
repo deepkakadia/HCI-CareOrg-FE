@@ -50,6 +50,7 @@ class OrgDash extends Component {
                 'expires_on': new Date(2020, 9, 30),
                 'goal_amount': 10000,
                 'received_amount': 3000,
+                'is_Expired': true,
             },
             {
                 'id': 2,
@@ -60,6 +61,7 @@ class OrgDash extends Component {
                 'expires_on': new Date(2020, 9, 30),
                 'goal_amount': 10000,
                 'received_amount': 3000,
+                'is_Expired': false,
             },
             {
                 'id': 3,
@@ -70,6 +72,7 @@ class OrgDash extends Component {
                 'expires_on': new Date(2020, 9, 30),
                 'goal_amount': 10000,
                 'received_amount': 3000,
+                'is_Expired': false,
             },
             {
                 'id': 4,
@@ -80,6 +83,7 @@ class OrgDash extends Component {
                 'expires_on': new Date(2020, 9, 30),
                 'goal_amount': 10000,
                 'received_amount': 3000,
+                'is_Expired': false,
             },
             {
                 'id': 5,
@@ -136,9 +140,7 @@ class OrgDash extends Component {
                     </Grid>
                     <Box display="flex" width="100%" alignItems="center" style={{ margin: "25px 24px 25px 24px", }}>
                         <Box textAlign="center" flexGrow={1}>
-
                             <Typography>{orgDetails.description}</Typography>
-
                         </Box>
                         {userDetails.is_organisation &&
                             // <Box textAlign="center">

@@ -187,7 +187,7 @@ export default class EventEditModal extends Component {
         return (
             <div>
                 {/* Modal Toggle Button */}
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
                     Edit
                 </Button>
 
