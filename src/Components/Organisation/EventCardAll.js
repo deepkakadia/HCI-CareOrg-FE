@@ -38,22 +38,21 @@ class EventCardAll extends Component {
         super(props)
         //this.getCardButton = this.getCardButton.bind(this)
         this.formatDate = this.formatDate.bind(this)
-        this.redirectToOrgProfile = this.redirectToOrgProfile.bind(this)
     }
 
-  
+
     //helper method
     formatDate = (date) => {
         var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return date.toLocaleDateString([], options);
     }
 
-    redirectToOrgProfile =(event)=> {
+    redirectToOrgProfile = (event) => {
         event.preventDefault()
         this.props.history.push('/org')({
-            pathname:"/org",
-            state:{
-            name: "Deep"
+            pathname: "/org",
+            state: {
+                name: "Deep"
             }
         });
     }
@@ -101,19 +100,19 @@ class EventCardAll extends Component {
                             <button type="submit">{this.props.orgDetails.name}</button>
                         </form>
 
-                      
 
-                            </Typography>
+
+                    </Typography>
                     <Typography gutterBottom variant="body2">
                         {/* Expires On: {this.formatDate(this.props.details.expires_on)} */}
                         Date
                         </Typography>
-                            
-                        <Typography variant="body2" color="textSecondary" component="p">
+
+                    <Typography variant="body2" color="textSecondary" component="p">
                         {desc}
-                        </Typography>
-                    </CardContent>
-                        {/* donated amount */}
+                    </Typography>
+                </CardContent>
+                {/* donated amount */}
                 <CardContent>
                     <Typography>
                         ${received_amount} raised of ${goal_amount}
