@@ -69,7 +69,7 @@ class EventCardAll extends Component {
         }
 
         // paceholder image
-        const imagePath = `/CampaignPhotos/camp_${this.props.details.id}.jpg`;
+        const imagePath = this.props.details.campaign_image;
 
         // setting the required button according to the "signed in user"
         var cardButton = null;

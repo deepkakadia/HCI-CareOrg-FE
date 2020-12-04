@@ -11,8 +11,6 @@ import {
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
 
-// 
-
 /**
  * Gets all events from the db
  */
@@ -63,9 +61,9 @@ async function getAllUser() {
 
 
 /**
- * Gets details of all organizations
+ * Gets details of all organizations and creats a dict with
  */
-async function getAllOrgDetails() {
+async function getAllOrgDetails(orgDict) {
     let token = localStorage.getItem('token');
     let res = await axios.get(`http://localhost:8000/api/details/`, {
         method: "GET",
@@ -74,9 +72,24 @@ async function getAllOrgDetails() {
             "Authorization": `Token ${token}`
         }
     })
+    console.log(res.data)
+
+    let filteredEvents = []
+    res.data.forEach(currEvent => {
+
+        let user_profile = parseInt(currEvent.user_profile)
+        if (user_profile in orgDict) {
+            let currObj = orgDict[user_profile];
+            console.log(currObj)
+            currObj['location'] = currEvent.location
+            currObj['industry'] = currEvent.industry
+            filteredEvents.push(currObj)
+
+        }
+    });
 
 
-    return res.data;
+    return filteredEvents;
 }
 
 
@@ -92,6 +105,7 @@ class HomePage extends Component {
             allUsers: {},
             userObj: {},
             allEvents: [],
+            eventsForSearch: [],
             filteredEvents: [],
             searchName: '',
             searchIndustry: '',
@@ -121,13 +135,15 @@ class HomePage extends Component {
 
         let userObj = allUsers[userId];
         let allEvents = await getAllEvents();
+        let eventsForSearch = await getAllOrgDetails(allUsers);
 
 
 
         this.setState({
             allUsers: allUsers,
             userObj: userObj,
-            allEvents: allEvents
+            allEvents: allEvents,
+            eventsForSearch: eventsForSearch
         })
 
     }
@@ -196,11 +212,24 @@ class HomePage extends Component {
 
     hanldeOnSubmit(e) {
         e.preventDefault();
-        const { allEvents, searchName, searchLocation, searchIndustry } = this.state;
+        const { allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
+        let filteredEvents_id = new Set()
+
+        eventsForSearch.forEach(currEventOrg => {
+            if (currEventOrg.location === searchLocation ||
+                currEventOrg.industry === searchIndustry ||
+                currEventOrg.name == searchName) {
+                filteredEvents_id.add(currEventOrg.id);
+            }
+        });
+
+        console.log(filteredEvents_id)
+
+
 
         let filteredEvents = allEvents.filter((currEvent) =>
-            currEvent.event_description === searchName || currEvent.location === searchLocation ||
-            currEvent.industry === searchIndustry)
+            filteredEvents_id.has(parseInt(currEvent.user_profile)))
+
 
         this.setState({ filteredEvents: filteredEvents })
     }
@@ -293,7 +322,7 @@ class HomePage extends Component {
                                     label="Select Country"
                                     value={this.state.searchLocation}
                                     name="searchLocation"
-                                    onChange={this.validatelocation}
+                                    onChange={this.validateSearchLocation}
                                     inputProps={{ 'aria-label': 'age' }}>
                                     <option value=''>
                                         -
@@ -319,7 +348,10 @@ class HomePage extends Component {
                     <br></br>
 
                     <Divider />
+
                     <EventTableAll history={this.props.history} feedItems={this.state.filteredEvents} userDetails={this.state.userObj} />
+
+
 
                 </Container >
 
