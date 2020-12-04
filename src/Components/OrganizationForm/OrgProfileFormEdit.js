@@ -9,22 +9,25 @@ import MuiAlert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
+import FileUpload from '../../utils/FileUpload';
+import Input from '@material-ui/core/Input';
+var unirest = require('unirest');
 
 export class OrgProfileFormEdit extends Component {
 
     constructor(props) {
         super(props);
-
         //Props for existing org details
-        const { orgDetails } = this.props
+        const { profileDetails } = this.props
 
         this.state = {
             //Event details state
-            user_name: orgDetails.user_name,
-            description: orgDetails.description,
-            location: orgDetails.location,
-            industry: orgDetails.industry,
-            org_image: '',
+            campaign_id: this.props.profileDetails.id,
+            user_profile: this.props.userDetails.id,
+            description: profileDetails.description,
+            location: profileDetails.location,
+            industry: profileDetails.industry,
+            profile_image: null,
 
             //Snackbar toggle state
             open: false,
@@ -49,7 +52,6 @@ export class OrgProfileFormEdit extends Component {
         //Hanlde on save button click
         this.handleOnSave = this.handleOnSave.bind(this)
 
-
         //Handles input on change
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleInputFocus = this.handleInputFocus.bind(this)
@@ -58,12 +60,9 @@ export class OrgProfileFormEdit extends Component {
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.hanldeClickClose = this.hanldeClickClose.bind(this)
 
-
         //Handles Snackbar open toggle
         this.handleClose = this.handleClose.bind(this)
         this.handleOpen = this.handleOpen.bind(this)
-
-
 
     }
 
@@ -72,32 +71,22 @@ export class OrgProfileFormEdit extends Component {
         this.setState({ modalOpen: !this.state.modalOpen });
     }
 
-    /**
-     *This function handles modal close toggle and resets state 
-     */
+    // This function handles modal close toggle and resets state 
     hanldeClickClose() {
         this.setState({ modalOpen: !this.state.modalOpen });
     }
 
-
-    /**
-     * Handles Snack bar close toogle
-     * 
-     */
+    // Handles Snack bar close toogle    
     handleClose() {
         this.setState({ open: false })
     }
-    /**
-     * Handles Snack bar open toogle
-     */
+
+    // Handles Snack bar open toogle
     handleOpen() {
         this.setState({ open: true })
     }
 
-    /**
-     * Handles the save button for the Evemt form
-     *
-     */
+    // Handles the save button for the Evemt form
     async handleOnSave() {
         if (this.state.description.length === 0 || typeof (this.state.description) != 'string') {
             this.setState({ descriptionError: true })
@@ -109,57 +98,33 @@ export class OrgProfileFormEdit extends Component {
             this.setState({ industryError: true })
         }
         else {
-
-            //     "id": 1,
-            //     'user_profile': 1,
-            //     'user_name': 'Bhojnalay @ NYC',
-            //     'description': 'donate money to feed poor and malnourished',
-            //     'location': 'India',
-            //     'industry': 'Food',
-
             let token = localStorage.getItem('token')
-            let user_profile = parseInt(localStorage.getItem('userid'))
-            const { description, location, industry } = this.state
-            console.log(this.state)
-            // try {
-            //     let res = await axios.post("http://localhost:8000/api/details/", {
-            //         headers: {
-            //             "Content-Type": "application/json",
-            //             "Authorization": `Token ${token}`
-            //         },
-            //         data: JSON.stringify({ "user_profile": 2, "description": description, "location": location, "industry": industry }),
-            //     });
 
-            // } catch (e) {
-            //     console.log(e)
-            // }
+            try {
+                let data = new FormData();
+                let file = this.state.profile_image
+                data.append('profile_image', file, file.name);
+                data.append("user_profile", this.state.user_profile);
+                data.append("description", this.state.description);
+                data.append("location", this.state.location);
+                data.append("industry", this.state.industry);
 
-            var data = JSON.stringify({ "user_profile": user_profile, "description": description, "location": location, "industry": industry });
-            var config = {
-                method: 'post',
-                url: 'http://localhost:8000/api/details/',
-                headers: {
-                    'Authorization': `Token ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                data: data
-            };
-
-            axios(config)
-                .then(function (response) {
-                    console.log(JSON.stringify(response.data));
+                let res = await axios.put(`http://localhost:8000/api/details/${this.props.profileDetails.id}/`, data, {
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                        'accept': 'application/json',
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+                    }
                 })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                console.log(res.JSON)
+            } catch (e) {
+                console.log(e)
+            }
+
 
             this.handleOpen()
-
             this.hanldeClickClose()
-            //Make axios call to post to backend
-            //Upload event image 
-
-
         }
 
     }
@@ -178,8 +143,6 @@ export class OrgProfileFormEdit extends Component {
         }
         this.handleInputChange(e)
     }
-
-
 
     /**
      * Validates org location
@@ -212,7 +175,6 @@ export class OrgProfileFormEdit extends Component {
         this.handleInputChange(e)
     }
 
-
     // Handle Field change
     handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -223,7 +185,14 @@ export class OrgProfileFormEdit extends Component {
         this.setState({ focus: e.target.name });
     }
 
-
+    onImageChange = event => {
+        if (event.target.files && event.target.files[0]) {
+            let img = event.target.files[0];
+            this.setState({
+                profile_image: img
+            });
+        }
+    };
 
     render() {
         return (
@@ -281,9 +250,6 @@ export class OrgProfileFormEdit extends Component {
 
                                     />
                                 </Grid> */}
-
-
-
                                 <Grid item xs={12}>
 
                                     <FormControl variant="outlined">
@@ -308,12 +274,8 @@ export class OrgProfileFormEdit extends Component {
                                             <option value="Human and Civil rights">Human and Civil rights </option>
                                             <option value="Human services ">Human services </option>
 
-
                                         </Select>
                                     </FormControl>
-
-
-
                                 </Grid>
 
                                 <Grid item xs={12}>
@@ -336,37 +298,12 @@ export class OrgProfileFormEdit extends Component {
                                             )}
                                         </Select>
                                     </FormControl>
-
-
-
                                 </Grid>
 
                                 <Grid item>
-                                    <TextField
-                                        type="file"
-                                        label="Upload an image"
-                                        name='org_image'
-                                        variant="outlined"
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        inputProps={
-                                            {
-                                                accept: "image/png, image/jpeg"
-                                            }
-                                        }
-                                        onChange={this.handleInputChange}
-                                        onFocus={this.handleInputFocus}
-                                        helperText="Upload png or jpeg only"
-                                    >
-                                    </TextField>
+                                    <input type="file" name="profile_image" onChange={this.onImageChange} />
                                 </Grid>
-
-
-
                             </Grid>
-
-
 
 
                         </Container>
@@ -398,3 +335,4 @@ export class OrgProfileFormEdit extends Component {
 }
 
 export default OrgProfileFormEdit
+
