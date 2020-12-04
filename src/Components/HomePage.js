@@ -11,25 +11,7 @@ import {
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
 
-/**
- * Gets userObj by userId
- * @param {userId} userId 
- */
-async function getUserById(userId) {
-
-    let token = localStorage.getItem('token');
-    let res = await axios.get(`http://localhost:8000/api/user/${userId}`, {
-        method: "GET",
-        header: {
-            "Content-Type": "application/json",
-            "Authorization": `Token ${token}`
-        }
-    })
-
-
-    return res.data;
-
-}
+// 
 
 /**
  * Gets all events from the db
