@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
-    Grid, Container, Button, TextField, FormControl, NativeSelect, Select, InputLabel,
-    FormHelperText, Dialog, DialogTitle, DialogContent, DialogActions
+    Grid, Container, Button, TextField, FormControl, Select, InputLabel,
+    Dialog, DialogTitle, DialogContent, DialogActions
 } from '@material-ui/core';
 import country_list from './countrList'
 import Snackbar from '@material-ui/core/Snackbar';
@@ -29,6 +29,7 @@ export class OrgProfileFormEdit extends Component {
             location: profileDetails.location,
             industry: profileDetails.industry,
             profile_image: null,
+            updateCalled: false,
 
             //Snackbar toggle state
             open: false,
@@ -121,7 +122,6 @@ export class OrgProfileFormEdit extends Component {
                         'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
                     }
                 })
-                console.log(res.data)
 
             } catch (e) {
                 console.log(e)
@@ -130,7 +130,12 @@ export class OrgProfileFormEdit extends Component {
 
             this.handleOpen()
             this.hanldeClickClose()
-            //refreshPage()
+
+            //Refreshes the parent component
+            this.setState({ updateCalled: !this.state.updateCalled })
+            this.props.handleUpdateCalled(this.state.updateCalled)
+
+
         }
 
     }
@@ -238,24 +243,7 @@ export class OrgProfileFormEdit extends Component {
 
 
                                 </Grid>
-                                {/* 
-                                <Grid item xs={12}>
-                                    <TextField
-                                        error={this.state.industryError}
-                                        type='text'
-                                        name='industry'
-                                        label='Industry'
-                                        placeholder='Name the Industry'
-                                        value={this.state.industry}
-                                        onChange={this.industry}
-                                        onFocus={this.handleInputFocus}
-                                        variant="outlined"
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
 
-                                    />
-                                </Grid> */}
                                 <Grid item xs={12}>
 
                                     <FormControl variant="outlined">
@@ -321,7 +309,7 @@ export class OrgProfileFormEdit extends Component {
                         </Button>
 
                         <Button color="primary"
-                            error={this.state.descriptionError || this.state.industryError || this.state.locationError}
+                            disabled={this.state.descriptionError || this.state.industryError || this.state.locationError}
                             onClick={this.handleOnSave}>
                             Save
                         </Button>
@@ -329,7 +317,7 @@ export class OrgProfileFormEdit extends Component {
                     </DialogActions>
                 </Dialog>
 
-                <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose} >
+                <Snackbar open={this.state.open} autoHideDuration={4000} onClose={this.handleClose} >
                     <MuiAlert onClose={this.handleClose} severity="success">
                         Profile successfully updated
                 </MuiAlert>
