@@ -1,4 +1,4 @@
-import { Container, Typography, Grid, Button, Card, CardContent, CardActions, DialogContentText, DialogActions } from '@material-ui/core'
+import { Container, Typography, Button, DialogContentText, DialogActions } from '@material-ui/core'
 import React, { Component } from 'react'
 
 export class ConfirmPayment extends Component {
