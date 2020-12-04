@@ -104,6 +104,7 @@ export default class EventEditModal extends Component {
             this.setState({ event_descriptionError: true })
         }
         else {
+            console.log("inside submit hi")
             let token = localStorage.getItem('token')
 
             try {
@@ -120,7 +121,7 @@ export default class EventEditModal extends Component {
                 data.append("goal_amount", this.state.goal_amount);
                 data.append("received_amount", this.state.received_amount);
                 let file = this.state.campaign_image
-                if (file) {
+                if (file && typeof (file) != "string") {
                     data.append('campaign_image', file, file.name);
                 }
                 let res = await axios.put(`http://localhost:8000/api/feed/${this.state.eventId}/`, data, {

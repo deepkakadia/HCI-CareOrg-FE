@@ -23,7 +23,7 @@ export class OrgProfileFormEdit extends Component {
 
         this.state = {
             //Event details state
-            campaign_id: this.props.profileDetails.id,
+            profileDetails_id: this.props.profileDetails.id,
             user_profile: this.props.userDetails.id,
             description: profileDetails.description,
             location: profileDetails.location,
@@ -99,6 +99,7 @@ export class OrgProfileFormEdit extends Component {
             this.setState({ industryError: true })
         }
         else {
+            console.log("form submitted")
             let token = localStorage.getItem('token')
 
             try {
@@ -112,7 +113,7 @@ export class OrgProfileFormEdit extends Component {
                 data.append("location", this.state.location);
                 data.append("industry", this.state.industry);
 
-                let res = await axios.put(`http://localhost:8000/api/details/${this.props.profileDetails.id}/`, data, {
+                let res = await axios.put(`http://localhost:8000/api/details/${this.state.profileDetails_id}/`, data, {
                     headers: {
                         'Authorization': `Token ${token}`,
                         'accept': 'application/json',
@@ -121,7 +122,7 @@ export class OrgProfileFormEdit extends Component {
                     }
                 })
                 console.log(res.data)
-                refreshPage()
+
             } catch (e) {
                 console.log(e)
             }
@@ -129,6 +130,7 @@ export class OrgProfileFormEdit extends Component {
 
             this.handleOpen()
             this.hanldeClickClose()
+            //refreshPage()
         }
 
     }
