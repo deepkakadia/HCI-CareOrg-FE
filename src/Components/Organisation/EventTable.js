@@ -38,7 +38,7 @@ class EventTable extends Component {
                 <Grid container spacing={2}>
                     <Grid container justify="center" style={{ padding: "10px" }}>
                         <Box width="100%" textAlign="center">
-                            <Typography variant="h4">
+                            <Typography variant="h4" style={{ marginTop: "10px", marginBottom: "10px" }}>
                                 Campaigns
                             </Typography>
                         </Box>

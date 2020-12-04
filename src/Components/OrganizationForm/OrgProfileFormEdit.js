@@ -11,6 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
 import FileUpload from '../../utils/FileUpload';
 import Input from '@material-ui/core/Input';
+import refreshPage from '../../utils/refreshPage';
 var unirest = require('unirest');
 
 export class OrgProfileFormEdit extends Component {
@@ -103,7 +104,9 @@ export class OrgProfileFormEdit extends Component {
             try {
                 let data = new FormData();
                 let file = this.state.profile_image
-                data.append('profile_image', file, file.name);
+                if (file) {
+                    data.append('profile_image', file, file.name);
+                }
                 data.append("user_profile", this.state.user_profile);
                 data.append("description", this.state.description);
                 data.append("location", this.state.location);
@@ -117,7 +120,8 @@ export class OrgProfileFormEdit extends Component {
                         'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
                     }
                 })
-                console.log(res.JSON)
+                console.log(res.data)
+                refreshPage()
             } catch (e) {
                 console.log(e)
             }

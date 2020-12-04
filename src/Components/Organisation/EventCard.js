@@ -11,6 +11,7 @@ import DonateNowModal from "../DonateNowComponent/DonateNowModal";
 import EventEditModal from "../EventForm/EventEditModal";
 import LearnMoreComponent from './LearnMoreComponent';
 import { withStyles } from '@material-ui/core/styles';
+import Axios from "axios";
 
 
 const styles = theme => ({
@@ -31,12 +32,31 @@ class EventCard extends Component {
         super(props)
         //this.getCardButton = this.getCardButton.bind(this)
         this.formatDate = this.formatDate.bind(this)
+        this.state = {
+            orgDetails: this.props.userDetails
+        }
     }
 
     //helper method
     formatDate = (date) => {
         var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return date.toLocaleDateString([], options);
+    }
+
+    async componentDidMount() {
+        try {
+            var orgDetails = this.props.userDetails;
+            if (!orgDetails.is_organisation) {
+                orgDetails = getOrgDetails(this.props.userDetails, this.props.eventDetails)
+            }
+            console.log(orgDetails)
+            this.setState({
+                orgDetails: orgDetails,
+            })
+
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     render() {
@@ -50,6 +70,8 @@ class EventCard extends Component {
         }
         const imagePath = this.props.eventDetails.campaign_image;
 
+        // var orgDetails = getOrgDetails(this.props.userDetails, this.props.eventDetails)
+
         // setting the required button according to the "signed in user"
         var cardButton = null;
         if (is_Expired) {
@@ -57,14 +79,14 @@ class EventCard extends Component {
         } else if (this.props.userDetails.is_organisation) {
             cardButton = <EventEditModal eventDetails={this.props.eventDetails} userDetails={this.props.userDetails} />
         } else {
-            cardButton = <DonateNowModal orgDetails={this.props.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
+            cardButton = <DonateNowModal orgDetails={this.state.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
         }
 
         return (
             <Card>
                 <CardMedia
                     image={imagePath}
-                    title="Contemplative Reptile"
+                    title="Campaign Image"
                     className={classes.cardImage}
                 >
                 </CardMedia>
@@ -73,7 +95,7 @@ class EventCard extends Component {
                         {this.props.eventDetails.event_title}
                     </Typography>
                     <Typography variant="body2">
-                        {this.props.userDetails.name}
+                        {this.state.orgDetails.name}
                     </Typography>
                     <Typography gutterBottom variant="body2">
                         Expires On: {this.formatDate(new Date(this.props.eventDetails.expires_on))}
@@ -114,6 +136,22 @@ function LinearProgressWithLabel(props) {
             </Box>
         </Box>
     );
+}
+
+async function getOrgDetails(userDetails, eventDetails) {
+
+    let token = localStorage.getItem("token");
+    let res = await Axios.get(`http://localhost:8000/api/user/${eventDetails.user_profile}/`,
+        {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'accept': 'application/json',
+            }
+        }
+    )
+    let response = await res.json()
+    console.log(response)
+    return await res.data
 }
 
 export default withStyles(styles)(EventCard);
