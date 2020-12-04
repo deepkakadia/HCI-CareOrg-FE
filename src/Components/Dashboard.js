@@ -3,6 +3,7 @@ import { logout } from "../utils/index";
 import NavBarDashBoard from "./NavBar/NavBarDashBoard";
 import axios from "axios";
 import OrgDash from './Organisation/OrgDash';
+import { Redirect } from "react-router-dom";
 
 /**
  * Gets user obj from database
@@ -168,22 +169,10 @@ class Dashboard extends Component {
 
         // let orgProfile = this.state.allUserProfiles.filter(x => x.id == orgDetail.user_profile)[0]
 
-        if (orgDetail == undefined) {
-            // make axios call to post empty profile
-
-            orgDetail = {
-                'user_profile': '',
-                'user_name': '',
-                'description': '',
-                'location': '',
-                'industry': '',
-            }
-        }
-
         var OrgDashProps = {
             userDetails: this.state.userObj,
             allOrgProfiles: this.state.allOrgProfiles,
-            orgDetails: orgDetail,
+            profileDetails: orgDetail,
             filteredEvents: this.state.filteredEvents,
         }
 
@@ -194,6 +183,11 @@ class Dashboard extends Component {
                 </div>
 
                 {/* If the Logged in user is an organization */}
+                {/* {orgDetail == undefined &&
+                    // redirect to setup profile
+                    <Redirect to="/" />
+                } */}
+
                 {this.state.userObj.is_organisation &&
                     <OrgDash {...OrgDashProps} />
                 }

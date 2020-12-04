@@ -13,8 +13,11 @@ import Axios from "axios";
 class OrgDash extends Component {
     constructor(props) {
         super(props);
-        this.state = { name: undefined }
-        this.createEmptyProfile = this.createEmptyProfile.bind(this);
+        this.state = {
+            profileDetails: this.props.profileDetails,
+            userDetails: this.props.userDetails,
+            feedItems: this.props.filteredEvents,
+        }
     }
 
     handle_logout = () => {
@@ -22,74 +25,57 @@ class OrgDash extends Component {
         this.props.history.push("/");
     };
 
-    createEmptyProfile = async () => {
-        try {
-
-            let token = localStorage.getItem('token')
-            var data = {
-                "user_profile": localStorage.getItem("userid"),
-                "description": "Please setup your profile",
-                "location": "Please setup your profile",
-                "industry": "Please setup your profile",
-            };
-
-            let res = await fetch("http://localhost:8000/api/details/", {
-                method: "POST",
-                headers: {
-                    'Authorization': `Token ${token}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-
-            return data
-        } catch (e) {
-            console.log("OrgDash error: " + e);
-        }
-    }
-
     render() {
-
-        const profileDetails = this.props.orgDetails
-        const userDetails = this.props.userDetails
-        const feedItems = this.props.filteredEvents
-
-
-        var profile = this.props.allOrgProfiles.filter(x => x.user_profile == userDetails.id)
-        if (profile.length == 0) {
-            profile = this.createEmptyProfile()
-        } else {
-            profile = profile[0]
-        }
-        var EventTableProps = {
-            userDetails: userDetails,
-            profileDetails: profile,
-            feedItems: feedItems,
-        }
-
         return (
             <Container maxWidth="lg">
                 <Grid container spacing={0} alignItems='center'>
                     <Grid item xs={12} align='center'>
-                        <img src={profileDetails.profile_image} height="400px" width="100%" alt="stock profile" />
+                        <img src={this.state.profileDetails.profile_image} height="400px" width="100%" alt="stock profile" />
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <h1>{userDetails.name}</h1>
+                        <h1>{this.state.userDetails.name}</h1>
                     </Grid>
                     <Box display="flex" width="100%" alignItems="center" style={{ margin: "25px 24px 25px 24px", }}>
                         <Box textAlign="center" flexGrow={1}>
-                            <Typography>{profileDetails.description}</Typography>
+                            <Typography>{this.state.profileDetails.description}</Typography>
                         </Box>
                         <div>
-                            <OrgProfileFormEdit profileDetails={profileDetails} userDetails={userDetails}> Edit Profile</OrgProfileFormEdit>
+                            <OrgProfileFormEdit profileDetails={this.state.profileDetails} userDetails={this.state.userDetails}> Edit Profile</OrgProfileFormEdit>
                         </div>
                     </Box>
                 </Grid>
                 <Divider />
-                <EventTable {...EventTableProps} />
+                <EventTable {...this.state} />
             </Container >
         );
     }
 }
+
+async function createEmptyProfile() {
+    try {
+
+        let token = localStorage.getItem('token')
+        var data = {
+            "user_profile": localStorage.getItem("userid"),
+            "description": "Please setup your profile",
+            "location": "Please setup your profile",
+            "industry": "Please setup your profile",
+        };
+
+        let res = await fetch("http://localhost:8000/api/details/", {
+            method: "POST",
+            headers: {
+                'Authorization': `Token ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        return res.data
+    } catch (e) {
+        console.log("OrgDash error: " + e);
+    }
+}
+
 
 export default OrgDash;
