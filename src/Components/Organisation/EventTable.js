@@ -38,7 +38,7 @@ class EventTable extends Component {
                 <Grid container spacing={2}>
                     <Grid container justify="center" style={{ padding: "10px" }}>
                         <Box width="100%" textAlign="center">
-                            <Typography variant="h4">
+                            <Typography variant="h4" style={{ marginTop: "10px", marginBottom: "10px" }}>
                                 Campaigns
                             </Typography>
                         </Box>
@@ -48,11 +48,10 @@ class EventTable extends Component {
                                 <EventCreateModal userDetails={this.props.userDetails} />
                             </Box>
                         }
-
                     </Grid>
                     {eventArray.map(x => (
                         <Grid item xs={12} sm={6} md={4} key={x.id}>
-                            <EventCard details={x} userDetails={this.props.userDetails} orgDetails={this.props.orgDetails} />
+                            <EventCard eventDetails={x} userDetails={this.props.userDetails} profileDetails={this.props.orgDetails} />
                         </Grid>
                     ))}
                     <Grid container justify="center" style={{ padding: "10px" }}>
