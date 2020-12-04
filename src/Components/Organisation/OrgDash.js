@@ -9,6 +9,7 @@ import DonationHistory from "./DonationHistory";
 import Divider from '@material-ui/core/Divider';
 import OrgProfileFormEdit from '../OrganizationForm/OrgProfileFormEdit'
 import axios from "axios";
+import ForceOrgProfileEdit from '../OrganizationForm/ForceOrgProfileEdit'
 
 
 /**
@@ -38,10 +39,23 @@ class OrgDash extends Component {
             feedItems: this.props.filteredEvents,
             /**This is use to force re-render component after edit is saved */
             updateCalled: false,
+            /**This is to force an edit modal when org user logs in for 
+             * the first time */
+            forceModalToggle: false,
         }
         /**This is use to trigger componetDidUpdate to compare old state */
         this.baseState = this.state
         this.handleUpdateCalled = this.handleUpdateCalled.bind(this)
+    }
+
+    componentWillMount() {
+
+        const { description, industry, location } = this.props.profileDetails
+        console.log(this.props.profileDetails)
+        if (description === '' || industry === '' || location === '') {
+            this.setState({ forceModalToggle: true })
+        }
+        console.log("props" + this.props)
     }
 
     /**This function sets state for update called to call ComponentDidUpdate
@@ -52,8 +66,6 @@ class OrgDash extends Component {
     }
     //This function updates the compnent after a successful profile edit
     async componentDidUpdate(prevState) {
-
-        // Typical usage (don't forget to compare props):
         if (this.state.updateCalled !== prevState.updateCalled) {
             let newOrgDetails = await getAllOrgDetails();
             let filteredOrgDetail = newOrgDetails.filter(x => x.user_profile == this.state.userDetails.id)[0]
@@ -69,26 +81,40 @@ class OrgDash extends Component {
 
     render() {
         return (
-            <Container maxWidth="lg">
-                <Grid container spacing={0} alignItems='center'>
-                    <Grid item xs={12} align='center'>
-                        <img src={this.state.profileDetails.profile_image} height="400px" width="100%" alt="stock profile" />
-                    </Grid>
-                    <Grid item xs={12} align='center'>
-                        <h1>{this.state.userDetails.name}</h1>
-                    </Grid>
-                    <Box display="flex" width="100%" alignItems="center" style={{ margin: "25px 24px 25px 24px", }}>
-                        <Box textAlign="center" flexGrow={1}>
-                            <Typography>{this.state.profileDetails.description}</Typography>
+
+
+            <div>
+
+                <ForceOrgProfileEdit forceModalToggle={this.state.forceModalToggle} handleUpdateCalled={this.handleUpdateCalled} profileDetails={this.state.profileDetails} userDetails={this.state.userDetails} ></ForceOrgProfileEdit>
+
+
+                <Container maxWidth="lg">
+                    <Grid container spacing={0} alignItems='center'>
+                        <Grid item xs={12} align='center'>
+                            {console.log(this.state.profileDetails)}
+                            {this.state.profileDetails.profile_image && <img src={this.state.profileDetails.profile_image} height="400px" width="100%" alt="stock profile" />}
+
+                            {this.state.profileDetails.profile_image === '' &&
+                                <Typography variant='h2'>Upload your profile picture</Typography>
+                            }
+
+                        </Grid>
+                        <Grid item xs={12} align='center'>
+                            <h1>{this.state.userDetails.name}</h1>
+                        </Grid>
+                        <Box display="flex" width="100%" alignItems="center" style={{ margin: "25px 24px 25px 24px", }}>
+                            <Box textAlign="center" flexGrow={1}>
+                                <Typography>{this.state.profileDetails.description}</Typography>
+                            </Box>
+                            <div>
+                                <OrgProfileFormEdit handleUpdateCalled={this.handleUpdateCalled} profileDetails={this.state.profileDetails} userDetails={this.state.userDetails}> Edit Profile</OrgProfileFormEdit>
+                            </div>
                         </Box>
-                        <div>
-                            <OrgProfileFormEdit handleUpdateCalled={this.handleUpdateCalled} profileDetails={this.state.profileDetails} userDetails={this.state.userDetails}> Edit Profile</OrgProfileFormEdit>
-                        </div>
-                    </Box>
-                </Grid>
-                <Divider />
-                <EventTable {...this.state} />
-            </Container >
+                    </Grid>
+                    <Divider />
+                    <EventTable {...this.state} />
+                </Container >
+            </div>
         );
     }
 }
