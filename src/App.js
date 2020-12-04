@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import EventCreateModal from './Components/EventForm/EventCreateModal';
 import OrgDash from './Components/Organisation/OrgDash';
+import Landing from './Components/Landing'
 
 class App extends Component {
     render() {
@@ -25,7 +26,7 @@ class App extends Component {
                         ></PrivateRoute>
                         {/* <PrivateRoute exact path="/Dashboard" render={(props) => <Dashboard {...props}/>}/> */}
 
-                        <Route exact path="/" component={HomePage}></Route>
+                        <Route exact path="/" component={Landing}></Route>
                         <Route exact path="/login" component={Login}></Route>
                         <Route exact path="/signup" component={SignUp}></Route>
                         <Route exact path="/signuporg" component={OrganisationSignUp}></Route>
