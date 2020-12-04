@@ -14,6 +14,8 @@ class OrgDash extends Component {
         super(props);
         this.state = { name: undefined }
     }
+
+
     handle_logout = () => {
         logout();
         this.props.history.push("/");
@@ -129,7 +131,8 @@ class OrgDash extends Component {
             },
         ]
 
-        const backImage = `/OrganisationPhotos/org_bg_${orgDetails.user_profile}.jpg`
+        // const backImage = `/OrganisationPhotos/org_bg_${orgDetails.user_profile}.jpg`
+        const backImage = `/OrganisationPhotos/org_bg_1.jpg`
 
         return (
             <Container maxWidth="lg">
@@ -138,7 +141,8 @@ class OrgDash extends Component {
                         <img src={backImage} height="400px" width="100%" alt="stock profile" />
                     </Grid>
                     <Grid item xs={12} align='center'>
-                        <h1>{orgDetails.user_name}</h1>
+                        <h1>{orgDetails.name}</h1>
+
                     </Grid>
                     <Box display="flex" width="100%" alignItems="center" style={{ margin: "25px 24px 25px 24px", }}>
                         <Box textAlign="center" flexGrow={1}>
@@ -147,7 +151,7 @@ class OrgDash extends Component {
                         {userDetails.is_organisation &&
                             // <Box textAlign="center">
                             <div>
-                                <OrgProfileFormEdit orgDetails={orgDetails}> Edit Profile</OrgProfileFormEdit>
+                                <OrgProfileFormEdit orgDetails={orgDetails} user> Edit Profile</OrgProfileFormEdit>
                             </div>
                             // </Box>
                         }

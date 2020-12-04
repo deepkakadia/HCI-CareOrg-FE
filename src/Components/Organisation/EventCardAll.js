@@ -11,6 +11,12 @@ import DonateNowModal from "../DonateNowComponent/DonateNowModal";
 import EventEditModal from "../EventForm/EventEditModal";
 import LearnMoreComponent from './LearnMoreComponent';
 import { withStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
+import { Redirect } from 'react-router-dom'
+
+
+//This component is to display events based on search
+
 
 
 const styles = theme => ({
@@ -26,17 +32,30 @@ const styles = theme => ({
     },
 });
 
-class EventCard extends Component {
+class EventCardAll extends Component {
     constructor(props) {
         super(props)
         //this.getCardButton = this.getCardButton.bind(this)
         this.formatDate = this.formatDate.bind(this)
+        this.redirectToOrgProfile = this.redirectToOrgProfile.bind(this)
     }
+
 
     //helper method
     formatDate = (date) => {
         var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return date.toLocaleDateString([], options);
+    }
+    redirectToOrgProfile() {
+        console.log('redirect')
+        return (<Redirect
+            to={{
+                pathname: "/org",
+                state: { orgDetails: this.props.orgDetails, userDetails: this.props.userDetails }
+            }
+            }
+
+        ></Redirect >)
     }
 
     render() {
@@ -76,18 +95,24 @@ class EventCard extends Component {
                         {this.props.details.event_title}
                     </Typography>
                     <Typography variant="body2">
-                        {this.props.orgDetails.name}
-                    </Typography>
+
+                        <Link onClick={this.redirectToOrgProfile}>
+                            {this.props.orgDetails.name}
+                        </Link>
+
+                      
+
+                            </Typography>
                     <Typography gutterBottom variant="body2">
                         {/* Expires On: {this.formatDate(this.props.details.expires_on)} */}
                         Date
-                    </Typography>
-
-                    <Typography variant="body2" color="textSecondary" component="p">
+                        </Typography>
+                            
+                        <Typography variant="body2" color="textSecondary" component="p">
                         {desc}
-                    </Typography>
-                </CardContent>
-                {/* donated amount */}
+                        </Typography>
+                    </CardContent>
+                        {/* donated amount */}
                 <CardContent>
                     <Typography>
                         ${received_amount} raised of ${goal_amount}
@@ -122,4 +147,4 @@ function LinearProgressWithLabel(props) {
     );
 }
 
-export default withStyles(styles)(EventCard);
+export default withStyles(styles)(EventCardAll);

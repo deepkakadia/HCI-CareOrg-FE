@@ -1,13 +1,64 @@
 import React, { Component } from "react";
 import Grid from '@material-ui/core/Grid';
-import EventCard from "./EventCard";
+import EventCardAll from "./EventCardAll";
 import Container from '@material-ui/core/Container';
 import Pagination from '@material-ui/lab/Pagination';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import EventCreateModal from "../EventForm/EventCreateModal";
+import axios from 'axios';
 
-class EventTable extends Component {
+
+//This component is to display  all events based on search
+
+
+/**
+ * Gets details of all organizations
+ */
+async function getAllOrgDetails() {
+    let token = localStorage.getItem('token');
+    let res = await axios.get(`http://localhost:8000/api/details/`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`
+        }
+    })
+
+
+    return res.data;
+}
+
+/**
+ * Gets all users from the db
+ */
+async function getAllUser() {
+    let token = localStorage.getItem('token');
+    let res = await axios.get(`http://localhost:8000/api/user/`, {
+        method: "GET",
+        header: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`
+        }
+    })
+
+    let orgDict = {};
+
+
+    res.data.forEach(currUser => {
+        if (currUser.is_organisation) {
+            orgDict[currUser.id] = currUser;
+        }
+    });
+
+
+
+    return orgDict;
+}
+
+
+
+class EventTableAll extends Component {
     constructor(props) {
         super(props);
         var len = this.props.feedItems.length
@@ -17,9 +68,17 @@ class EventTable extends Component {
         }
         this.state = {
             page: 1,
-            pageCount: count
+            pageCount: count,
+            orgDict: {}
         };
         this.handlePageChange = this.handlePageChange.bind(this);
+    }
+
+    async componentDidMount() {
+        let allOrgDetails = await getAllOrgDetails();
+        let orgDict = await getAllUser();
+
+        this.setState({ orgDict: orgDict })
     }
 
     handlePageChange(event, value) {
@@ -50,9 +109,9 @@ class EventTable extends Component {
                         }
 
                     </Grid>
-                    {eventArray.map(x => (
-                        <Grid item xs={12} sm={6} md={4} key={x.id}>
-                            <EventCard details={x} userDetails={this.props.userDetails} orgDetails={this.props.orgDetails} />
+                    {eventArray.map(currEvent => (
+                        <Grid item xs={12} sm={6} md={4} key={currEvent.id}>
+                            <EventCardAll details={currEvent} userDetails={this.props.userDetails} orgDetails={this.state.orgDict[currEvent.user_profile]} />
                         </Grid>
                     ))}
                     <Grid container justify="center" style={{ padding: "10px" }}>
@@ -72,4 +131,4 @@ class EventTable extends Component {
 
 }
 
-export default EventTable;
+export default EventTableAll;
