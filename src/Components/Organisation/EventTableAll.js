@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import EventCreateModal from "../EventForm/EventCreateModal";
 import axios from 'axios';
-
+import { withRouter } from 'react-router-dom';
 
 //This component is to display  all events based on search
 
@@ -88,7 +88,7 @@ class EventTableAll extends Component {
             },
         );
     }
-
+   
     render() {
         var eventArray = this.props.feedItems;
         eventArray = eventArray.slice((this.state.page - 1) * 6, (this.state.page * 6));
@@ -110,8 +110,9 @@ class EventTableAll extends Component {
 
                     </Grid>
                     {eventArray.map(currEvent => (
+                        
                         <Grid item xs={12} sm={6} md={4} key={currEvent.id}>
-                            <EventCardAll details={currEvent} userDetails={this.props.userDetails} orgDetails={this.state.orgDict[currEvent.user_profile]} />
+                            <EventCardAll history={this.props.history} details = {currEvent} userDetails={this.props.userDetails} orgDetails={this.state.orgDict[currEvent.user_profile]} />
                         </Grid>
                     ))}
                     <Grid container justify="center" style={{ padding: "10px" }}>

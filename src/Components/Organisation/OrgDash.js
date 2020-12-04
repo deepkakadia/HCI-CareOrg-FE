@@ -151,7 +151,7 @@ class OrgDash extends Component {
                         {userDetails.is_organisation &&
                             // <Box textAlign="center">
                             <div>
-                                <OrgProfileFormEdit orgDetails={orgDetails} user> Edit Profile</OrgProfileFormEdit>
+                                <OrgProfileFormEdit  orgDetails={orgDetails} user> Edit Profile</OrgProfileFormEdit>
                             </div>
                             // </Box>
                         }

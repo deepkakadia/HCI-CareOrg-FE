@@ -12,7 +12,8 @@ import EventEditModal from "../EventForm/EventEditModal";
 import LearnMoreComponent from './LearnMoreComponent';
 import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 //This component is to display events based on search
@@ -40,26 +41,26 @@ class EventCardAll extends Component {
         this.redirectToOrgProfile = this.redirectToOrgProfile.bind(this)
     }
 
-
+  
     //helper method
     formatDate = (date) => {
         var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         return date.toLocaleDateString([], options);
     }
-    redirectToOrgProfile() {
-        console.log('redirect')
-        return (<Redirect
-            to={{
-                pathname: "/org",
-                state: { orgDetails: this.props.orgDetails, userDetails: this.props.userDetails }
-            }
-            }
 
-        ></Redirect >)
+    redirectToOrgProfile =(event)=> {
+        event.preventDefault()
+        this.props.history.push('/org')({
+            pathname:"/org",
+            state:{
+            name: "Deep"
+            }
+        });
     }
 
     render() {
         const { classes } = this.props;
+        console.log(this.props)
         const { goal_amount, received_amount, is_Expired } = this.props.details
 
         // shorten user description
@@ -96,9 +97,9 @@ class EventCardAll extends Component {
                     </Typography>
                     <Typography variant="body2">
 
-                        <Link onClick={this.redirectToOrgProfile}>
-                            {this.props.orgDetails.name}
-                        </Link>
+                        <form onSubmit={this.redirectToOrgProfile}>
+                            <button type="submit">{this.props.orgDetails.name}</button>
+                        </form>
 
                       
 

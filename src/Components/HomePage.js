@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import EventTableAll from "./Organisation/EventTableAll";
 import { Grid, TextField } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 async function getUserById(userId) {
 
     let token = localStorage.getItem('token');
@@ -95,7 +96,7 @@ class HomePage extends Component {
 
 
                     <Divider />
-                    <EventTableAll feedItems={this.state.allEvents} userDetails={this.state.userObj} />
+                    <EventTableAll history={this.props.history} feedItems={this.state.allEvents} userDetails={this.state.userObj} />
 
                 </Container >
 
