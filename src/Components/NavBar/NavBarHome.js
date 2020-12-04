@@ -7,22 +7,44 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { logout } from "../../utils/index";
 import { useHistory } from "react-router-dom";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import Menu from "@material-ui/core/Menu";
-// import IconButton from "@material-ui/core/IconButton";
-// import AccountCircle from "@material-ui/icons/AccountCircle";
+
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import { withStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    color: "white",
+    fontFamily: "roboto",
+    font: "bold",
+  },
+
 }));
+
+const StyledButton = withStyles({
+  root: {
+    background: 'black',
+    borderRadius: 5,
+    border: 0,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    margin: 10,
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Button);
 
 const NavBarDashBoard = (props) => {
     const classes = useStyles();
@@ -32,20 +54,13 @@ const NavBarDashBoard = (props) => {
 
     const history = useHistory();
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleClick = () => {
+    logout();
+    window.alert("Logout Successful!");
+    history.push("/login");
+  };
 
-    const handleClose = () => {
-        history.push("/dashboard");
-        setAnchorEl(null);
-    };
 
-    const handleClick = () => {
-        logout();
-        window.alert("Logout Successful!");
-        history.push("/login");
-    };
 
     useEffect(() => {
         console.log("render");
@@ -67,33 +82,35 @@ const NavBarDashBoard = (props) => {
         fetchData();
     }, [islogin]);
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="static" style={{ background: "#2A3D45" }}>
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        CareOrg
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
+        <Toolbar>
+          <Typography variant="h3" className={classes.title}>
+            CareOrg
           </Typography>
-                    <Button
-                        component={Link}
-                        to="/"
-                        color="inherit"
-                        className={classes.menuButton}
-                    >
-                        Home
-          </Button>
-                    {islogin === true ? (
-                        <Button onClick={handleClick} color="inherit">
-                            Logout
-                        </Button>
-                    ) : (
-                            <Button component={Link} to="/login" color="inherit">
-                                Login / Signup
-                            </Button>
-                        )}
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+          <StyledButton
+          
+            component={Link}
+            to="/"
+          >
+            Home
+          </StyledButton>
+          {islogin === true ? (
+            <StyledButton onClick={handleClick}>
+              Logout
+            </StyledButton>
+          ) : (
+            <StyledButton component={Link} to="/login">
+              Login
+            </StyledButton>
+          )}
+          
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+
 };
 export default NavBarDashBoard;

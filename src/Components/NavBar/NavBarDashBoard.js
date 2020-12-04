@@ -33,7 +33,7 @@ const NavBarDashBoard = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: "#2A3D45" }}>
+      <AppBar position="static" style={{ background: "#b3b3ff" }}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             CareOrg
