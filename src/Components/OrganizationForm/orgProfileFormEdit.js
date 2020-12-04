@@ -8,6 +8,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import axios from 'axios';
 
 export class OrgProfileFormEdit extends Component {
 
@@ -43,7 +44,7 @@ export class OrgProfileFormEdit extends Component {
         //Handles input validation 
         this.validatedescription = this.validatedescription.bind(this)
         this.validatelocation = this.validatelocation.bind(this)
-        this.industry = this.industry.bind(this)
+        this.validateindustry = this.validateindustry.bind(this)
 
         //Hanlde on save button click
         this.handleOnSave = this.handleOnSave.bind(this)
@@ -97,7 +98,7 @@ export class OrgProfileFormEdit extends Component {
      * Handles the save button for the Evemt form
      *
      */
-    handleOnSave() {
+    async handleOnSave() {
         if (this.state.description.length === 0 || typeof (this.state.description) != 'string') {
             this.setState({ descriptionError: true })
         }
@@ -109,7 +110,51 @@ export class OrgProfileFormEdit extends Component {
         }
         else {
 
+            //     "id": 1,
+            //     'user_profile': 1,
+            //     'user_name': 'Bhojnalay @ NYC',
+            //     'description': 'donate money to feed poor and malnourished',
+            //     'location': 'India',
+            //     'industry': 'Food',
+
+            let token = localStorage.getItem('token')
+            let user_profile = parseInt(localStorage.getItem('userid'))
+            const { description, location, industry } = this.state
+            console.log(this.state)
+            // try {
+            //     let res = await axios.post("http://localhost:8000/api/details/", {
+            //         headers: {
+            //             "Content-Type": "application/json",
+            //             "Authorization": `Token ${token}`
+            //         },
+            //         data: JSON.stringify({ "user_profile": 2, "description": description, "location": location, "industry": industry }),
+            //     });
+
+            // } catch (e) {
+            //     console.log(e)
+            // }
+
+            var data = JSON.stringify({ "user_profile": user_profile, "description": description, "location": location, "industry": industry });
+            var config = {
+                method: 'post',
+                url: 'http://localhost:8000/api/details/',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+            axios(config)
+                .then(function (response) {
+                    console.log(JSON.stringify(response.data));
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
             this.handleOpen()
+
             this.hanldeClickClose()
             //Make axios call to post to backend
             //Upload event image 
@@ -156,7 +201,7 @@ export class OrgProfileFormEdit extends Component {
     * Validates org Industry
     * @param {event} e
     */
-    industry = (e) => {
+    validateindustry = (e) => {
         if (e.target.value.length === 0 || typeof (e.target.value) != 'string') {
             this.setState({ industryError: true })
         }
@@ -218,7 +263,7 @@ export class OrgProfileFormEdit extends Component {
 
 
                                 </Grid>
-
+                                {/* 
                                 <Grid item xs={12}>
                                     <TextField
                                         error={this.state.industryError}
@@ -235,36 +280,49 @@ export class OrgProfileFormEdit extends Component {
                                         }}
 
                                     />
-                                </Grid>
+                                </Grid> */}
+
+
 
                                 <Grid item xs={12}>
-                                    {/* <FormControl inputVariant="outlined" error={this.state.locationError}>
-                                        <NativeSelect
-                                            error={this.locationError}
-                                            label="Select Country"
-                                            value={this.state.location}
-                                            name="location"
-                                            onChange={this.validatelocation}
-                                            inputProps={{ 'aria-label': 'age' }}>
+
+                                    <FormControl variant="outlined">
+                                        <InputLabel htmlFor="outlined-age-native-simple">Select Category</InputLabel>
+                                        <Select
+                                            native
+                                            error={this.state.industryError}
+                                            label="Select Category"
+                                            value={this.state.industry}
+                                            name="industry"
+                                            onChange={this.validateindustry}
+                                            inputProps={{ 'aria-label': 'category' }}>
                                             <option value=''>
                                                 -
                                             </option>
-                                            {country_list().map(({ value, label }, index) =>
-                                                <option value={value}>{label}</option>
-                                            )}
+                                            <option value="Animal welfare" >Animal welfare</option>
+                                            <option value="Arts, Culture, Humanities">Arts, Culture, Humanities</option>
+                                            <option value="Community Development">Community Development </option>
+                                            <option value="Education">Education</option>
+                                            <option value="Environment">  Environment</option>
+                                            <option value="Health ">Health </option>
+                                            <option value="Human and Civil rights">Human and Civil rights </option>
+                                            <option value="Human services ">Human services </option>
 
 
-
-                                        </NativeSelect>
-
+                                        </Select>
                                     </FormControl>
-                                    <FormHelperText>Select Country</FormHelperText> */}
+
+
+
+                                </Grid>
+
+                                <Grid item xs={12}>
 
                                     <FormControl variant="outlined">
                                         <InputLabel htmlFor="outlined-age-native-simple">Select Country</InputLabel>
                                         <Select
                                             native
-                                            error={this.locationError}
+                                            error={this.state.locationError}
                                             label="Select Country"
                                             value={this.state.location}
                                             name="location"
@@ -274,7 +332,7 @@ export class OrgProfileFormEdit extends Component {
                                                 -
                                             </option>
                                             {country_list().map(({ value, label }, index) =>
-                                                <option value={value}>{label}</option>
+                                                <option key={value} value={value}>{label}</option>
                                             )}
                                         </Select>
                                     </FormControl>

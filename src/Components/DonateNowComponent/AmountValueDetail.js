@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Typography, Grid, Box, Container, CardActions, Button, DialogContentText, DialogActions } from '@material-ui/core';
+import { Typography, Grid, Container, Button, DialogContentText, DialogActions } from '@material-ui/core';
 import { TextField, InputAdornment } from '@material-ui/core'
 import './CardC.css'
 export class AmountValueDetail extends Component {
@@ -50,7 +50,7 @@ export class AmountValueDetail extends Component {
                     <Grid container className='App-form' direction={'column'} justify='center' spacing={3}>
                         <Grid item xs={12}>
                             <DialogContentText>
-                                <Typography variant="h3"> I want to donate {orgDetails.user_name} </Typography>
+                                <Typography variant="h3"> I want to donate {orgDetails.name} </Typography>
                             </DialogContentText>
                         </Grid>
 

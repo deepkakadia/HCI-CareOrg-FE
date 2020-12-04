@@ -27,6 +27,11 @@ class App extends Component {
                         {/* <PrivateRoute exact path="/Dashboard" render={(props) => <Dashboard {...props}/>}/> */}
 
                         <Route exact path="/" component={Landing}></Route>
+                        {/*if !is_organisation then redirect USER after sign in or login  */}
+                        <Route exact path="/homepage" component={HomePage}></Route>
+
+                        {/* If is_oragnisation redirect to /Dashboard */}
+                        <Route exact path="/Dashboard" component={Dashboard}></Route>
                         <Route exact path="/login" component={Login}></Route>
                         <Route exact path="/signup" component={SignUp}></Route>
                         <Route exact path="/signuporg" component={OrganisationSignUp}></Route>

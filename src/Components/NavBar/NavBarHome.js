@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { logout } from "../../utils/index";
 import { useHistory } from "react-router-dom";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "roboto",
     font: "bold",
   },
+
 }));
 
 const StyledButton = withStyles({
@@ -45,12 +47,12 @@ const StyledButton = withStyles({
 })(Button);
 
 const NavBarDashBoard = (props) => {
-  const classes = useStyles();
-  const [islogin, setislogin] = useState(undefined);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+    const classes = useStyles();
+    const [islogin, setislogin] = useState(undefined);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
 
-  const history = useHistory();
+    const history = useHistory();
 
   const handleClick = () => {
     logout();
@@ -58,25 +60,28 @@ const NavBarDashBoard = (props) => {
     history.push("/login");
   };
 
-  useEffect(() => {
-    console.log("render");
-    async function fetchData() {
-      try {
-        if (
-          localStorage.getItem("token") === "undefined" ||
-          typeof localStorage.getItem("token") === undefined ||
-          localStorage.getItem("token") === null
-        ) {
-          setislogin(false);
-        } else {
-          setislogin(true);
+
+
+    useEffect(() => {
+        console.log("render");
+        async function fetchData() {
+            try {
+                if (
+                    localStorage.getItem("token") === "undefined" ||
+                    typeof localStorage.getItem("token") === undefined ||
+                    localStorage.getItem("token") === null
+                ) {
+                    setislogin(false);
+                } else {
+                    setislogin(true);
+                }
+            } catch (e) {
+                console.log(e);
+            }
         }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchData();
-  }, [islogin]);
+        fetchData();
+    }, [islogin]);
+
 
   return (
     <div className={classes.root}>
@@ -106,5 +111,6 @@ const NavBarDashBoard = (props) => {
       </AppBar>
     </div>
   );
+
 };
 export default NavBarDashBoard;

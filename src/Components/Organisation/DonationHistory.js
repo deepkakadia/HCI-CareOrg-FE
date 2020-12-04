@@ -11,7 +11,7 @@ class DonationHistory extends Component {
 
     render() {
         var eventArray = this.props.feedItems;
-        console.log(this.state.page)
+
         var feedItems = [
             {
                 "id": 1,
