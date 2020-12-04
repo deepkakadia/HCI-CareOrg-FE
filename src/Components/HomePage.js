@@ -10,6 +10,11 @@ import {
     Select, Button
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
+
+/**
+ * Gets userObj by userId
+ * @param {userId} userId 
+ */
 async function getUserById(userId) {
 
     let token = localStorage.getItem('token');
@@ -46,12 +51,63 @@ async function getAllEvents() {
 
 }
 
+/**
+ * Gets all users from the db
+ * returns a dictionary of userObj with id as key
+ */
+async function getAllUser() {
+    let token = localStorage.getItem('token');
+    let res = await axios.get(`http://localhost:8000/api/user/`, {
+        method: "GET",
+        header: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`
+        }
+    })
+
+    let orgDict = {};
+
+
+    res.data.forEach(currUser => {
+
+        orgDict[currUser.id] = currUser;
+
+    });
+
+
+
+    return orgDict;
+}
+
+
+/**
+ * Gets details of all organizations
+ */
+async function getAllOrgDetails() {
+    let token = localStorage.getItem('token');
+    let res = await axios.get(`http://localhost:8000/api/details/`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`
+        }
+    })
+
+
+    return res.data;
+}
+
+
+
+
+
 
 class HomePage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            allUsers: {},
             userObj: {},
             allEvents: [],
             filteredEvents: [],
@@ -76,13 +132,18 @@ class HomePage extends Component {
     }
 
     async componentDidMount() {
+        //Gets all users from db
+        let allUsers = await getAllUser();
+
         let userId = localStorage.getItem('userid')
-        let userObj = await getUserById(userId);
+
+        let userObj = allUsers[userId];
         let allEvents = await getAllEvents();
 
 
 
         this.setState({
+            allUsers: allUsers,
             userObj: userObj,
             allEvents: allEvents
         })

@@ -104,9 +104,10 @@ class EventCardAll extends Component {
 
                     </Typography>
                     <Typography gutterBottom variant="body2">
-                        {/* Expires On: {this.formatDate(this.props.details.expires_on)} */}
-                        Date
-                        </Typography>
+                        Expires On: {this.formatDate(new Date(this.props.details.expires_on))}
+                        {/* {console.log(this.props.details.expires_on)} */}
+                        {/* date */}
+                    </Typography>
 
                     <Typography variant="body2" color="textSecondary" component="p">
                         {desc}
@@ -117,7 +118,7 @@ class EventCardAll extends Component {
                     <Typography>
                         ${received_amount} raised of ${goal_amount}
                     </Typography>
-                    <LinearProgressWithLabel value={100 * received_amount / goal_amount} />
+                    <LinearProgressWithLabel value={Math.floor(1000 * received_amount / goal_amount) / 10} />
                 </CardContent>
                 <CardActions>
                     <Box display="flex" width="100%" alignItems="center">
