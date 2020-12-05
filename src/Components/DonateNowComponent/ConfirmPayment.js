@@ -2,6 +2,7 @@ import { Container, Typography, Button, DialogContentText, DialogActions } from 
 import React, { Component } from 'react'
 import axios from 'axios';
 
+
 export class ConfirmPayment extends Component {
 
     constructor(props) {
@@ -90,6 +91,7 @@ export class ConfirmPayment extends Component {
         const { cardDetails, handleBack, orgDetails, eventDetails } = this.props
         return (
             <div>
+
                 <Container>
                     {/* cvc: '',
                     expiry: '',
@@ -106,8 +108,8 @@ export class ConfirmPayment extends Component {
                     </DialogContentText>
                     <DialogContentText>
                         <Typography variant="h5" color="primary">Making a donation to:</Typography>
-                        <Typography variant='h6'>Charity Organization name: {orgDetails.user_name} </Typography>
-                        <Typography variant='h6'>Campaign name: {eventDetails.event_name} </Typography>
+                        <Typography variant='h6'>Charity Organization name: {orgDetails.name} </Typography>
+                        <Typography variant='h6'>Campaign name: {eventDetails.event_title} </Typography>
                     </DialogContentText>
 
                 </Container>

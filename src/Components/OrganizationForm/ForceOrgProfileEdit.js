@@ -9,7 +9,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
-
+import refreshPage from '../../utils/refreshPage';
 
 export class ForceOrgProfileEdit extends Component {
 
@@ -139,10 +139,10 @@ export class ForceOrgProfileEdit extends Component {
 
             this.handleOpen()
             this.hanldeClickClose()
-
-            //Refreshes the parent component
-            this.setState({ updateCalled: !this.state.updateCalled })
-            this.props.handleUpdateCalled(this.state.updateCalled)
+            refreshPage();
+            // //Refreshes the parent component
+            // this.setState({ updateCalled: !this.state.updateCalled })
+            // this.props.handleUpdateCalled(this.state.updateCalled)
 
 
         }
