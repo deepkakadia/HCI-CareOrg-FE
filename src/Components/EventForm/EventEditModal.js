@@ -292,8 +292,9 @@ export default class EventEditModal extends Component {
 
 
                                     <Grid item width={25}>
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
+                                                fullWidth
                                                 inputVariant="outlined"
                                                 name="startDate"
                                                 format="MM/dd/yyyy"
@@ -316,8 +317,9 @@ export default class EventEditModal extends Component {
                                     </Grid>
 
                                     <Grid item width="25%">
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
+                                                fullWidth
                                                 inputVariant="outlined"
                                                 name="expiry_on"
                                                 format="MM/dd/yyyy"
