@@ -7,7 +7,7 @@ import EventTableAll from "./Organisation/EventTableAll";
 import { Redirect } from "react-router-dom"
 import {
     Grid, TextField, FormControl, InputLabel,
-    Select, Button, Paper, Typography, Avatar
+    Select, Button, Paper, Typography, Avatar, Hidden
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
 import IconButton from "@material-ui/core/IconButton";
@@ -307,9 +307,9 @@ class HomePage extends Component {
 
                     <Grid container justify="center" alignContent="center" spacing={2}>
                         <Grid item xs ={12}>
-                            <Paper elevation = {2}>
+                            
                                 <TextField
-                                    
+                                    id="search"
                                     error={this.state.searchNameError}
                                     type="text"
                                     name="searchName"
@@ -322,20 +322,16 @@ class HomePage extends Component {
                                         endAdornment: (
                                         <InputAdornment>
                                             <IconButton>
-                                            <SearchIcon onClick ={this.hanldeOnSubmit}/>
+                                            <SearchIcon>
+                                            </SearchIcon>
                                             </IconButton>
                                         </InputAdornment>
                                         )
                                     }}
                                     fullWidth
-                                    
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-
                                 />
 
-                            </Paper>
+                            
                         </Grid>
 
 
@@ -395,6 +391,18 @@ class HomePage extends Component {
                                 </Select>
                             </FormControl>
 
+
+
+                        </Grid>
+                        <Grid item xs ={12} align ="center">
+
+                           <Button
+                           onClick ={this.hanldeOnSubmit}
+                           variant="contained"
+                           color = "primary"
+                           >
+                               Search
+                           </Button>
 
 
                         </Grid>

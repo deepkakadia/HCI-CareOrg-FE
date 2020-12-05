@@ -99,7 +99,7 @@ class EventCardAll extends Component {
                     <Typography variant="body2">
 
                         <form onSubmit={this.redirectToOrgProfile}>
-                            <button type="submit">{this.props.orgDetails.name}</button>
+                            <Button type="submit" variant="outlined" color ="primary"><Typography>{this.props.orgDetails.name}</Typography></Button>
                         </form>
 
 

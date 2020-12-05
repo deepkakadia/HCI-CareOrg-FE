@@ -254,6 +254,7 @@ export default class EventEditModal extends Component {
 
                                     <Grid item >
                                         <TextField
+                                            fullWidth
                                             label="Campaign Name"
                                             error={this.state.titleError}
                                             type="text"
@@ -272,6 +273,7 @@ export default class EventEditModal extends Component {
 
                                     <Grid item>
                                         <TextField
+                                            fullWidth
                                             label="Campaign Description"
                                             error={this.state.event_descriptionError}
                                             type="text"
@@ -290,7 +292,7 @@ export default class EventEditModal extends Component {
 
 
                                     <Grid item width={25}>
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth>
                                             <KeyboardDatePicker
                                                 inputVariant="outlined"
                                                 name="startDate"
@@ -314,7 +316,7 @@ export default class EventEditModal extends Component {
                                     </Grid>
 
                                     <Grid item width="25%">
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils} fullWidth>
                                             <KeyboardDatePicker
                                                 inputVariant="outlined"
                                                 name="expiry_on"
@@ -339,6 +341,7 @@ export default class EventEditModal extends Component {
 
                                     <Grid item >
                                         <TextField
+                                            fullWidth
                                             error={this.state.goal_amountError}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>,

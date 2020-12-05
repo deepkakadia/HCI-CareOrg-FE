@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import OrgProfileFormEdit from '../OrganizationForm/OrgProfileFormEdit'
 import axios from "axios";
 import ForceOrgProfileEdit from '../OrganizationForm/ForceOrgProfileEdit'
-import NavBarDashBoard from "../NavBar/NavBarDashBoard";
+import NavBarHome from "../NavBar/NavBarHome"
 import { getUserById, getAllOrgDetails, getAllEvents } from "../Dashboard";
 import VisitOrgTable from './VisitOrgTable';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -56,7 +56,7 @@ class VisitOrg extends Component {
 
             <div>
                 <div>
-                    <NavBarDashBoard />
+                    <NavBarHome />
                 </div>
                 <Container>
                     <Grid container spacing={0} alignItems='center'>
