@@ -95,7 +95,7 @@ class OrganisationSignUp extends React.Component {
       const { history } = this.props;
       history.push("/Dashboard");
     } else {
-      alert("Incorrect Credentials!");
+      alert("Email already exists!");
     }
   }
 

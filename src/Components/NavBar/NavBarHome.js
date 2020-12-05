@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    color: "white",
+    color: "Black",
     fontFamily: "roboto",
     font: "bold",
   },
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledButton = withStyles({
   root: {
-    background: 'black',
+    background: 'secondary',
     borderRadius: 5,
     border: 0,
     color: 'white',
@@ -85,9 +85,9 @@ const NavBarDashBoard = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
+      <AppBar position="static" style={{ background: 'rgba(0, 0, 0)', boxShadow: 'none'}}>
         <Toolbar>
-          <Typography variant="h3" className={classes.title}>
+          <Typography variant="h3" className={classes.title} style={{color: "white"}}>
             CareOrg
           </Typography>
           {islogin === true ? (

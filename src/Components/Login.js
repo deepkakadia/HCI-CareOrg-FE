@@ -1,6 +1,5 @@
 import React from "react";
 import { login } from "../utils/index";
-import NavBarLogin from "./NavBar/NavBarLogin";
 import Dashboard from "./Dashboard"
 import { Redirect } from "react-router-dom";
 import {
@@ -106,7 +105,7 @@ class LoginForm extends React.Component {
          }
        });
     } else {
-      alert("Incorrect Credentials!");
+      alert("Please provide correct credentials and if you havent yet created account. Click on Singup Below");
     }
   }
 

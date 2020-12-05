@@ -94,7 +94,7 @@ class UserSignUp extends React.Component {
       const { history } = this.props;
       history.push("/Dashboard");
     } else {
-      alert("Incorrect Credentials!");
+      alert("Email Already exists!");
     }
   }
 

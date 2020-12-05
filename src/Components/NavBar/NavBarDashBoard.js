@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    color: "Black",
+    fontFamily: "roboto",
+    font: "bold",
   },
+
 }));
 
 const NavBarDashBoard = () => {
@@ -33,14 +37,14 @@ const NavBarDashBoard = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: "#b3b3ff" }}>
+      <AppBar position="static" style={{ background: "black" }}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title} style={{ color: "White" }}>
             CareOrg
           </Typography>
-          <Button component={Link} to="/" color="inherit">
+          {/* <Button component={Link} to="/" color="inherit">
             Home
-          </Button>
+          </Button> */}
           <Button onClick={handleClick} color="inherit">
             Logout
           </Button>

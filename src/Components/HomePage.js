@@ -7,9 +7,12 @@ import EventTableAll from "./Organisation/EventTableAll";
 import {Redirect} from "react-router-dom"
 import {
     Grid, TextField, FormControl, InputLabel,
-    Select, Button
+    Select, Button, Paper, Typography
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
 
 /**
  * Gets all events from the db
@@ -287,47 +290,59 @@ class HomePage extends Component {
                 {localStorage.getItem("is_organisation") == "true" && 
                     <Redirect to="/Dashboard"/>
                 }
-                <div>
+                
                     {/* We can send userObj to nav bar which can decide to show donation history */}
                     <NavBarHome />
-                </div>
-                <h2>Hello this our HomePage</h2>
-                <h3>Welcome {this.state.userObj.name}</h3>
+                
+                <Typography>Hello this our HomePage</Typography>
+                <Typography>Welcome {this.state.userObj.name}</Typography>
 
 
 
 
 
-                <Container maxWidth="lg">
+                <Container>
 
 
 
 
-                    <Grid container direction="column" justify="center" alignContent="center" spacing={3}>
-                        <Grid item xs={12}>
-                            <TextField
-                                label="Organization name"
-                                error={this.state.searchNameError}
-                                type="text"
-                                name="searchName"
-                                placeholder="Enter an organization name to search"
-                                value={this.state.searchName}
-                                onChange={this.validateSearchName}
-                                onFocus={this.handleInputFocus}
-                                variant="outlined"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                    <Grid container justify="center" alignContent="center" spacing={2}>
+                        <Grid item xs ={12}>
+                            <Paper elevation = {2}>
+                                <TextField
+                                    
+                                    error={this.state.searchNameError}
+                                    type="text"
+                                    name="searchName"
+                                    placeholder="Enter an organization name to search"
+                                    value={this.state.searchName}
+                                    onChange={this.validateSearchName}
+                                    onFocus={this.handleInputFocus}
+                                    variant="standard"
+                                    InputProps={{
+                                        endAdornment: (
+                                        <InputAdornment>
+                                            <IconButton>
+                                            <SearchIcon onClick ={this.hanldeOnSubmit}/>
+                                            </IconButton>
+                                        </InputAdornment>
+                                        )
+                                    }}
+                                    fullWidth
+                                    
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
 
-                            />
+                                />
 
-
+                            </Paper>
                         </Grid>
 
 
 
 
-                        <Grid item xs={12}>
+                        <Grid item>
 
                             <FormControl variant="outlined">
                                 <InputLabel htmlFor="organization category select">Select Category</InputLabel>
@@ -360,7 +375,7 @@ class HomePage extends Component {
 
                         </Grid>
 
-                        <Grid item xs={12}>
+                        <Grid item>
 
                             <FormControl variant="outlined">
                                 <InputLabel htmlFor="outlined-age-native-simple">Select Country</InputLabel>
@@ -385,11 +400,7 @@ class HomePage extends Component {
 
                         </Grid>
 
-                        <Grid item xs={12}>
-                            <Button variant="contained" color="primary" onClick={this.hanldeOnSubmit}>
-                                Search
-                            </Button>
-                        </Grid>
+                        
 
                     </Grid>
 
