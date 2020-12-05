@@ -63,7 +63,7 @@ class EventCard extends Component {
 
     render() {
         const { classes } = this.props;
-        const { goal_amount, received_amount, is_Expired } = this.props.eventDetails
+        const { goal_amount, received_amount } = this.props.eventDetails
 
         // shorten user description
         var desc = this.props.eventDetails.event_description
@@ -72,6 +72,12 @@ class EventCard extends Component {
         }
         const imagePath = this.props.eventDetails.campaign_image;
 
+        var is_Expired = this.props.eventDetails;
+
+        if (new Date() < new Date(this.props.eventDetails.expires_on)) {
+            console.log("event expired")
+            is_Expired = true
+        }
         // var orgDetails = getOrgDetails(this.props.userDetails, this.props.eventDetails)
 
         // setting the required button according to the "signed in user"
