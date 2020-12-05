@@ -14,7 +14,7 @@ import Input from '@material-ui/core/Input';
 import refreshPage from '../../utils/refreshPage';
 var unirest = require('unirest');
 
-export class OrgProfileFormEdit extends Component {
+export class ForceOrgProfileEdit extends Component {
 
     constructor(props) {
         super(props);
@@ -35,7 +35,7 @@ export class OrgProfileFormEdit extends Component {
             open: false,
 
             //Edit org profile modal toggle state
-            modalOpen: false,
+            modalOpen: this.props.forceModalToggle,
 
             //Validation Error State
             descriptionError: false,
@@ -93,7 +93,7 @@ export class OrgProfileFormEdit extends Component {
         if (this.state.description.length === 0 || typeof (this.state.description) != 'string') {
             this.setState({ descriptionError: true })
         }
-        if (this.state.location === 0 || typeof (this.state.location) != 'string') {
+        if (this.state.location === '' || typeof (this.state.location) != 'string') {
             this.setState({ locationError: true })
         }
         if (this.state.industry.length === 0 || typeof (this.state.industry) != 'string') {
@@ -114,15 +114,27 @@ export class OrgProfileFormEdit extends Component {
                 data.append("location", this.state.location);
                 data.append("industry", this.state.industry);
 
-                let res = await axios.put(`http://localhost:8000/api/details/${this.state.profileDetails_id}/`, data, {
-                    headers: {
-                        'Authorization': `Token ${token}`,
-                        'accept': 'application/json',
-                        'Accept-Language': 'en-US,en;q=0.8',
-                        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-                    }
-                })
 
+                if (this.state.profileDetails_id === '') {
+                    let res = await axios.post(`http://localhost:8000/api/details/`, data, {
+                        headers: {
+                            'Authorization': `Token ${token}`,
+                            'accept': 'application/json',
+                            'Accept-Language': 'en-US,en;q=0.8',
+                            'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+                        }
+                    })
+                }
+                else {
+                    let res = await axios.put(`http://localhost:8000/api/details/${this.state.profileDetails_id}/`, data, {
+                        headers: {
+                            'Authorization': `Token ${token}`,
+                            'accept': 'application/json',
+                            'Accept-Language': 'en-US,en;q=0.8',
+                            'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+                        }
+                    })
+                }
             } catch (e) {
                 console.log(e)
             }
@@ -161,7 +173,7 @@ export class OrgProfileFormEdit extends Component {
      */
     validatelocation = (e) => {
         console.log(e.target.value)
-        if (e.target.value.length === 0 || typeof (e.target.value) != 'string') {
+        if (e.target.value === '' || typeof (e.target.value) != 'string') {
             this.setState({ locationError: true })
         }
         else {
@@ -208,16 +220,16 @@ export class OrgProfileFormEdit extends Component {
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                {/* <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     Edit Profile
-                </Button>
+                </Button> */}
 
                 <Dialog onClose={this.hanldeClickClose} aria-labelledby="Edit-Profile" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
-                        Edit Profile
-                         <IconButton aria-label="close" onClick={this.hanldeClickClose}>
+                        Create Profile
+                         {/* <IconButton aria-label="close" onClick={this.hanldeClickClose}>
                             <CloseIcon />
-                        </IconButton>
+                        </IconButton> */}
                     </DialogTitle>
                     <DialogContent dividers>
                         <Container className="app">
@@ -225,6 +237,8 @@ export class OrgProfileFormEdit extends Component {
                             <Grid container direction="column" justify="center" alignContent="center" spacing={3}>
                                 <Grid item xs={12}>
                                     <TextField
+                                        autoWidth
+                                        required
                                         label="Organization Description"
                                         error={this.state.descriptionError}
                                         type="text"
@@ -238,6 +252,7 @@ export class OrgProfileFormEdit extends Component {
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
+                                        helperText={this.state.descriptionError && 'Please enter a description'}
 
                                     />
 
@@ -247,11 +262,12 @@ export class OrgProfileFormEdit extends Component {
                                 <Grid item xs={12}>
 
                                     <FormControl variant="outlined">
-                                        <InputLabel htmlFor="outlined-age-native-simple">Select Category</InputLabel>
+                                        <InputLabel htmlFor="select category">Select Category</InputLabel>
                                         <Select
+                                            autoWidth
                                             native
                                             error={this.state.industryError}
-                                            label="Select Category"
+                                            labelId="select category"
                                             value={this.state.industry}
                                             name="industry"
                                             onChange={this.validateindustry}
@@ -275,10 +291,13 @@ export class OrgProfileFormEdit extends Component {
                                 <Grid item xs={12}>
 
                                     <FormControl variant="outlined">
-                                        <InputLabel htmlFor="outlined-age-native-simple">Select Country</InputLabel>
+                                        <InputLabel htmlFor="select category">Select Country</InputLabel>
                                         <Select
+                                            autoWidth
                                             native
+                                            lableId="select category"
                                             error={this.state.locationError}
+                                            helperText={this.state.locationError && "Please select a Country"}
                                             label="Select Country"
                                             value={this.state.location}
                                             name="location"
@@ -295,8 +314,7 @@ export class OrgProfileFormEdit extends Component {
                                 </Grid>
 
                                 <Grid item>
-                                    <input type="file" name="profile_image" onChange={this.onImageChange}
-                                        accept="image/png, image/jpeg" />
+                                    <input type="file" name="profile_image" onChange={this.onImageChange} />
                                 </Grid>
                             </Grid>
 
@@ -304,10 +322,10 @@ export class OrgProfileFormEdit extends Component {
                         </Container>
                     </DialogContent>
                     <DialogActions>
-
+                        {/* 
                         <Button color="primary" onClick={this.hanldeClickClose}>
                             Cancel
-                        </Button>
+                        </Button> */}
 
                         <Button color="primary"
                             disabled={this.state.descriptionError || this.state.industryError || this.state.locationError}
@@ -329,5 +347,5 @@ export class OrgProfileFormEdit extends Component {
     }
 }
 
-export default OrgProfileFormEdit
+export default ForceOrgProfileEdit;
 
