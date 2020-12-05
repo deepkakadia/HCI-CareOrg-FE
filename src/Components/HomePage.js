@@ -126,7 +126,8 @@ class HomePage extends Component {
             searchLocation: '',
             searchNameError: false,
             industryError: false,
-            locationError: false
+            locationError: false,
+
         }
         //Handles input validation 
         this.validateSearchName = this.validateSearchName.bind(this);
@@ -225,29 +226,55 @@ class HomePage extends Component {
 
 
 
+    // hanldeOnSubmit(e) {
+    //     e.preventDefault();
+    //     const { allProfileDetails, allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
+    //     // let filteredEvents_id = new Set()
+
+    //     let filteredOrgIds = new Set()
+    //     var filteredProfiles = allProfileDetails;
+
+    //     if (searchIndustry != "") {
+    //         filteredProfiles = filteredProfiles.filter(details => details.industry == searchIndustry);
+    //     }
+    //     if (searchLocation != "") {
+    //         filteredProfiles = filteredProfiles.filter(details => details.location == searchLocation)
+    //     }
+    //     // apply regex here
+    //     let regex = new RegExp(`^(${searchName}.+|.+${searchName}|.+${searchName}.+)$`);
+
+    //     // get all events from the list of all filtered org profiles
+    //     for (let i = 0; i < filteredProfiles.length; i++) {
+    //         filteredOrgIds.add(filteredProfiles[i].user_profile);
+    //     }
+
+    //     let filteredEvents = allEvents.filter(event => filteredOrgIds.has(event.user_profile))
+
+    //     this.setState({ filteredEvents: filteredEvents })
+    // }
+
     hanldeOnSubmit(e) {
         e.preventDefault();
-        const { allProfileDetails, allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
-        // let filteredEvents_id = new Set()
-
-        let filteredOrgIds = new Set()
-        var filteredProfiles = allProfileDetails;
-
-        if (searchIndustry != "") {
-            filteredProfiles = filteredProfiles.filter(details => details.industry == searchIndustry);
-        }
-        if (searchLocation != "") {
-            filteredProfiles = filteredProfiles.filter(details => details.location == searchLocation)
-        }
-        // apply regex here
+        const { allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
+        let filteredEvents_id = new Set()
         let regex = new RegExp(`^(${searchName}.+|.+${searchName}|.+${searchName}.+)$`);
+        eventsForSearch.forEach(currEventOrg => {
+            if (currEventOrg.location === searchLocation ||
+                currEventOrg.industry === searchIndustry ||
+                regex.test(currEventOrg.name)) {
+                filteredEvents_id.add(currEventOrg.id);
+            }
+        });
 
-        // get all events from the list of all filtered org profiles
-        for (let i = 0; i < filteredProfiles.length; i++) {
-            filteredOrgIds.add(filteredProfiles[i].user_profile);
-        }
+        console.log(filteredEvents_id)
 
-        let filteredEvents = allEvents.filter(event => filteredOrgIds.has(event.user_profile))
+
+        console.log("all events: " + allEvents)
+
+        let filteredEvents = allEvents.filter((currEvent) =>
+            filteredEvents_id.has(parseInt(currEvent.user_profile)))
+
+        console.log("filtered events: " + filteredEvents)
 
         this.setState({ filteredEvents: filteredEvents })
     }

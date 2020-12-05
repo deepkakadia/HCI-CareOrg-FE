@@ -172,7 +172,7 @@ class DonateNowModal extends Component {
                             <PaymentForm stepCount={this.state.StepCount} handleBack={this.handleBack} handleNext={this.handleNext} cardDetails={cardDetails} handleInputChange={this.handleInputChange} handleInputFocus={this.handleInputFocus} />
                         }
                         {this.state.StepCount === 2 &&
-                            <ConfirmPayment orgDetails={orgDetails} eventDetails={details} stepCount={this.state.StepCount} handleBack={this.handleBack} cardDetails={cardDetails}></ConfirmPayment>
+                            <ConfirmPayment handleClickOpen={this.handleClickOpen} orgDetails={orgDetails} eventDetails={details} stepCount={this.state.StepCount} handleBack={this.handleBack} cardDetails={cardDetails}></ConfirmPayment>
                         }
                     </DialogContent>
 
