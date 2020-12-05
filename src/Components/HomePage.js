@@ -4,7 +4,7 @@ import axios from 'axios';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import EventTableAll from "./Organisation/EventTableAll";
-
+import {Redirect} from "react-router-dom"
 import {
     Grid, TextField, FormControl, InputLabel,
     Select, Button
@@ -284,6 +284,9 @@ class HomePage extends Component {
     render() {
         return (
             <div>
+                {localStorage.getItem("is_organisation") == "true" && 
+                    <Redirect to="/Dashboard"/>
+                }
                 <div>
                     {/* We can send userObj to nav bar which can decide to show donation history */}
                     <NavBarHome />
@@ -400,7 +403,7 @@ class HomePage extends Component {
 
                 </Container >
 
-
+                             
 
 
             </div>
