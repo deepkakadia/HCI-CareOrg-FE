@@ -1,6 +1,7 @@
 import React from "react";
 import { signup } from "../../utils/index";
 import { login } from "../../utils/index";
+import Image from "../../utils/home.png"
 import {
   Button,
   TextField,
@@ -27,7 +28,7 @@ const styles = theme => ({
       spacing: 10,
     },
     image: {
-      backgroundImage: 'url(https://source.unsplash.com/random)',
+      backgroundImage: `url(${Image})`,
       backgroundRepeat: 'no-repeat',
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -94,7 +95,7 @@ class OrganisationSignUp extends React.Component {
       const { history } = this.props;
       history.push("/Dashboard");
     } else {
-      alert("Incorrect Credentials!");
+      alert("Email already exists!");
     }
   }
 
