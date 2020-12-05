@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom";
  * Gets user obj from database
  * @param {userId} userId 
  */
-async function getUserById(userId) {
+export async function getUserById(userId) {
 
     let token = localStorage.getItem('token');
     let res = await axios.get(`http://localhost:8000/api/user/${userId}`, {
@@ -28,7 +28,7 @@ async function getUserById(userId) {
 /**
  * Gets all users from the db
  */
-async function getAllUser() {
+export async function getAllUser() {
     let token = localStorage.getItem('token');
     let res = await axios.get(`http://localhost:8000/api/user/`, {
         method: "GET",
@@ -45,7 +45,7 @@ async function getAllUser() {
 /**
  * Gets all events from the db
  */
-async function getAllEvents() {
+export async function getAllEvents() {
 
     let token = localStorage.getItem('token');
 
@@ -65,7 +65,7 @@ async function getAllEvents() {
  * Gets all donation history
  * @param {userid} userId 
  */
-async function getDonationHistory() {
+export async function getDonationHistory() {
 
     let token = localStorage.getItem('token');
     let res = await axios.get(`http://localhost:8000/api/history/`, {
@@ -84,7 +84,7 @@ async function getDonationHistory() {
 /**
  * Gets details of all organizations
  */
-async function getAllOrgDetails() {
+export async function getAllOrgDetails() {
     let token = localStorage.getItem('token');
     let res = await axios.get(`http://localhost:8000/api/details/`, {
         method: "GET",

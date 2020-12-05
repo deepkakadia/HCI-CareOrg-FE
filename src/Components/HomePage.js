@@ -4,7 +4,7 @@ import axios from 'axios';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import EventTableAll from "./Organisation/EventTableAll";
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import {
     Grid, TextField, FormControl, InputLabel,
     Select, Button
@@ -226,66 +226,66 @@ class HomePage extends Component {
 
 
 
-    // hanldeOnSubmit(e) {
-    //     e.preventDefault();
-    //     const { allProfileDetails, allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
-    //     // let filteredEvents_id = new Set()
-
-    //     let filteredOrgIds = new Set()
-    //     var filteredProfiles = allProfileDetails;
-
-    //     if (searchIndustry != "") {
-    //         filteredProfiles = filteredProfiles.filter(details => details.industry == searchIndustry);
-    //     }
-    //     if (searchLocation != "") {
-    //         filteredProfiles = filteredProfiles.filter(details => details.location == searchLocation)
-    //     }
-    //     // apply regex here
-    //     let regex = new RegExp(`^(${searchName}.+|.+${searchName}|.+${searchName}.+)$`);
-
-    //     // get all events from the list of all filtered org profiles
-    //     for (let i = 0; i < filteredProfiles.length; i++) {
-    //         filteredOrgIds.add(filteredProfiles[i].user_profile);
-    //     }
-
-    //     let filteredEvents = allEvents.filter(event => filteredOrgIds.has(event.user_profile))
-
-    //     this.setState({ filteredEvents: filteredEvents })
-    // }
-
     hanldeOnSubmit(e) {
         e.preventDefault();
-        const { allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
-        let filteredEvents_id = new Set()
+        const { allProfileDetails, allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
+        // let filteredEvents_id = new Set()
+
+        let filteredOrgIds = new Set()
+        var filteredProfiles = allProfileDetails;
+
+        if (searchIndustry != "") {
+            filteredProfiles = filteredProfiles.filter(details => details.industry == searchIndustry);
+        }
+        if (searchLocation != "") {
+            filteredProfiles = filteredProfiles.filter(details => details.location == searchLocation)
+        }
+        // apply regex here
         let regex = new RegExp(`^(${searchName}.+|.+${searchName}|.+${searchName}.+)$`);
-        eventsForSearch.forEach(currEventOrg => {
-            if (currEventOrg.location === searchLocation ||
-                currEventOrg.industry === searchIndustry ||
-                regex.test(currEventOrg.name)) {
-                filteredEvents_id.add(currEventOrg.id);
-            }
-        });
 
-        console.log(filteredEvents_id)
+        // get all events from the list of all filtered org profiles
+        for (let i = 0; i < filteredProfiles.length; i++) {
+            filteredOrgIds.add(filteredProfiles[i].user_profile);
+        }
 
-
-        console.log("all events: " + allEvents)
-
-        let filteredEvents = allEvents.filter((currEvent) =>
-            filteredEvents_id.has(parseInt(currEvent.user_profile)))
-
-        console.log("filtered events: " + filteredEvents)
+        let filteredEvents = allEvents.filter(event => filteredOrgIds.has(event.user_profile))
 
         this.setState({ filteredEvents: filteredEvents })
     }
+
+    // hanldeOnSubmit(e) {
+    //     e.preventDefault();
+    //     const { allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
+    //     let filteredEvents_id = new Set()
+    //     let regex = new RegExp(`^(${searchName}.+|.+${searchName}|.+${searchName}.+)$`);
+    //     eventsForSearch.forEach(currEventOrg => {
+    //         if (currEventOrg.location === searchLocation ||
+    //             currEventOrg.industry === searchIndustry ||
+    //             regex.test(currEventOrg.name)) {
+    //             filteredEvents_id.add(currEventOrg.id);
+    //         }
+    //     });
+
+    //     console.log(filteredEvents_id)
+
+
+    //     console.log("all events: " + allEvents)
+
+    //     let filteredEvents = allEvents.filter((currEvent) =>
+    //         filteredEvents_id.has(parseInt(currEvent.user_profile)))
+
+    //     console.log("filtered events: " + filteredEvents)
+
+    //     this.setState({ filteredEvents: filteredEvents })
+    // }
 
 
 
     render() {
         return (
             <div>
-                {localStorage.getItem("is_organisation") == "true" && 
-                    <Redirect to="/Dashboard"/>
+                {localStorage.getItem("is_organisation") == "true" &&
+                    <Redirect to="/Dashboard" />
                 }
                 <div>
                     {/* We can send userObj to nav bar which can decide to show donation history */}
@@ -403,7 +403,7 @@ class HomePage extends Component {
 
                 </Container >
 
-                             
+
 
 
             </div>

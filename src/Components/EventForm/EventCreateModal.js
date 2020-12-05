@@ -23,7 +23,7 @@ export default class EventCreateModal extends Component {
             event_description: ' ',
             expires_on: new Date().setDate(new Date().getDate() + 1),
             is_Expired: false,
-            goal_amount: 0,
+            goal_amount: 1000,
             received_amount: 0,
             campaign_image: null,
 

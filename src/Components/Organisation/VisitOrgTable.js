@@ -7,10 +7,10 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import EventCreateModal from "../EventForm/EventCreateModal";
 
-class EventTable extends Component {
+class VisitOrgTable extends Component {
     constructor(props) {
         super(props);
-        var len = this.props.feedItems.length
+        var len = this.props.orgEvents.length
         var count = 1;
         if (len > 6) {
             count += Math.floor(len / 6);
@@ -31,7 +31,7 @@ class EventTable extends Component {
     }
 
     render() {
-        var eventArray = this.props.feedItems;
+        var eventArray = this.props.orgEvents;
         eventArray = eventArray.slice((this.state.page - 1) * 6, (this.state.page * 6));
         return (
             <Container maxWidth="lg">
@@ -42,20 +42,10 @@ class EventTable extends Component {
                                 Campaigns
                             </Typography>
                         </Box>
-                        {
-                            this.props.userDetails.is_organisation &&
-                            <Box textAlign="center">
-                                <EventCreateModal userDetails={this.props.userDetails} />
-                            </Box>
-                        }
                     </Grid>
                     {eventArray.map(x => (
                         <Grid item xs={12} sm={6} md={4} key={x.id}>
-                            <EventCard eventDetails={x}
-                                userDetails={this.props.userDetails}
-                                profileDetails={this.props.orgDetails}
-                                loggedInUser={this.props.userDetails}
-                            />
+                            <EventCard eventDetails={x} userDetails={this.props.orgDetails} loggedInUser={this.props.userDetails} />
                         </Grid>
                     ))}
                     <Grid container justify="center" style={{ padding: "10px" }}>
@@ -75,4 +65,4 @@ class EventTable extends Component {
 
 }
 
-export default EventTable;
+export default VisitOrgTable;

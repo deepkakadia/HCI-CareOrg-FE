@@ -32,8 +32,10 @@ class EventCard extends Component {
         super(props)
         //this.getCardButton = this.getCardButton.bind(this)
         this.formatDate = this.formatDate.bind(this)
+
         this.state = {
-            orgDetails: this.props.userDetails
+            orgDetails: this.props.userDetails,
+            loggedInUser: this.props.loggedInUser,
         }
     }
 
@@ -43,21 +45,21 @@ class EventCard extends Component {
         return date.toLocaleDateString([], options);
     }
 
-    async componentDidMount() {
-        try {
-            var orgDetails = this.props.userDetails;
-            if (!orgDetails.is_organisation) {
-                orgDetails = getOrgDetails(this.props.userDetails, this.props.eventDetails)
-            }
-            console.log(orgDetails)
-            this.setState({
-                orgDetails: orgDetails,
-            })
+    // async componentDidMount() {
+    //     try {
+    //         var orgDetails = this.props.userDetails;
+    //         if (!orgDetails.is_organisation) {
+    //             orgDetails = getOrgDetails(this.props.userDetails, this.props.eventDetails)
+    //         }
+    //         console.log(orgDetails)
+    //         this.setState({
+    //             orgDetails: orgDetails,
+    //         })
 
-        } catch (e) {
-            console.log(e)
-        }
-    }
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // }
 
     render() {
         const { classes } = this.props;
@@ -76,10 +78,10 @@ class EventCard extends Component {
         var cardButton = null;
         if (is_Expired) {
             cardButton = <Button variant="contained" disabled>Expired</Button>
-        } else if (this.props.userDetails.is_organisation) {
-            cardButton = <EventEditModal eventDetails={this.props.eventDetails} userDetails={this.props.userDetails} />
+        } else if (this.state.loggedInUser.is_organisation) {
+            cardButton = <EventEditModal eventDetails={this.props.eventDetails} userDetails={this.state.orgDetails} />
         } else {
-            cardButton = <DonateNowModal orgDetails={this.state.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
+            cardButton = <DonateNowModal details={this.props.details} orgDetails={this.state.orgDetails} userDetails={this.state.loggedInUser} />
         }
 
         return (
