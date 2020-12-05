@@ -8,6 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import axios from 'axios';
+import refreshPage from '../../utils/refreshPage';
 
 export default class EventEditModal extends Component {
 
@@ -16,15 +18,19 @@ export default class EventEditModal extends Component {
 
         const { eventDetails } = this.props
         this.state = {
-            modalOpen: false,
+            eventId: eventDetails.id,
+            user_profile: eventDetails.user_profile,
             event_title: eventDetails.event_title,
             event_description: eventDetails.event_description,
-            expiry_on: eventDetails.expiry_on,
-            goal_amount: eventDetails.goal_amount,
             created_on: eventDetails.created_on,
-            event_image: '',
+            expires_on: eventDetails.expires_on,
+            is_Expired: eventDetails.is_Expired,
+            goal_amount: eventDetails.goal_amount,
+            received_amount: eventDetails.received_amount,
+            campaign_image: eventDetails.campaign_image,
 
             // Error Validation state
+            modalOpen: false,
             titleError: false,
             event_descriptionError: false,
             expiry_onError: false,
@@ -87,7 +93,7 @@ export default class EventEditModal extends Component {
 
 
     // this function handles createEvent submit button 
-    handleOnSave() {
+    async handleOnSave() {
         if (this.state.goal_amount.length == 0 || isNaN(this.state.goal_amount) || this.state.goal_amount <= 0) {
             this.setState({ goal_amountError: true })
         }
@@ -98,7 +104,41 @@ export default class EventEditModal extends Component {
             this.setState({ event_descriptionError: true })
         }
         else {
+            console.log("inside submit hi")
+            let token = localStorage.getItem('token')
+
+            try {
+                let data = new FormData();
+
+
+                data.append("id", this.state.eventId);
+                data.append("user_profile", this.state.user_profile);
+                data.append("event_title", this.state.event_title);
+                data.append("event_description", this.state.event_description);
+                data.append("created_on", this.state.created_on);
+                data.append("expires_on", new Date(this.state.expires_on).toISOString().split('T')[0]);
+                data.append("is_Expired", this.state.is_Expired);
+                data.append("goal_amount", this.state.goal_amount);
+                data.append("received_amount", this.state.received_amount);
+                let file = this.state.campaign_image
+                if (file && typeof (file) != "string") {
+                    data.append('campaign_image', file, file.name);
+                }
+                let res = await axios.put(`http://localhost:8000/api/feed/${this.state.eventId}/`, data, {
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                        'accept': 'application/json',
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+                    }
+                })
+                console.log(res.data)
+            } catch (e) {
+                console.log(e)
+            }
+
             this.handleClickOpen()
+            refreshPage()
             //Make axios call to PUT to backend using the current state
             //Check for if image uploaded
         }
@@ -107,7 +147,7 @@ export default class EventEditModal extends Component {
 
     //This funciton handle date change for expiry date
     validateexpiry_on = (e) => {
-        this.setState({ expiry_on: e })
+        this.setState({ expires_on: e.toString() })
     }
 
     /**
@@ -167,8 +207,8 @@ export default class EventEditModal extends Component {
             event_title: this.props.eventDetails.event_title,
             event_description: this.props.eventDetails.event_description,
             goal_amount: this.props.eventDetails.goal_amount,
-            expiry_on: this.props.eventDetails.expiry_on,
-            event_image: ''
+            expires_on: this.props.eventDetails.expires_on,
+            campaign_image: this.props.eventDetails.campaign_image,
         })
 
     }
@@ -182,6 +222,14 @@ export default class EventEditModal extends Component {
         this.setState({ focus: e.target.name });
     }
 
+    onImageChange = event => {
+        if (event.target.files && event.target.files[0]) {
+            let img = event.target.files[0];
+            this.setState({
+                campaign_image: img
+            });
+        }
+    };
 
     render() {
         return (
@@ -274,7 +322,7 @@ export default class EventEditModal extends Component {
                                                 margin="dense"
 
                                                 label="Campaign expiry date"
-                                                value={this.state.expiry_on}
+                                                value={this.state.expires_on}
                                                 onChange={this.validateexpiry_on}
                                                 onFocus={this.handleInputFocus}
                                                 KeyboardButtonProps={{
@@ -306,25 +354,7 @@ export default class EventEditModal extends Component {
                                     </Grid>
 
                                     <Grid item>
-                                        <TextField
-                                            type="file"
-                                            label="Upload an image"
-                                            name='event_image'
-                                            variant="outlined"
-                                            value={this.state.event_image}
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            inputProps={
-                                                {
-                                                    accept: "image/png, image/jpeg"
-                                                }
-                                            }
-                                            onChange={this.hanldeEventImageUpload}
-                                            onFocus={this.handleInputFocus}
-                                            helperText="Upload .png or .jpeg format only"
-                                        >
-                                        </TextField>
+                                        <input type="file" name="campaign_image" onChange={this.onImageChange} />
                                     </Grid>
 
                                 </Grid>

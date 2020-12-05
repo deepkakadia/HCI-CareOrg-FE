@@ -12,26 +12,6 @@ import {
 import country_list from './OrganizationForm/countrList';
 
 /**
- * Gets userObj by userId
- * @param {userId} userId 
- */
-async function getUserById(userId) {
-
-    let token = localStorage.getItem('token');
-    let res = await axios.get(`http://localhost:8000/api/user/${userId}`, {
-        method: "GET",
-        header: {
-            "Content-Type": "application/json",
-            "Authorization": `Token ${token}`
-        }
-    })
-
-
-    return res.data;
-
-}
-
-/**
  * Gets all events from the db
  */
 async function getAllEvents() {
@@ -59,7 +39,7 @@ async function getAllUser() {
     let token = localStorage.getItem('token');
     let res = await axios.get(`http://localhost:8000/api/user/`, {
         method: "GET",
-        header: {
+        headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${token}`
         }
@@ -79,11 +59,24 @@ async function getAllUser() {
     return orgDict;
 }
 
+async function getAllProfileDetails() {
+    let token = localStorage.getItem('token');
+    console.log(token)
+    let res = await axios.get(`http://localhost:8000/api/details/`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${token}`,
+        }
+    })
+
+    return res.data;
+}
 
 /**
- * Gets details of all organizations
+ * Gets details of all organizations and creats a dict with
  */
-async function getAllOrgDetails() {
+async function getAllOrgDetails(orgDict) {
     let token = localStorage.getItem('token');
     let res = await axios.get(`http://localhost:8000/api/details/`, {
         method: "GET",
@@ -92,9 +85,24 @@ async function getAllOrgDetails() {
             "Authorization": `Token ${token}`
         }
     })
+    console.log(res.data)
+
+    let filteredEvents = []
+    res.data.forEach(currEvent => {
+
+        let user_profile = parseInt(currEvent.user_profile)
+        if (user_profile in orgDict) {
+            let currObj = orgDict[user_profile];
+            console.log(currObj)
+            currObj['location'] = currEvent.location
+            currObj['industry'] = currEvent.industry
+            filteredEvents.push(currObj)
+
+        }
+    });
 
 
-    return res.data;
+    return filteredEvents;
 }
 
 
@@ -108,8 +116,10 @@ class HomePage extends Component {
         super(props);
         this.state = {
             allUsers: {},
+            allProfileDetails: [],
             userObj: {},
             allEvents: [],
+            eventsForSearch: [],
             filteredEvents: [],
             searchName: '',
             searchIndustry: '',
@@ -134,18 +144,21 @@ class HomePage extends Component {
     async componentDidMount() {
         //Gets all users from db
         let allUsers = await getAllUser();
-
+        let allProfileDetails = await getAllProfileDetails();
         let userId = localStorage.getItem('userid')
 
         let userObj = allUsers[userId];
         let allEvents = await getAllEvents();
-
+        let eventsForSearch = await getAllOrgDetails(allUsers);
 
 
         this.setState({
             allUsers: allUsers,
             userObj: userObj,
-            allEvents: allEvents
+            allProfileDetails: allProfileDetails,
+            allEvents: allEvents,
+            filteredEvents: allEvents,
+            eventsForSearch: eventsForSearch,
         })
 
     }
@@ -214,11 +227,27 @@ class HomePage extends Component {
 
     hanldeOnSubmit(e) {
         e.preventDefault();
-        const { allEvents, searchName, searchLocation, searchIndustry } = this.state;
+        const { allProfileDetails, allEvents, searchName, searchLocation, searchIndustry, eventsForSearch } = this.state;
+        // let filteredEvents_id = new Set()
 
-        let filteredEvents = allEvents.filter((currEvent) =>
-            currEvent.event_description === searchName || currEvent.location === searchLocation ||
-            currEvent.industry === searchIndustry)
+        let filteredOrgIds = new Set()
+        var filteredProfiles = allProfileDetails;
+
+        if (searchIndustry != "") {
+            filteredProfiles = filteredProfiles.filter(details => details.industry == searchIndustry);
+        }
+        if (searchLocation != "") {
+            filteredProfiles = filteredProfiles.filter(details => details.location == searchLocation)
+        }
+        // apply regex here
+        let regex = new RegExp(`^(${searchName}.+|.+${searchName}|.+${searchName}.+)$`);
+
+        // get all events from the list of all filtered org profiles
+        for (let i = 0; i < filteredProfiles.length; i++) {
+            filteredOrgIds.add(filteredProfiles[i].user_profile);
+        }
+
+        let filteredEvents = allEvents.filter(event => filteredOrgIds.has(event.user_profile))
 
         this.setState({ filteredEvents: filteredEvents })
     }
@@ -286,12 +315,12 @@ class HomePage extends Component {
                                             </option>
                                     <option value="Animal welfare" >Animal welfare</option>
                                     <option value="Arts, Culture, Humanities">Arts, Culture, Humanities</option>
-                                    <option value="Community Development">Community Development </option>
+                                    <option value="Community Development">Community Development</option>
                                     <option value="Education">Education</option>
                                     <option value="Environment">  Environment</option>
-                                    <option value="Health ">Health </option>
+                                    <option value="Health">Health </option>
                                     <option value="Human and Civil rights">Human and Civil rights </option>
-                                    <option value="Human services ">Human services </option>
+                                    <option value="Human services">Human services </option>
 
 
                                 </Select>
@@ -311,7 +340,7 @@ class HomePage extends Component {
                                     label="Select Country"
                                     value={this.state.searchLocation}
                                     name="searchLocation"
-                                    onChange={this.validatelocation}
+                                    onChange={this.validateSearchLocation}
                                     inputProps={{ 'aria-label': 'age' }}>
                                     <option value=''>
                                         -
@@ -327,9 +356,9 @@ class HomePage extends Component {
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Button onClick={this.hanldeOnSubmit}>
+                            <Button variant="contained" color="primary" onClick={this.hanldeOnSubmit}>
                                 Search
-                                </Button>
+                            </Button>
                         </Grid>
 
                     </Grid>
@@ -337,7 +366,10 @@ class HomePage extends Component {
                     <br></br>
 
                     <Divider />
-                    <EventTableAll history={this.props.history} feedItems={this.state.allEvents} userDetails={this.state.userObj} />
+
+                    <EventTableAll history={this.props.history} feedItems={this.state.filteredEvents} userDetails={this.state.userObj} />
+
+
 
                 </Container >
 

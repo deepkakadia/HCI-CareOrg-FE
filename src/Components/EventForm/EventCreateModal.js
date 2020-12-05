@@ -5,6 +5,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import axios from 'axios';
+import refreshPage from '../../utils/refreshPage';
 
 export default class EventCreateModal extends Component {
 
@@ -16,15 +18,17 @@ export default class EventCreateModal extends Component {
 
         this.state = {
 
-            modalOpen: false,
-            event_title: '',
-            event_description: '',
-            goal_amount: '',
-            created_on: new Date(2020, 9, 1),
+            user_profile: this.props.userDetails.id,
+            event_title: ' ',
+            event_description: ' ',
             expires_on: new Date().setDate(new Date().getDate() + 1),
-            event_image: '',
+            is_Expired: false,
+            goal_amount: 0,
+            received_amount: 0,
+            campaign_image: null,
 
             // Form Validation state
+            modalOpen: false,
             titleError: false,
             descriptionError: false,
             expires_onError: false,
@@ -68,7 +72,7 @@ export default class EventCreateModal extends Component {
      * Handles the Create button for the Evemt form
      *
      */
-    handleOnCreate() {
+    async handleOnCreate() {
         if (this.state.goal_amount.length == 0 || isNaN(this.state.goal_amount) || this.state.goal_amount <= 0) {
             this.setState({ goal_amountError: true })
         }
@@ -83,8 +87,40 @@ export default class EventCreateModal extends Component {
             //On handle close make axios request before using handleClose()
             //Make axios call to post to backend
             //Upload event image 
+            let token = localStorage.getItem('token')
+
+            try {
+                let data = new FormData();
+
+                // data.append("id", this.state.eventId);
+                // data.append("user_profile", this.state.user_profile);
+                data.append("event_title", this.state.event_title);
+                data.append("event_description", this.state.event_description);
+                // data.append("created_on", this.state.created_on);
+                data.append("expires_on", new Date(this.state.expires_on).toISOString().split('T')[0]);
+                data.append("is_Expired", this.state.is_Expired);
+                data.append("goal_amount", this.state.goal_amount);
+                data.append("received_amount", this.state.received_amount);
+                let file = this.state.campaign_image
+                if (file) {
+                    data.append('campaign_image', file, file.name);
+                }
+                let res = await axios.post(`http://localhost:8000/api/feed/`, data, {
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                        'accept': 'application/json',
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+                    }
+                })
+                console.log(res)
+            } catch (e) {
+                console.log(e)
+            }
 
             this.hanldeClickClose();
+            refreshPage()
+
         }
 
     }
@@ -116,6 +152,7 @@ export default class EventCreateModal extends Component {
         }
         this.handleInputChange(e)
     }
+
     validateevent_description = (e) => {
         if (e.target.value.length == 0 || typeof (e.target.value) != 'string') {
             this.setState({ descriptionError: true })
@@ -127,8 +164,6 @@ export default class EventCreateModal extends Component {
         this.handleInputChange(e)
     }
 
-
-
     // Handle Field change
     handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -138,6 +173,14 @@ export default class EventCreateModal extends Component {
         this.setState({ focus: e.target.name });
     }
 
+    onImageChange = event => {
+        if (event.target.files && event.target.files[0]) {
+            let img = event.target.files[0];
+            this.setState({
+                campaign_image: img
+            });
+        }
+    };
 
     render() {
         return (
@@ -263,33 +306,12 @@ export default class EventCreateModal extends Component {
                                     </Grid>
 
                                     <Grid item>
-                                        <TextField
-                                            type="file"
-                                            label="Upload an image"
-                                            name='event_image'
-                                            variant="outlined"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            inputProps={
-                                                {
-                                                    accept: "image/png, image/jpeg"
-                                                }
-                                            }
-                                            onChange={this.handleInputChange}
-                                            onFocus={this.handleInputFocus}
-                                            helperText="Upload .png or .jpeg format only"
-                                        >
-                                        </TextField>
+                                        <input type="file" name="campaign_image" onChange={this.onImageChange} />
                                     </Grid>
 
                                 </Grid>
                             </Container>
                         </form>
-
-
-
-
 
 
                     </DialogContent>

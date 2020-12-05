@@ -3,6 +3,7 @@ import { logout } from "../utils/index";
 import NavBarDashBoard from "./NavBar/NavBarDashBoard";
 import axios from "axios";
 import OrgDash from './Organisation/OrgDash';
+import { Redirect } from "react-router-dom";
 
 /**
  * Gets user obj from database
@@ -107,9 +108,7 @@ class Dashboard extends Component {
              * Logged in user's token
              */
             token: localStorage.getItem('token'),
-            /**
-             * Loged in user object
-             */
+            // Loged in user object 
             userObj: {},
             /**All events in the db and their details */
             allEvents: [],
@@ -134,36 +133,27 @@ class Dashboard extends Component {
             //Find the donation history of the logged in user -- Do we need to do this here?
             if (!userObj.is_organisation) {
                 donationHistory = await getDonationHistory(userId)
-                // eslint-disable-next-line eqeqeq
                 let filterdDonations =
                     donationHistory.filter(donationObj =>
                         donationObj.user_profile == userId);
-
             }
 
             let allOrgProfiles = await getAllOrgDetails();
             let allUserProfiles = await getAllUser();
-
             let allEvents = await getAllEvents();
+            let filteredEvents = allEvents.filter(event => (event.user_profile == userObj.id))
+
             this.setState({
-                userObj: userObj, allEvents: allEvents,
+                userObj: userObj,
+                filteredEvents: filteredEvents,
                 donationHistory: donationHistory,
                 allOrgProfiles: allOrgProfiles,
-                allUserProfiles: allUserProfiles
+                allUserProfiles: allUserProfiles,
             });
-
-
 
         } catch (e) {
             console.log('error:' + e)
         }
-
-
-
-
-
-
-
 
     }
 
@@ -175,22 +165,16 @@ class Dashboard extends Component {
 
     render() {
 
-
         let orgDetail = this.state.allOrgProfiles.filter(x => x.user_profile == this.state.userObj.id)[0]
 
         // let orgProfile = this.state.allUserProfiles.filter(x => x.id == orgDetail.user_profile)[0]
 
-        if (orgDetail == undefined) {
-            orgDetail = {
-
-                'user_profile': '',
-                'user_name': '',
-                'description': '',
-                'location': '',
-                'industry': '',
-            }
+        var OrgDashProps = {
+            userDetails: this.state.userObj,
+            allOrgProfiles: this.state.allOrgProfiles,
+            profileDetails: orgDetail,
+            filteredEvents: this.state.filteredEvents,
         }
-
 
         return (
             <div>
@@ -199,29 +183,18 @@ class Dashboard extends Component {
                 </div>
 
                 {/* If the Logged in user is an organization */}
+                {/* {orgDetail == undefined &&
+                    // redirect to setup profile
+                    <Redirect to="/" />
+                } */}
+
                 {this.state.userObj.is_organisation &&
-                    <OrgDash userDetails={this.state.userObj}
-                        orgDetails={orgDetail} orgDetails={orgDetail} />
+                    <OrgDash {...OrgDashProps} />
                 }
 
                 {!this.state.userObj.is_organisation &&
                     <div><p>You are not an organization go to homepage at route "/"</p></div>}
 
-
-
-
-
-
-
-
-                {/* Do we need this here? */}
-                {/* <form action="/login" method="get">
-                    <input type="submit" value="Login" name="Submit" id="form_login" />
-                </form>
-                <form action="/signup" method="get">
-                    <input type="submit" value="SignUp" name="Submit" id="form_signup" />
-                </form>
-                <button onClick={this.handle_logout}>Logout</button> */}
             </div>
         );
     }
