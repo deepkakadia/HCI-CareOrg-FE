@@ -92,7 +92,7 @@ class OrgDash extends Component {
 
                 <Container maxWidth="lg">
                     <Grid container spacing={0} alignItems='center'>
-                        <Grid item xs={12} align='center'>
+                        <Grid item xs={12} align='center' style={{ marginTop: "10px" }}>
                             {console.log(this.state.profileDetails)}
                             {this.state.profileDetails.profile_image && <img src={this.state.profileDetails.profile_image} height="400px" width="100%" alt="stock profile" />}
 

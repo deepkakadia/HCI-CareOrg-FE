@@ -60,7 +60,7 @@ class VisitOrg extends Component {
                 </div>
                 <Container>
                     <Grid container spacing={0} alignItems='center'>
-                        <Grid item xs={12} align='center'>
+                        <Grid item xs={12} style={{ marginTop: "25px" }} align='center'>
                             {this.state.orgProfile.profile_image && <img src={this.state.orgProfile.profile_image} height="400px" width="100%" alt="stock profile" />}
                         </Grid>
                         <Grid item xs={12} align='center'>

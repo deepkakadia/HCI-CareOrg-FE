@@ -64,9 +64,9 @@ const StyledButton = withStyles({
     border: 2,
     color: 'white',
     height: 48,
-    padding: '0 30px',
+    padding: '0 20px',
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    margin: 10,
+    margin: 5,
     marginLeft: "auto",
     marginRight: -12,
   },
@@ -83,7 +83,7 @@ class LoginForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -99,109 +99,109 @@ class LoginForm extends React.Component {
     if (check) {
       const { history } = this.props;
       history.push({
-        pathname:"/Dashboard",
-        state:{
-            name: this.state.username
-         }
-       });
+        pathname: "/Dashboard",
+        state: {
+          name: this.state.username
+        }
+      });
     } else {
       alert("Please provide correct credentials and if you havent yet created account. Click on Singup Below");
     }
   }
 
-  
+
 
   render() {
     const { classes } = this.props;
     const { history } = this.props;
     return (
       <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Login
-          </Typography>
-          <form className={classes.form} onSubmit={this.handleSubmit}>
-            <TextField
-              type="email"
-              label="Email"
-              fullWidth
-              name="username"
-              variant="outlined"
-              color="primary"
-              value={this.state.username}
-              onChange={this.handleChange}
-              required
-              autoFocus
-            />
-            <TextField
-            style={{ marginTop: "15px" }}
-              id = "password"
-              type="password"
-              label="Password"
-              fullWidth
-              name="password"
-              variant="outlined"
-              value={this.state.password}
-              onChange={this.handleChange}
-              required
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
               Login
-            </Button>
-            <Divider variant="inset"/>
-          </form>
-          <Grid container justify="center">
-            <Typography style={{ marginTop: "15px"  }}>Want to create an account? Click below !</Typography>
-          
-            <Grid container justify="center" className={classes.root} style={{ marginTop: "15px" }}>
-              <Grid item xs={5}>
-                  <Typography component="h1" variant="h4">
-                    For Organisation
-                  </Typography>
-                <p>If you are looking to create charity events, click below to get registered as an organisation</p>
-                <Button
+          </Typography>
+            <form className={classes.form} onSubmit={this.handleSubmit}>
+              <TextField
+                type="email"
+                label="Email"
+                fullWidth
+                name="username"
+                variant="outlined"
+                color="primary"
+                value={this.state.username}
+                onChange={this.handleChange}
+                required
+                autoFocus
+              />
+              <TextField
+                style={{ marginTop: "15px" }}
+                id="password"
+                type="password"
+                label="Password"
+                fullWidth
+                name="password"
+                variant="outlined"
+                value={this.state.password}
+                onChange={this.handleChange}
+                required
+              />
+              <Button
                 type="submit"
+                fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={() => history.push('/signuporg')}
-                >
-                Sign Up as Organisation
-              </Button>
-              </Grid>
-              <Grid item xs={5}>
-                <Typography  variant="h4" fontWeight="fontWeightBold">
-                  For User
-                </Typography>
-                <p>Create your personal account to help various NGO and support their cause</p>
-                <br></br>
-              <Button
-              variant="contained"        
-              color="primary"
-              className={classes.submit}
-              onClick={() => history.push('/signupuser')}
               >
-                Sign Up as User
+                Login
+            </Button>
+              <Divider variant="inset" />
+            </form>
+            <Grid container justify="center">
+              <Typography style={{ marginTop: "15px" }}>Want to create an account? Click below !</Typography>
+
+              <Grid container justify="center" className={classes.root} style={{ marginTop: "15px" }}>
+                <Grid item xs={6}>
+                  <Typography noWrap component="h1" variant="h4">
+                    For Organisation
+                  </Typography>
+                  <Typography>If you are looking to create charity events, click below to get registered as an organisation</Typography>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={() => history.push('/signuporg')}
+                  >
+                    Sign Up as Organisation
               </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography noWrap variant="h4" fontWeight="fontWeightBold">
+                    For User
+                </Typography>
+                  <Typography>Create your personal account to help various NGO and support their cause</Typography>
+                  <br></br>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={() => history.push('/signupuser')}
+                  >
+                    Sign Up as User
+              </Button>
+                </Grid>
               </Grid>
             </Grid>
-            </Grid>
-        </div>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
     );
   }
 }
