@@ -9,7 +9,7 @@ export class ConfirmPayment extends Component {
         super(props);
 
         this.state = {
-
+            
 
         }
         this.handlePayNow = this.handlePayNow.bind(this);
