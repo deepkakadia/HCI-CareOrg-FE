@@ -81,7 +81,7 @@ class EventCard extends Component {
         } else if (this.state.loggedInUser.is_organisation) {
             cardButton = <EventEditModal eventDetails={this.props.eventDetails} userDetails={this.state.orgDetails} />
         } else {
-            cardButton = <DonateNowModal details={this.props.details} orgDetails={this.state.orgDetails} userDetails={this.state.loggedInUser} />
+            cardButton = <DonateNowModal details={this.props.eventDetails} orgDetails={this.state.orgDetails} userDetails={this.state.loggedInUser} />
         }
 
         return (
