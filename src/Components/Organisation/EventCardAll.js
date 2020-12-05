@@ -49,10 +49,12 @@ class EventCardAll extends Component {
 
     redirectToOrgProfile = (event) => {
         event.preventDefault()
-        this.props.history.push('/org')({
+        const { history } = this.props
+        console.log(history)
+        history.push({
             pathname: "/org",
             state: {
-                name: "Deep"
+                OrgId: this.props.orgDetails.id,
             }
         });
     }
