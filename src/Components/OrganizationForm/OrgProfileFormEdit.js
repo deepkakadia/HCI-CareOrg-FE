@@ -223,6 +223,7 @@ export class OrgProfileFormEdit extends Component {
                             <Grid container direction="column" justify="center" alignContent="center" spacing={3}>
                                 <Grid item xs={12}>
                                     <TextField
+                                        fullWidth
                                         label="Organization Description"
                                         error={this.state.descriptionError}
                                         type="text"
@@ -244,7 +245,7 @@ export class OrgProfileFormEdit extends Component {
 
                                 <Grid item xs={12}>
 
-                                    <FormControl variant="outlined">
+                                    <FormControl variant="outlined" fullWidth>
                                         <InputLabel htmlFor="outlined-age-native-simple">Select Category</InputLabel>
                                         <Select
                                             native
@@ -272,7 +273,7 @@ export class OrgProfileFormEdit extends Component {
 
                                 <Grid item xs={12}>
 
-                                    <FormControl variant="outlined">
+                                    <FormControl variant="outlined" fullWidth>
                                         <InputLabel htmlFor="outlined-age-native-simple">Select Country</InputLabel>
                                         <Select
                                             native

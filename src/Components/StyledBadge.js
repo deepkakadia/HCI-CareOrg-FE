@@ -63,7 +63,7 @@ const BadgeAvatars =(props) =>{
         variant="dot"
 
       >
-        <Avatar style={{width:"100px", height: "100px", background: "#f50157"}}><Typography noWrap>{props.data}</Typography></Avatar>
+        <Avatar style={{width:"100px", height: "100px",color:"white" ,background: "#ed002a"}}><Typography noWrap>{props.data}</Typography></Avatar>
       </StyledBadge>
     </div>
   );
