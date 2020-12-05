@@ -211,9 +211,9 @@ class Dashboard extends Component {
                     <OrgDash {...OrgDashProps} />
                 }
 
-                {!this.state.userObj.is_organisation &&
-                    <div><p>You are not an organization go to homepage at route "/"</p></div>}
-
+                {localStorage.getItem("is_organisation") != "true" &&
+                    <Redirect to="/homepage" />
+                }
             </div>
         );
     }

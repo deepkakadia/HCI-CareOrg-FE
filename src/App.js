@@ -33,9 +33,6 @@ class App extends Component {
                         <PrivateRoute exact path="/org" component={OrgDash}></PrivateRoute>
                         <PrivateRoute exact path="/homepage" component={HomePage}></PrivateRoute>
                         <PrivateRoute exact path="/Dashboard" component={Dashboard}></PrivateRoute>
-
-
-
                         <Route component={NotFound404}></Route>
                     </Switch>
                 </Router>
