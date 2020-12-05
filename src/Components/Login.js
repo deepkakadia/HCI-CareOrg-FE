@@ -56,6 +56,24 @@ const styles = theme => ({
   },
 });
 
+const StyledButton = withStyles({
+  root: {
+    background: 'black',
+    borderRadius: 5,
+    border: 2,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    margin: 10,
+    marginLeft: "auto",
+    marginRight: -12,
+  },
+  label: {
+    textTransform: 'capitalize',
+  },
+})(Button);
+
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -99,8 +117,12 @@ class LoginForm extends React.Component {
       <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
+        <StyledButton onClick = {()=>{this.props.history.push("/")}}>
+              Home
+            </StyledButton>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -121,6 +143,8 @@ class LoginForm extends React.Component {
               autoFocus
             />
             <TextField
+            style={{ marginTop: "15px" }}
+              id = "password"
               type="password"
               label="Password"
               fullWidth
@@ -129,10 +153,6 @@ class LoginForm extends React.Component {
               value={this.state.password}
               onChange={this.handleChange}
               required
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
@@ -153,14 +173,14 @@ class LoginForm extends React.Component {
             <Divider variant="inset"/>
           </form>
           <Grid container justify="center">
-            <Typography>Want to create an account? Click below !</Typography>
+            <Typography style={{ marginTop: "15px" }}>Want to create an account? Click below !</Typography>
           
-            <Grid container justify="center" className={classes.root} style={{ marginTop: "10px" }}>
+            <Grid container justify="center" className={classes.root} style={{ marginTop: "15px" }}>
               <Grid item xs >
                   <Typography component="h1" variant="h4">
                     For Organisation
                   </Typography>
-                <p>Description for the organisation</p>
+                <p>If you are looking to create charity events, click below to get registered as an organisation</p>
                 <Button
                 type="submit"
                 variant="contained"
@@ -175,7 +195,7 @@ class LoginForm extends React.Component {
                 <Typography  variant="h4" fontWeight="fontWeightBold">
                   For User
                 </Typography>
-                <p>Description for the organisation</p>
+                <p>Create your personal account to help various NGO and support their cause.</p>
               <Button
               variant="contained"        
               color="primary"

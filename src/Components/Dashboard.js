@@ -167,14 +167,33 @@ class Dashboard extends Component {
 
         let orgDetail = this.state.allOrgProfiles.filter(x => x.user_profile == this.state.userObj.id)[0]
 
-        // let orgProfile = this.state.allUserProfiles.filter(x => x.id == orgDetail.user_profile)[0]
+        //Below written code handles a newly signed up organisation user, handles undefined profileDetail 
+        var OrgDashProps = {}
 
-        var OrgDashProps = {
-            userDetails: this.state.userObj,
-            allOrgProfiles: this.state.allOrgProfiles,
-            profileDetails: orgDetail,
-            filteredEvents: this.state.filteredEvents,
+        if (orgDetail === undefined) {
+            OrgDashProps = {
+                userDetails: this.state.userObj,
+                allOrgProfiles: this.state.allOrgProfiles,
+                filteredEvents: this.state.filteredEvents,
+                profileDetails: {
+                    "id": '',
+                    "user_profile": localStorage.getItem('userid'),
+                    "description": "",
+                    "location": "",
+                    "industry": "",
+                    "profile_image": null
+                }
+            }
         }
+        else {
+            OrgDashProps = {
+                userDetails: this.state.userObj,
+                allOrgProfiles: this.state.allOrgProfiles,
+                profileDetails: orgDetail,
+                filteredEvents: this.state.filteredEvents,
+            }
+        }
+
 
         return (
             <div>

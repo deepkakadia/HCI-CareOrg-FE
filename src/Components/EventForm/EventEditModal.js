@@ -372,7 +372,7 @@ export default class EventEditModal extends Component {
                                 </Button>
 
 
-                        <Button autoFocus onClick={this.handleOnSave} color="primary" disabled={this.state.event_descriptionError || this.state.expiry_onError || this.state.goal_amountError}>
+                        <Button autoFocus onClick={this.handleOnSave} color="primary" disabled={this.state.titleError || this.state.event_descriptionError || this.state.expiry_onError || this.state.goal_amountError}>
                             Save
                                 </Button>
 

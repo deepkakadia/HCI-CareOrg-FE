@@ -1,9 +1,9 @@
-.root{
-    max-width: 345,
-    }
+.root {
+  max-width: 800;
+}
 .media {
-    height: 140,
-    }
-.App-form{
-    margin: 20px;
+  height: 140;
+}
+.App-form {
+  margin: 20px;
 }

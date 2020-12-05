@@ -14,6 +14,7 @@ import {
   Container,
   Card,
 } from "@material-ui/core";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   typography: {
@@ -24,7 +25,6 @@ const styles = theme => ({
   },
   paper: {
     backgroundImage: `url(${Image})`,
-    height: "1000px"
   },
   container:{
     background: "blue"
@@ -46,31 +46,32 @@ class HomePage extends Component {
     super(props);
   }
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
-      <div>
+        <Redirect to='/login'/>
+    //   <div>
         
-        <Paper className = {classes.paper}>
-        <NavBarHome />
-          <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: '100vh' }}
-          >
-          <Grid item xs={3}>
-            <Card className= {classes.carddialog}>
-              <Typography component="h1" variant="h5">No act of kindness, no matter how small, is ever wasted</Typography>
-            </Card>
-          </Grid>
+    //     <Paper className = {classes.paper}>
+    //     <NavBarHome />
+    //       <Grid
+    //         container
+    //         spacing={0}
+    //         direction="column"
+    //         alignItems="center"
+    //         justify="center"
+    //         style={{ minHeight: '100vh' }}
+    //       >
+    //       <Grid item xs={3}>
+    //         <Card className= {classes.carddialog}>
+    //           <Typography component="h1" variant="h5">No act of kindness, no matter how small, is ever wasted</Typography>
+    //         </Card>
+    //       </Grid>
           
-          </Grid>
+    //       </Grid>
         
           
-        </Paper>
-      </div>
+    //     </Paper>
+    //   </div>
           
         
     );
