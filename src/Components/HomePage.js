@@ -7,13 +7,13 @@ import EventTableAll from "./Organisation/EventTableAll";
 import { Redirect } from "react-router-dom"
 import {
     Grid, TextField, FormControl, InputLabel,
-    Select, Button, Paper, Typography
+    Select, Button, Paper, Typography, Avatar
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
-
+import StyledBadge from "../Components/StyledBadge"
 /**
  * Gets all events from the db
  */
@@ -294,8 +294,7 @@ class HomePage extends Component {
                     {/* We can send userObj to nav bar which can decide to show donation history */}
                     <NavBarHome />
                 
-                <Typography>Hello this our HomePage</Typography>
-                <Typography>Welcome {this.state.userObj.name}</Typography>
+                <StyledBadge data = {this.state.userObj.name}></StyledBadge>
 
 
 

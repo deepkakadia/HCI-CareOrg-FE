@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { logout } from "../../utils/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,8 @@ const NavBarDashBoard = () => {
     <div className={classes.root}>
       <AppBar position="static" style={{ background: "black" }}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title} style={{ color: "White" }}>
+          <Avatar>Hello</Avatar>
+          <Typography variant="h6" className={classes.title}  style={{ color: "White" }}>
             CareOrg
           </Typography>
           {/* <Button component={Link} to="/" color="inherit">

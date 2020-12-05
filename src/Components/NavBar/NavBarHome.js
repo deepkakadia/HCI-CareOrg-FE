@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { logout } from "../../utils/index";
 import { useHistory } from "react-router-dom";
-
+import {Avatar} from "@material-ui/core"
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
