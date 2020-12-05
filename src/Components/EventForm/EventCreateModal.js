@@ -191,7 +191,7 @@ export default class EventCreateModal extends Component {
                 <Dialog onClose={this.hanldeClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
                         Create New Campaign
-                         <IconButton aria-label="close" onClick={this.hanldeClickClose}>
+                         <IconButton align="right" aria-label="close" onClick={this.hanldeClickClose}>
                             <CloseIcon />
                         </IconButton>
                     </DialogTitle>
@@ -202,6 +202,7 @@ export default class EventCreateModal extends Component {
 
                                     <Grid item >
                                         <TextField
+                                            fullWidth
                                             label="Campaign Name"
                                             error={this.state.titleError}
                                             type="text"
@@ -222,6 +223,7 @@ export default class EventCreateModal extends Component {
 
                                     <Grid item>
                                         <TextField
+                                            fullWidth
                                             label="Campaign Description"
                                             error={this.state.descriptionError}
                                             type="text"
@@ -242,6 +244,7 @@ export default class EventCreateModal extends Component {
                                     <Grid item>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
+                                            fullWidth
                                                 inputVariant="outlined"
                                                 name="created_on"
                                                 format="MM/dd/yyyy"
@@ -266,6 +269,7 @@ export default class EventCreateModal extends Component {
                                     <Grid item>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
+                                                fullWidth
                                                 inputVariant="outlined"
                                                 name="expires_on"
                                                 format="MM/dd/yyyy"
@@ -291,6 +295,7 @@ export default class EventCreateModal extends Component {
 
                                     <Grid item >
                                         <TextField
+                                            fullWidth
                                             error={this.state.goal_amountError}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>,

@@ -3,7 +3,7 @@ import "./App.css";
 import Dashboard from "./Components/Dashboard";
 import Login from "./Components/Login";
 import NotFound404 from "./Components/NotFound404";
-import SignUp from "./Components/SignUp";
+
 import PrivateRoute from "./Components/PrivateRoutes";
 import OrganisationSignUp from "./Components/Signup/OraganisationSignUp"
 import UserSignUp from "./Components/Signup/UserSignup"

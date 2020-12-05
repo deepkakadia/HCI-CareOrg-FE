@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import StyledButton from "./StyledButton"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,20 +26,20 @@ const NavBarDashBoard = (props) => {
     <div className={classes.root}>
       <AppBar position="static" style={{ background: "#2A3D45" }}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h4" className={classes.title}>
             CareOrg
           </Typography>
-          <Button
+          <StyledButton
             component={Link}
             to="/"
             color="inherit"
             className={classes.menuButton}
           >
             Home
-          </Button>
-          <Button component={Link} to={props.btnLink} color="inherit">
+          </StyledButton>
+          <StyledButton component={Link} to={props.btnLink} color="inherit">
             {props.btnName}
-          </Button>
+          </StyledButton>
         </Toolbar>
       </AppBar>
     </div>

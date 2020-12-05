@@ -6,6 +6,7 @@ import AmountValueDetail from './AmountValueDetail';
 import ConfirmPayment from './ConfirmPayment';
 import PaymentForm from './AddPaymentInformation'
 //Dialog
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
@@ -14,6 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
+
 const styles = theme => ({
     root: {
         backgroundColor: "red"
@@ -146,16 +148,19 @@ class DonateNowModal extends Component {
             amount: amount
         }
         const { details, orgDetails } = this.props
-
+        
+        
 
 
         return (
 
             //Dialog Component
             <div>
-                <Button variant="contained" color="secondary" onClick={this.handleClickOpen}>
-                    Donate Now
-            </Button>
+                
+                    <Button variant="contained" style ={{background: "#008a00",color:"white"}} onClick={this.handleClickOpen}>
+                        Donate Now
+                    </Button>
+                
 
                 <Dialog onClose={this.handleClickClose} open={this.state.modalOpen}
                     disableBackdropClick disableEscapeKeyDown aria-labelledby="Make a Donation">

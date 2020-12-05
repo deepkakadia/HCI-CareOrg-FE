@@ -8,6 +8,7 @@ import { logout } from "../../utils/index";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
+import StyledButton from "./StyledButton"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,16 +41,16 @@ const NavBarDashBoard = () => {
     <div className={classes.root}>
       <AppBar position="static" style={{ background: "black" }}>
         <Toolbar>
-          <Avatar>Hello</Avatar>
-          <Typography variant="h6" className={classes.title}  style={{ color: "White" }}>
+        <Typography variant="h4" className={classes.title} style={{color: "white"}}>
             CareOrg
           </Typography>
+          
           {/* <Button component={Link} to="/" color="inherit">
             Home
           </Button> */}
-          <Button onClick={handleClick} color="inherit">
+          <StyledButton onClick={handleClick} color="inherit">
             Logout
-          </Button>
+          </StyledButton>
         </Toolbar>
       </AppBar>
     </div>
