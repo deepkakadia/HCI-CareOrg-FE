@@ -290,11 +290,11 @@ class HomePage extends Component {
                 {localStorage.getItem("is_organisation") == "true" &&
                     <Redirect to="/Dashboard" />
                 }
-                
-                    {/* We can send userObj to nav bar which can decide to show donation history */}
-                    <NavBarHome />
-                
-                <StyledBadge data = {this.state.userObj.name}></StyledBadge>
+
+                {/* We can send userObj to nav bar which can decide to show donation history */}
+                <NavBarHome />
+
+                <StyledBadge data={this.state.userObj.name}></StyledBadge>
 
 
 
@@ -306,32 +306,32 @@ class HomePage extends Component {
 
 
                     <Grid container justify="center" alignContent="center" spacing={2}>
-                        <Grid item xs ={12}>
-                            
-                                <TextField
-                                    id="search"
-                                    error={this.state.searchNameError}
-                                    type="text"
-                                    name="searchName"
-                                    placeholder="Enter an organization name to search"
-                                    value={this.state.searchName}
-                                    onChange={this.validateSearchName}
-                                    onFocus={this.handleInputFocus}
-                                    variant="standard"
-                                    InputProps={{
-                                        endAdornment: (
-                                        <InputAdornment>
-                                            <IconButton>
-                                            <SearchIcon>
-                                            </SearchIcon>
-                                            </IconButton>
-                                        </InputAdornment>
-                                        )
-                                    }}
-                                    fullWidth
-                                />
+                        <Grid item xs={12}>
 
-                            
+                            <TextField
+                                id="search"
+                                error={this.state.searchNameError}
+                                type="text"
+                                name="searchName"
+                                placeholder="Enter an organization name to search"
+                                value={this.state.searchName}
+                                onChange={this.validateSearchName}
+                                onFocus={this.handleInputFocus}
+                                variant="standard"
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment>
+
+                                            <SearchIcon />
+
+
+                                        </InputAdornment>
+                                    )
+                                }}
+                                fullWidth
+                            />
+
+
                         </Grid>
 
 
@@ -394,20 +394,20 @@ class HomePage extends Component {
 
 
                         </Grid>
-                        <Grid item xs ={12} align ="center">
+                        <Grid item xs={12} align="center">
 
-                           <Button
-                           onClick ={this.hanldeOnSubmit}
-                           variant="contained"
-                           color = "primary"
-                           >
-                               Search
+                            <Button
+                                onClick={this.hanldeOnSubmit}
+                                variant="contained"
+                                color="primary"
+                            >
+                                Search
                            </Button>
 
 
                         </Grid>
 
-                        
+
 
                     </Grid>
 
