@@ -189,6 +189,7 @@ class PaymentForm extends Component {
                                 onChange={this.validateCardNumber}
                                 onFocus={handleInputFocus}
                                 variant="outlined"
+                                fullWidth
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -211,6 +212,7 @@ class PaymentForm extends Component {
                                 onChange={this.validateCardName}
                                 onFocus={handleInputFocus}
                                 variant="outlined"
+                                fullWidth
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -229,6 +231,7 @@ class PaymentForm extends Component {
                                 placeholder='MMYY Expiry'
                                 label='Expiry Date'
                                 id="Expiry Date"
+                                fullWidth
                                 value={cardDetails.expiry}
                                 onChange={this.validateCardExpiry}
                                 onFocus={handleInputFocus}
@@ -249,6 +252,7 @@ class PaymentForm extends Component {
                                 name='cvc'
                                 placeholder='CVC'
                                 label='CVV'
+                                fullWidth
                                 id="CVV"
                                 value={cardDetails.cvc}
                                 onChange={this.validateCardCVC}

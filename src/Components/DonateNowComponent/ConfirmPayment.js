@@ -54,6 +54,7 @@ export class ConfirmPayment extends Component {
                 }
             })
             console.log(res.data)
+            window.location.reload()
         } catch (e) {
             console.log(e)
         }
