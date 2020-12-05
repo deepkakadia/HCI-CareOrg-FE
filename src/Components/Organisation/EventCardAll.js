@@ -62,7 +62,7 @@ class EventCardAll extends Component {
     render() {
         const { classes } = this.props;
         console.log(this.props)
-        const { goal_amount, received_amount, is_Expired } = this.props.details
+        const { goal_amount, received_amount } = this.props.details
 
         // shorten user description
         var desc = this.props.details.event_description
@@ -73,9 +73,17 @@ class EventCardAll extends Component {
         // paceholder image
         const imagePath = this.props.details.campaign_image;
 
+        var is_Expired = this.props.details;
+
+
+        if (new Date() > new Date(this.props.details.expires_on)) {
+            console.log("event expired")
+            is_Expired = true
+        }
+
         // setting the required button according to the "signed in user"
         var cardButton = null;
-        if (is_Expired) {
+        if (is_Expired === true) {
             cardButton = <Button variant="contained" color="secondary" disabled>Expired</Button>
         } else if (this.props.userDetails.is_organisation) {
             cardButton = <EventEditModal eventDetails={this.props.details} userDetails={this.props.userDetails} />
@@ -83,6 +91,10 @@ class EventCardAll extends Component {
             cardButton = <DonateNowModal orgDetails={this.props.orgDetails} details={this.props.details} userDetails={this.props.userDetails} />
         }
 
+        let donation_progress = Math.floor(1000 * received_amount / goal_amount) / 10;
+        if (donation_progress > 100) {
+            donation_progress = 100;
+        }
         return (
             <Card>
                 <CardMedia
@@ -99,7 +111,9 @@ class EventCardAll extends Component {
                     <Typography variant="body2">
 
                         <form onSubmit={this.redirectToOrgProfile}>
+
                             <Button type="submit" variant="outlined" color ="primary"><Typography>{this.props.orgDetails.name}</Typography></Button>
+
                         </form>
 
 
@@ -120,7 +134,8 @@ class EventCardAll extends Component {
                     <Typography>
                         ${received_amount} raised of ${goal_amount}
                     </Typography>
-                    <LinearProgressWithLabel value={Math.floor(1000 * received_amount / goal_amount) / 10} />
+                    {/* Math.floor(1000 * received_amount / goal_amount) / 10 */}
+                    <LinearProgressWithLabel value={donation_progress} />
                 </CardContent>
                 <CardActions>
                     <Box display="flex" width="100%" alignItems="center">

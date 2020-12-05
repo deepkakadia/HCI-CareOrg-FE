@@ -13,6 +13,7 @@ import EventCreateModal from './Components/EventForm/EventCreateModal';
 import OrgDash from './Components/Organisation/OrgDash';
 import Landing from './Components/Landing'
 import VisitOrg from './Components/Organisation/VisitOrg';
+import DonationHistory from './Components/Organisation/DonationHistory';
 class App extends Component {
     render() {
         return (
@@ -33,6 +34,7 @@ class App extends Component {
                         <PrivateRoute exact path="/org" component={VisitOrg}></PrivateRoute>
                         <PrivateRoute exact path="/homepage" component={HomePage}></PrivateRoute>
                         <PrivateRoute exact path="/Dashboard" component={Dashboard}></PrivateRoute>
+                        <PrivateRoute path="/donations" component={DonationHistory}></PrivateRoute>
                         <Route component={NotFound404}></Route>
                     </Switch>
                 </Router>

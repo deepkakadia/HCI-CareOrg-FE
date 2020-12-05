@@ -73,8 +73,11 @@ class EventCard extends Component {
         const imagePath = this.props.eventDetails.campaign_image;
 
         var is_Expired = this.props.eventDetails;
+        console.log(new Date() > new Date(this.props.eventDetails.expires_on))
+        console.log(new Date())
+        console.log(new Date(this.props.eventDetails.expires_on))
 
-        if (new Date() < new Date(this.props.eventDetails.expires_on)) {
+        if (new Date() > new Date(this.props.eventDetails.expires_on)) {
             console.log("event expired")
             is_Expired = true
         }
@@ -82,14 +85,17 @@ class EventCard extends Component {
 
         // setting the required button according to the "signed in user"
         var cardButton = null;
-        if (is_Expired) {
+        if (is_Expired === true) {
             cardButton = <Button variant="contained" disabled>Expired</Button>
         } else if (this.state.loggedInUser.is_organisation) {
             cardButton = <EventEditModal eventDetails={this.props.eventDetails} userDetails={this.state.orgDetails} />
         } else {
             cardButton = <DonateNowModal details={this.props.eventDetails} orgDetails={this.state.orgDetails} userDetails={this.state.loggedInUser} />
         }
-
+        let donation_progress = Math.floor(1000 * received_amount / goal_amount) / 10;
+        if (donation_progress > 100) {
+            donation_progress = 100;
+        }
         return (
             <Card>
                 <CardMedia
@@ -116,7 +122,7 @@ class EventCard extends Component {
                     <Typography>
                         ${received_amount} raised of ${goal_amount}
                     </Typography>
-                    <LinearProgressWithLabel value={Math.floor(10 * 100 * received_amount / goal_amount) / 10} />
+                    <LinearProgressWithLabel value={donation_progress} />
                 </CardContent>
                 <CardActions>
                     <Box display="flex" width="100%" alignItems="center">
