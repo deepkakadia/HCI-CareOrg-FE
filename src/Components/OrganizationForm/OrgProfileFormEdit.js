@@ -206,7 +206,7 @@ export class OrgProfileFormEdit extends Component {
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                <Button style={{ minWidth: "125px" }} variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     Edit Profile
                 </Button>
 
