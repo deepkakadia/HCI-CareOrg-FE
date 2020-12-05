@@ -9,10 +9,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
-import FileUpload from '../../utils/FileUpload';
-import Input from '@material-ui/core/Input';
-import refreshPage from '../../utils/refreshPage';
-var unirest = require('unirest');
+
 
 export class ForceOrgProfileEdit extends Component {
 
