@@ -112,7 +112,8 @@ class EventCardAll extends Component {
 
                         <form onSubmit={this.redirectToOrgProfile}>
 
-                            <Button type="submit" variant="outlined" color ="primary"><Typography>{this.props.orgDetails.name}</Typography></Button>
+                            {/* <Button type="submit" variant="outlined" color ="primary"><Typography>{this.props.orgDetails.name}</Typography></Button> */}
+                            <Button style={{ paddingLeft: "0px" }} color="primary" type="submit">{this.props.orgDetails.name}</Button>
 
                         </form>
 
