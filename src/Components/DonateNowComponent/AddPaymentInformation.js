@@ -3,9 +3,21 @@ import Cards from 'react-credit-cards';
 import './payment.css'
 import 'react-credit-cards/es/styles-compiled.css';
 import { TextField, Grid, Container, Button, CardActions, DialogActions } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+    typography: {
+      fontFamily: 'Roboto',
+    },
+    root: {
+      height: '100vh',
+    },
+    gridd: {
+        padding: 10
+    }
+  });
 
-export default class PaymentForm extends Component {
+class PaymentForm extends Component {
 
     constructor(props) {
         super(props)
@@ -145,20 +157,24 @@ export default class PaymentForm extends Component {
     }
 
     render() {
-
+        const { classes } = this.props;
         const { cardDetails, handleInputFocus, handleBack } = this.props
         return (
             <div className='App'>
-                <Cards
-                    cvc={cardDetails.cvc}
-                    expiry={cardDetails.expiry}
-                    focused={cardDetails.focus}
-                    name={cardDetails.name}
-                    number={cardDetails.number}
-                />
+                
 
                 <Container>
-                    <Grid container direction="Column" spacing={10} >
+                    <Grid container direction="Column" spacing={5} >
+                        <Grid item xs = {12}>
+                        <Cards
+                            cvc={cardDetails.cvc}
+                            expiry={cardDetails.expiry}
+                            focused={cardDetails.focus}
+                            name={cardDetails.name}
+                            number={cardDetails.number}
+                            
+                        />
+                        </Grid>
                         <Grid item xs={12} >
 
                             <TextField
@@ -274,25 +290,6 @@ export default class PaymentForm extends Component {
 }
 
 
-// import { withStyles } from "@material-ui/core/styles";
 
-// const styles = theme => ({
-//     root: {
-//         backgroundColor: "red"
-//     }
-// });
 
-// class ClassComponent extends Component {
-//     state = {
-//         searchNodes: ""
-//     };
-
-//     render() {
-//         const { classes } = this.props;
-//         return (
-//             <div className={classes.root}>Hello!</div>
-//         );
-//     }
-// }
-
-// export default withStyles(styles, { withTheme: true })(ClassComponent);
+ export default withStyles(styles)( PaymentForm);

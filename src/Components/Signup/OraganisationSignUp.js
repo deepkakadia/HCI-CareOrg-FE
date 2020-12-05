@@ -24,6 +24,7 @@ const styles = theme => ({
     },
     root: {
       height: '100vh',
+      spacing: 10,
     },
     image: {
       backgroundImage: 'url(https://source.unsplash.com/random)',
@@ -51,6 +52,10 @@ const styles = theme => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    textField: {
+        marginTop: 15, 
+    },
+
   });
 
 
@@ -109,7 +114,8 @@ class OrganisationSignUp extends React.Component {
             Organisation SignUp
           </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
-          <TextField
+            <TextField
+            className = {classes.textField}
               type="text"
               label="OrganisationName"
               fullWidth
@@ -119,9 +125,10 @@ class OrganisationSignUp extends React.Component {
               value={this.state.orgname}
               onChange={this.handleChange}
               required
-              autoFocus
+              spacing = {3}
             />
             <TextField
+            className = {classes.textField}
               type="email"
               label="Email"
               fullWidth
@@ -131,9 +138,9 @@ class OrganisationSignUp extends React.Component {
               value={this.state.email}
               onChange={this.handleChange}
               required
-              autoFocus
             />
             <TextField
+            className = {classes.textField}
               type="password"
               label="Password"
               fullWidth
@@ -144,6 +151,7 @@ class OrganisationSignUp extends React.Component {
               required
             />
             <TextField
+            className = {classes.textField}
               type="password"
               label="Confirm Password"
               fullWidth
@@ -154,6 +162,7 @@ class OrganisationSignUp extends React.Component {
               required
             />
             <Button
+            className = {classes.textField}
               type="submit"
               fullWidth
               variant="contained"
@@ -162,6 +171,7 @@ class OrganisationSignUp extends React.Component {
             >
               SignUp
             </Button>
+          
           </form>
         </div>
       </Grid>

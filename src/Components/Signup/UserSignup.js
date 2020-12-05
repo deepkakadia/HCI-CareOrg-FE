@@ -51,6 +51,9 @@ const styles = theme => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    textField: {
+      marginTop: 15, 
+    },
   });
 
 
@@ -105,10 +108,12 @@ class UserSignUp extends React.Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Organisation SignUp
+            User SignUp
           </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
           <TextField
+          className = {classes.textField}
+            id="username"
               type="text"
               label="Username"
               fullWidth
@@ -121,6 +126,8 @@ class UserSignUp extends React.Component {
               autoFocus
             />
             <TextField
+            className = {classes.textField}
+            id = "email"
               type="email"
               label="Email"
               fullWidth
@@ -133,6 +140,8 @@ class UserSignUp extends React.Component {
               autoFocus
             />
             <TextField
+            className = {classes.textField}
+            id = "password"
               type="password"
               label="Password"
               fullWidth
@@ -143,6 +152,8 @@ class UserSignUp extends React.Component {
               required
             />
             <TextField
+            className = {classes.textField}
+            id= "confirmpassword"
               type="password"
               label="Confirm Password"
               fullWidth
