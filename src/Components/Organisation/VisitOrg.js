@@ -13,6 +13,8 @@ import ForceOrgProfileEdit from '../OrganizationForm/ForceOrgProfileEdit'
 import NavBarDashBoard from "../NavBar/NavBarDashBoard";
 import { getUserById, getAllOrgDetails, getAllEvents } from "../Dashboard";
 import VisitOrgTable from './VisitOrgTable';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AssistantPhotoIcon from '@material-ui/icons/AssistantPhoto';
 
 class VisitOrg extends Component {
     constructor(props) {
@@ -67,6 +69,14 @@ class VisitOrg extends Component {
                         <Box display="flex" width="100%" alignItems="center" style={{ margin: "25px 24px 25px 24px", }}>
                             <Box textAlign="center" flexGrow={1}>
                                 <Typography>{this.state.orgProfile.description}</Typography>
+                            </Box>
+                        </Box>
+                        <Box display="flex" width="100%" alignItems="center" style={{ margin: "-10px 24px 25px 24px", }}>
+                            <Box textAlign="right" flexGrow={1} style={{ margin: "0px 10px 0px 0px", }}>
+                                <Typography><AssistantPhotoIcon /> {this.state.orgProfile.industry}</Typography>
+                            </Box>
+                            <Box textAlign="left" flexGrow={1} style={{ margin: "0px 0px 0px 10px", }}>
+                                <Typography><LocationOnIcon /> {this.state.orgProfile.location}</Typography>
                             </Box>
                         </Box>
                     </Grid>

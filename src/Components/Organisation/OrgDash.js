@@ -10,6 +10,8 @@ import Divider from '@material-ui/core/Divider';
 import OrgProfileFormEdit from '../OrganizationForm/OrgProfileFormEdit'
 import axios from "axios";
 import ForceOrgProfileEdit from '../OrganizationForm/ForceOrgProfileEdit'
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import AssistantPhotoIcon from '@material-ui/icons/AssistantPhoto';
 
 
 /**
@@ -109,6 +111,14 @@ class OrgDash extends Component {
                             <div>
                                 <OrgProfileFormEdit handleUpdateCalled={this.handleUpdateCalled} profileDetails={this.state.profileDetails} userDetails={this.state.userDetails}> Edit Profile</OrgProfileFormEdit>
                             </div>
+                        </Box>
+                        <Box display="flex" width="100%" alignItems="center" style={{ margin: "-10px 24px 25px 24px", }}>
+                            <Box textAlign="right" flexGrow={1} style={{ margin: "0px 10px 0px 0px", }}>
+                                <Typography><AssistantPhotoIcon /> {this.state.profileDetails.industry}</Typography>
+                            </Box>
+                            <Box textAlign="left" flexGrow={1} style={{ margin: "0px 0px 0px 10px", }}>
+                                <Typography><LocationOnIcon /> {this.state.profileDetails.location}</Typography>
+                            </Box>
                         </Box>
                     </Grid>
                     <Divider />
