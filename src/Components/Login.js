@@ -19,6 +19,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { withStyles } from '@material-ui/core/styles';
+import Image from "../utils/home.png"
 
 
 const styles = theme => ({
@@ -26,10 +27,11 @@ const styles = theme => ({
     fontFamily: 'Roboto',
   },
   root: {
-    height: '100vh',
+    height: '60vh',
+    spacing: 10,
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: `url(${Image})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -120,9 +122,6 @@ class LoginForm extends React.Component {
       
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-        <StyledButton onClick = {()=>{this.props.history.push("/")}}>
-              Home
-            </StyledButton>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -163,20 +162,13 @@ class LoginForm extends React.Component {
             >
               Login
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-            </Grid>
             <Divider variant="inset"/>
           </form>
           <Grid container justify="center">
-            <Typography style={{ marginTop: "15px" }}>Want to create an account? Click below !</Typography>
+            <Typography style={{ marginTop: "15px"  }}>Want to create an account? Click below !</Typography>
           
             <Grid container justify="center" className={classes.root} style={{ marginTop: "15px" }}>
-              <Grid item xs >
+              <Grid item xs={5}>
                   <Typography component="h1" variant="h4">
                     For Organisation
                   </Typography>
@@ -191,11 +183,12 @@ class LoginForm extends React.Component {
                 Sign Up as Organisation
               </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={5}>
                 <Typography  variant="h4" fontWeight="fontWeightBold">
                   For User
                 </Typography>
-                <p>Create your personal account to help various NGO and support their cause.</p>
+                <p>Create your personal account to help various NGO and support their cause</p>
+                <br></br>
               <Button
               variant="contained"        
               color="primary"
