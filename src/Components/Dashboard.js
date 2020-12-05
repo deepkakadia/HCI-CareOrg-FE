@@ -211,9 +211,9 @@ class Dashboard extends Component {
                     <OrgDash {...OrgDashProps} />
                 }
 
-                {/* {localStorage.getItem("is_organisation") != "true" && 
-                    <Redirect to="/homepage"/>
-                } */}
+                {localStorage.getItem("is_organisation") != "true" &&
+                    <Redirect to="/homepage" />
+                }
             </div>
         );
     }
