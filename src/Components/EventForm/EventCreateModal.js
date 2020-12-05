@@ -119,7 +119,7 @@ export default class EventCreateModal extends Component {
             }
 
             this.hanldeClickClose();
-            refreshPage()
+            refreshPage
 
         }
 

@@ -19,25 +19,20 @@ class App extends Component {
             <div>
                 <Router>
                     <Switch>
-                        <PrivateRoute
-                            exact
-                            path="/Dashboard"
-                            component={Dashboard}
-                        ></PrivateRoute>
+                        
                         {/* <PrivateRoute exact path="/Dashboard" render={(props) => <Dashboard {...props}/>}/> */}
 
                         <Route exact path="/" component={Landing}></Route>
                         {/*if !is_organisation then redirect USER after sign in or login  */}
-                        <Route exact path="/homepage" component={HomePage}></Route>
+                        
 
                         {/* If is_oragnisation redirect to /Dashboard */}
-                        <Route exact path="/Dashboard" component={Dashboard}></Route>
                         <Route exact path="/login" component={Login}></Route>
-                        <Route exact path="/signup" component={SignUp}></Route>
                         <Route exact path="/signuporg" component={OrganisationSignUp}></Route>
                         <Route exact path="/signupuser" component={UserSignUp}></Route>
-                        <Route exact path="/createEvent" component={EventCreateModal}></Route>
-                        <Route exact path="/org" component={OrgDash}></Route>
+                        <PrivateRoute exact path="/org" component={OrgDash}></PrivateRoute>
+                        <PrivateRoute exact path="/homepage" component={HomePage}></PrivateRoute>
+                        <PrivateRoute exact path="/Dashboard" component={Dashboard}></PrivateRoute>
 
 
 
