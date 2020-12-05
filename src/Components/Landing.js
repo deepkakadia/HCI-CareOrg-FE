@@ -24,7 +24,6 @@ const styles = theme => ({
   },
   paper: {
     backgroundImage: `url(${Image})`,
-    height: "1000px"
   },
   container:{
     background: "blue"

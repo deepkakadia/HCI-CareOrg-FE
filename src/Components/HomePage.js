@@ -337,7 +337,7 @@ class HomePage extends Component {
                     <br></br>
 
                     <Divider />
-                    <EventTableAll history={this.props.history} feedItems={this.state.filteredEvents} userDetails={this.state.userObj} />
+                    <EventTableAll history={this.props.history} feedItems={this.state.allEvents} userDetails={this.state.userObj} />
 
                 </Container >
 

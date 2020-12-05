@@ -90,13 +90,6 @@ const NavBarDashBoard = (props) => {
           <Typography variant="h3" className={classes.title}>
             CareOrg
           </Typography>
-          <StyledButton
-          
-            component={Link}
-            to="/"
-          >
-            Home
-          </StyledButton>
           {islogin === true ? (
             <StyledButton onClick={handleClick}>
               Logout
