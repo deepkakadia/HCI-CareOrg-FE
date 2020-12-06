@@ -176,6 +176,7 @@ class LoginForm extends React.Component {
                     For Organisation
                   </Typography>
                   <Typography>If you are looking to create charity events, click below to get registered as an organisation</Typography>
+                  <br></br>
                   <Tooltip title ="SignUp as Organisation">
                   <Button
                     type="submit"
