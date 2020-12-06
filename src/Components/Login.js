@@ -174,8 +174,8 @@ class LoginForm extends React.Component {
                             </Grid>
                             <Grid container justify="center" className={classes.root} style={{ marginTop: "15px" }}>
                                 <Grid item xs={6} style={{ textAlign: "center" }}>
-                                    <Typography bottomGutter noWrap component="h1" variant="h4" >
-                                        For Non-profit Organizations
+                                    <Typography bottomGutter noWrap variant="h5" >
+                                        For Non-Profit Organizations
                                     </Typography>
                                     <Typography align="center">We help Charity organisations to gather funding for their campaigns, supporting various causes around the world</Typography>
 
@@ -192,7 +192,7 @@ class LoginForm extends React.Component {
                                     </Tooltip>
                                 </Grid>
                                 <Grid item xs={6} style={{ textAlign: "center" }}>
-                                    <Typography bottomGutter noWrap component="h1" variant="h4" fontWeight="fontWeightBold">
+                                    <Typography bottomGutter noWrap variant="h5" fontWeight="fontWeightBold">
                                         For Indvidual Donors
                 </Typography>
                                     <Typography align="center">We help Individuals around the world search and donate to charities of their choice supporting cause close to their heart</Typography>
