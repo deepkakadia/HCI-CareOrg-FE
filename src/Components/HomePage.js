@@ -7,7 +7,7 @@ import EventTableAll from "./Organisation/EventTableAll";
 import { Redirect } from "react-router-dom"
 import {
     Grid, TextField, FormControl, InputLabel,
-    Select, Button, Paper, Typography, Avatar, Hidden
+    Select, Button, Paper, Typography, Avatar, Hidden, Tooltip
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -414,7 +414,7 @@ class HomePage extends Component {
 
                         </Grid>
                         <Grid item xs={12} align="center" style={{ textAlign: "center" }}>
-
+                                <Tooltip  title={<h3>Search an organisation</h3>}>
                             <Button
                                 onClick={this.hanldeOnSubmit}
                                 variant="contained"
@@ -422,6 +422,7 @@ class HomePage extends Component {
                             >
                                 Search
                            </Button>
+                           </Tooltip>
 
 
                         </Grid>

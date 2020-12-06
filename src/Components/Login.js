@@ -10,6 +10,7 @@ import {
   Typography,
   Link,
   Divider,
+  Tooltip,
 } from "@material-ui/core";
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -152,15 +153,18 @@ class LoginForm extends React.Component {
                 onChange={this.handleChange}
                 required
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Login
-            </Button>
+              <Tooltip title="User and Organisation can login">
+                <Button
+                
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Login
+              </Button>
+            </Tooltip>
               <Divider variant="inset" />
             </form>
             <Grid container justify="center">
@@ -172,6 +176,7 @@ class LoginForm extends React.Component {
                     For Organisation
                   </Typography>
                   <Typography>If you are looking to create charity events, click below to get registered as an organisation</Typography>
+                  <Tooltip title ="SignUp as Organisation">
                   <Button
                     type="submit"
                     variant="contained"
@@ -181,6 +186,7 @@ class LoginForm extends React.Component {
                   >
                     Sign Up as Organisation
               </Button>
+              </Tooltip>
                 </Grid>
                 <Grid item xs={6}>
                   <Typography noWrap variant="h4" fontWeight="fontWeightBold">
@@ -188,6 +194,7 @@ class LoginForm extends React.Component {
                 </Typography>
                   <Typography>Create your personal account to help various NGO and support their cause</Typography>
                   <br></br>
+                  <Tooltip title="SignUp as User">
                   <Button
                     variant="contained"
                     color="primary"
@@ -196,6 +203,7 @@ class LoginForm extends React.Component {
                   >
                     Sign Up as User
               </Button>
+              </Tooltip>
                 </Grid>
               </Grid>
             </Grid>

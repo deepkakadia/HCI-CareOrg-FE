@@ -10,6 +10,7 @@ import {
   Typography,
   Link,
   Divider,
+  Tooltip,
 } from "@material-ui/core";
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -166,15 +167,17 @@ class UserSignUp extends React.Component {
               onChange={this.handleChange}
               required
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              SignUp
-            </Button>
+            <Tooltip title="SignUp as User">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                SignUp
+              </Button>
+            </Tooltip>
           </form>
         </div>
       </Grid>
