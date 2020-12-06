@@ -10,6 +10,7 @@ import {
   Typography,
   Link,
   Divider,
+  Tooltip,
 } from "@material-ui/core";
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -162,6 +163,7 @@ class OrganisationSignUp extends React.Component {
               onChange={this.handleChange}
               required
             />
+            <Tooltip title="SignUp as Organisation">
             <Button
             className = {classes.textField}
               type="submit"
@@ -172,7 +174,7 @@ class OrganisationSignUp extends React.Component {
             >
               SignUp
             </Button>
-          
+            </Tooltip>  
           </form>
         </div>
       </Grid>

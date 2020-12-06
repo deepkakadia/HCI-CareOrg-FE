@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
+import {Tooltip} from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -78,17 +79,23 @@ const NavBarDashBoard = (props) => {
                     <Typography variant="h4" className={classes.title} style={{ color: "White" }}>
                         <Link to="/homepage" className={classes.title} style={{ color: "White", textDecoration: 'none' }}>CareOrg</Link>
                     </Typography>
+                    <Tooltip title ="See your donation history">
                     <StyledButton2 onClick={handleDonationClick}>
                         Donation History
-            </StyledButton2>
+                    </StyledButton2>
+                    </Tooltip>
                     {islogin === true ? (
+                      <Tooltip title="Logout">
                         <StyledButton onClick={handleClick}>
                             Logout
                         </StyledButton>
+                        </Tooltip>
                     ) : (
+                            <Tooltip title = "Login">
                             <StyledButton component={Link} to="/login">
                                 Login
                             </StyledButton>
+                            </Tooltip>
                         )}
 
                 </Toolbar>
