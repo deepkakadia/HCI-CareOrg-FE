@@ -173,7 +173,7 @@ class LoginForm extends React.Component {
               <Grid container justify="center" className={classes.root} style={{ marginTop: "15px" }}>
                 <Grid item xs={6}>
                   <Typography noWrap component="h1" variant="h4">
-                    For Organisation
+                    For NGO
                   </Typography>
                   <Typography>If you are looking to create charity events, click below to get registered as an organisation</Typography>
                   <br></br>
@@ -185,13 +185,13 @@ class LoginForm extends React.Component {
                     className={classes.submit}
                     onClick={() => history.push('/signuporg')}
                   >
-                    Sign Up as Organisation
+                    Sign Up as NGO
               </Button>
               </Tooltip>
                 </Grid>
                 <Grid item xs={6}>
                   <Typography noWrap variant="h4" fontWeight="fontWeightBold">
-                    For User
+                    For Indvidual
                 </Typography>
                   <Typography>Create your personal account to help various NGO and support their cause</Typography>
                   <br></br>
@@ -202,7 +202,7 @@ class LoginForm extends React.Component {
                     className={classes.submit}
                     onClick={() => history.push('/signupuser')}
                   >
-                    Sign Up as User
+                    Sign Up as Individual
               </Button>
               </Tooltip>
                 </Grid>
