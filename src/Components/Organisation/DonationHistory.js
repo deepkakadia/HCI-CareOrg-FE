@@ -8,6 +8,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { getUserById, getAllEvents } from '../Dashboard';
 import axios from 'axios';
+import Confetti from '../../utils/Confetti';
 
 
 /**
@@ -33,7 +34,8 @@ class DonationHistory extends Component {
             page: 1,
             feedItems: [],
             userDetails: {},
-            donationHistory: []
+            donationHistory: [],
+            confettiState: false,
         };
     }
 
@@ -49,8 +51,13 @@ class DonationHistory extends Component {
         this.setState({
             feedItems: feedItems,
             userDetails: userDetails,
-            donationHistory: donationHistory
+            donationHistory: donationHistory,
+            confettiState: true
         })
+
+        setTimeout(() => {
+            this.setState({ confettiState: false })
+        }, 10000);
     }
 
     render() {
@@ -69,6 +76,7 @@ class DonationHistory extends Component {
             //Add mnavbar
 
             <div>
+                {this.state.confettiState && <Confetti />}
                 {localStorage.getItem("is_organisation") == "true" &&
                     <Redirect to="/Dashboard" />
                 }

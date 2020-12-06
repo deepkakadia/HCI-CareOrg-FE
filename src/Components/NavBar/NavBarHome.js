@@ -8,7 +8,7 @@ import { logout } from "../../utils/index";
 import { useHistory } from "react-router-dom";
 import StyledButton from "./StyledButton"
 import StyledButton2 from "./StyledButton2"
-import { Redirect } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,6 +34,7 @@ const NavBarDashBoard = (props) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
+
     const history = useHistory();
 
     const handleClick = () => {
@@ -42,6 +43,10 @@ const NavBarDashBoard = (props) => {
         history.push("/login");
     };
 
+    const handleDonationClick = () => {
+
+        history.push("/donations");
+    };
 
 
     useEffect(() => {
@@ -65,6 +70,7 @@ const NavBarDashBoard = (props) => {
     }, [islogin]);
 
 
+
     return (
         <div className={classes.root}>
             <AppBar position="static" style={{ background: 'rgba(0, 0, 0)', boxShadow: 'none' }}>
@@ -72,7 +78,7 @@ const NavBarDashBoard = (props) => {
                     <Typography variant="h4" className={classes.title} style={{ color: "White" }}>
                         <Link to="/homepage" className={classes.title} style={{ color: "White", textDecoration: 'none' }}>CareOrg</Link>
                     </Typography>
-                    <StyledButton2 onClick={() => { return (<Redirect to="/donations"></Redirect>) }}>
+                    <StyledButton2 onClick={handleDonationClick}>
                         Donation History
             </StyledButton2>
                     {islogin === true ? (

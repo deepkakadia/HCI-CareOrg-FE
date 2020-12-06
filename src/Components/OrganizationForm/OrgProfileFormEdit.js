@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
     Grid, Container, Button, TextField, FormControl, Select, InputLabel,
-    Dialog, DialogTitle, DialogContent, DialogActions
+    Dialog, Typography, DialogContent, DialogActions
 } from '@material-ui/core';
 import country_list from './countrList'
 import Snackbar from '@material-ui/core/Snackbar';
@@ -9,6 +9,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
+import { withStyles } from "@material-ui/core/styles";
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import Input from '@material-ui/core/Input';
 import refreshPage from '../../utils/refreshPage';
 
@@ -204,6 +206,31 @@ export class OrgProfileFormEdit extends Component {
     };
 
     render() {
+        const styles = theme => ({
+            root: {
+                margin: 0,
+                padding: theme.spacing(2),
+            },
+            closeButton: {
+                position: 'absolute',
+                right: theme.spacing(1),
+                top: theme.spacing(1),
+                color: theme.palette.grey[500],
+            }
+        });
+        const DialogTitle = withStyles(styles)((props) => {
+            const { children, classes, onClose, ...other } = props;
+            return (
+                <MuiDialogTitle disableTypography className={classes.root} {...other}>
+                    <Typography variant="h6">{children}</Typography>
+                    {onClose ? (
+                        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    ) : null}
+                </MuiDialogTitle>
+            );
+        });
         return (
             <div>
                 <Button style={{ minWidth: "125px" }} variant="outlined" color="primary" onClick={this.handleClickOpen}>
@@ -213,9 +240,6 @@ export class OrgProfileFormEdit extends Component {
                 <Dialog onClose={this.hanldeClickClose} aria-labelledby="Edit-Profile" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
                         Edit Profile
-                         <IconButton aria-label="close" onClick={this.hanldeClickClose}>
-                            <CloseIcon />
-                        </IconButton>
                     </DialogTitle>
                     <DialogContent dividers>
                         <Container className="app">
@@ -327,6 +351,6 @@ export class OrgProfileFormEdit extends Component {
         )
     }
 }
+export default withStyles({ withTheme: true })(OrgProfileFormEdit);
 
-export default OrgProfileFormEdit
 

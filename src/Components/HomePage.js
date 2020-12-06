@@ -10,7 +10,7 @@ import {
     Select, Button, Paper, Typography, Avatar, Hidden
 } from '@material-ui/core';
 import country_list from './OrganizationForm/countrList';
-import IconButton from "@material-ui/core/IconButton";
+import CircularProgress from '@material-ui/core/CircularProgress';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import StyledBadge from "../Components/StyledBadge"
@@ -306,34 +306,44 @@ class HomePage extends Component {
 
 
                     <Grid container justify="center" alignContent="center" spacing={2}>
-                        <Grid item xs={12}>
 
-                            <TextField
-                                id="search"
-                                error={this.state.searchNameError}
-                                type="text"
-                                name="searchName"
-                                placeholder="Enter an organization name to search"
-                                value={this.state.searchName}
-                                onChange={this.validateSearchName}
-                                onFocus={this.handleInputFocus}
-                                variant="standard"
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment>
-
-                                            <SearchIcon />
-
-
-                                        </InputAdornment>
-                                    )
-                                }}
-                                fullWidth
-                            />
-
-
+                        <Grid item xs={12} style={{ textAlign: "center" }}>
+                            <Typography variant="h4">
+                                Search charity campaigns to make a donaiton
+                            </Typography>
                         </Grid>
 
+                        <Grid container>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={6} style={{ textAlign: "center" }}>
+
+                                <TextField
+                                    id="search"
+                                    error={this.state.searchNameError}
+                                    type="text"
+                                    name="searchName"
+                                    placeholder="Enter an organization name to search"
+                                    value={this.state.searchName}
+                                    onChange={this.validateSearchName}
+                                    onFocus={this.handleInputFocus}
+                                    variant="outlined"
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment>
+
+                                                <SearchIcon />
+
+
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    fullWidth
+                                />
+
+
+                            </Grid>
+                            <Grid item xs={3}></Grid>
+                        </Grid>
 
 
 
@@ -394,7 +404,7 @@ class HomePage extends Component {
 
 
                         </Grid>
-                        <Grid item xs={12} align="center">
+                        <Grid item xs={12} align="center" style={{ textAlign: "center" }}>
 
                             <Button
                                 onClick={this.hanldeOnSubmit}
@@ -414,6 +424,11 @@ class HomePage extends Component {
                     <br></br>
 
                     <Divider />
+                    <div>
+                        {this.state.filteredEvents === [] && <CircularProgress />}
+                    </div>
+
+
 
                     <EventTableAll history={this.props.history} feedItems={this.state.filteredEvents} userDetails={this.state.userObj} />
 

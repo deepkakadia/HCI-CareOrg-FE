@@ -7,8 +7,10 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 import axios from 'axios';
 import refreshPage from '../../utils/refreshPage';
-
-export default class EventCreateModal extends Component {
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import { withStyles } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
+class EventCreateModal extends Component {
 
 
 
@@ -183,6 +185,31 @@ export default class EventCreateModal extends Component {
     };
 
     render() {
+        const styles = theme => ({
+            root: {
+                margin: 0,
+                padding: theme.spacing(2),
+            },
+            closeButton: {
+                position: 'absolute',
+                right: theme.spacing(1),
+                top: theme.spacing(1),
+                color: theme.palette.grey[500],
+            }
+        });
+        const DialogTitle = withStyles(styles)((props) => {
+            const { children, classes, onClose, ...other } = props;
+            return (
+                <MuiDialogTitle disableTypography className={classes.root} {...other}>
+                    <Typography variant="h6">{children}</Typography>
+                    {onClose ? (
+                        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    ) : null}
+                </MuiDialogTitle>
+            );
+        });
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
@@ -191,9 +218,7 @@ export default class EventCreateModal extends Component {
                 <Dialog onClose={this.hanldeClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
                         Create New Campaign
-                         <IconButton align="right" aria-label="close" onClick={this.hanldeClickClose}>
-                            <CloseIcon />
-                        </IconButton>
+                      
                     </DialogTitle>
                     <DialogContent dividers>
                         <form>
@@ -244,7 +269,7 @@ export default class EventCreateModal extends Component {
                                     <Grid item>
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
-                                            fullWidth
+                                                fullWidth
                                                 inputVariant="outlined"
                                                 name="created_on"
                                                 format="MM/dd/yyyy"
@@ -331,5 +356,6 @@ export default class EventCreateModal extends Component {
         )
     }
 }
+export default withStyles({ withTheme: true })(EventCreateModal);
 
 
