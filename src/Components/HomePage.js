@@ -244,7 +244,16 @@ class HomePage extends Component {
             filteredProfiles = filteredProfiles.filter(details => details.location == searchLocation)
         }
         // apply regex here
-        let regex = new RegExp(`^(${searchName}.+|.+${searchName}|.+${searchName}.+)$`);
+        if (searchName != "") {
+            filteredProfiles = filteredProfiles.filter(details => {
+                var orgInfo = this.state.allUsers[details.user_profile];
+
+                if ((orgInfo.name.toLowerCase()).includes(this.state.searchName.toLowerCase())) {
+                    return true;
+                }
+                return false;
+            })
+        }
 
         // get all events from the list of all filtered org profiles
         for (let i = 0; i < filteredProfiles.length; i++) {
@@ -309,7 +318,7 @@ class HomePage extends Component {
 
                         <Grid item xs={12} style={{ textAlign: "center" }}>
                             <Typography variant="h4">
-                                Search charity campaigns to make a donaiton
+                                Discover Charity Campaigns
                             </Typography>
                         </Grid>
 
