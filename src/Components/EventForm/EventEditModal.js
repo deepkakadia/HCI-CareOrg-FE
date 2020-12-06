@@ -14,6 +14,7 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
+import '../../utils/refreshPage';
 class EventEditModal extends Component {
 
     constructor(props) {
@@ -89,6 +90,7 @@ class EventEditModal extends Component {
         console.log(res.data)
         this.handleDeleteModalToggle()
         this.handleClickClose()
+        refreshPage()
     }
 
 
