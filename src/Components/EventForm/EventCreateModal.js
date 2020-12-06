@@ -10,6 +10,7 @@ import refreshPage from '../../utils/refreshPage';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 class EventCreateModal extends Component {
 
 
@@ -212,9 +213,11 @@ class EventCreateModal extends Component {
         });
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Create New Campaign
-                </Button>
+                <Tooltip title="Creates a new charity campaign">
+                    <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                        Create New Campaign
+                     </Button>
+                </Tooltip>
                 <Dialog onClose={this.hanldeClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>
                         Create New Campaign

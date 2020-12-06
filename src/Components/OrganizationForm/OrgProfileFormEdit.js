@@ -13,6 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import Input from '@material-ui/core/Input';
 import refreshPage from '../../utils/refreshPage';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export class OrgProfileFormEdit extends Component {
 
@@ -233,9 +234,12 @@ export class OrgProfileFormEdit extends Component {
         });
         return (
             <div>
-                <Button style={{ minWidth: "125px" }} variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Edit Profile
+                <Tooltip title="Edit your organization's public profile" enterDelay={0} arrow>
+                    <Button style={{ minWidth: "125px" }} variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                        Edit Profile
                 </Button>
+                </Tooltip>
+
 
                 <Dialog onClose={this.hanldeClickClose} aria-labelledby="Edit-Profile" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickOpen}>

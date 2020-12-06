@@ -13,7 +13,7 @@ import refreshPage from '../../utils/refreshPage';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
-
+import Tooltip from '@material-ui/core/Tooltip';
 class EventEditModal extends Component {
 
     constructor(props) {
@@ -279,9 +279,11 @@ class EventEditModal extends Component {
         return (
             <div>
                 {/* Modal Toggle Button */}
-                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
-                    Edit
+                <Tooltip title="Edit your campaign">
+                    <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
+                        Edit
                 </Button>
+                </Tooltip>
 
                 {/* Edit Modal */}
                 <Dialog onClose={this.handleClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>

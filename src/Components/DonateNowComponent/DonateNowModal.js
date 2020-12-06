@@ -15,6 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
     root: {
@@ -148,19 +149,20 @@ class DonateNowModal extends Component {
             amount: amount
         }
         const { details, orgDetails } = this.props
-        
-        
+
+
 
 
         return (
 
             //Dialog Component
             <div>
-                
-                    <Button variant="contained" style ={{background: "#008a00",color:"white"}} onClick={this.handleClickOpen}>
+                <Tooltip title="Make a donation">
+                    <Button variant="contained" style={{ background: "#008a00", color: "white" }} onClick={this.handleClickOpen}>
                         Donate Now
                     </Button>
-                
+                </Tooltip>
+
 
                 <Dialog onClose={this.handleClickClose} open={this.state.modalOpen}
                     disableBackdropClick disableEscapeKeyDown aria-labelledby="Make a Donation">
