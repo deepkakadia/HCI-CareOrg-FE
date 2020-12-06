@@ -10,8 +10,11 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
 import axios from 'axios';
 import refreshPage from '../../utils/refreshPage';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import { withStyles } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
 
-export default class EventEditModal extends Component {
+class EventEditModal extends Component {
 
     constructor(props) {
         super(props);
@@ -72,8 +75,18 @@ export default class EventEditModal extends Component {
     /**
      * Handles delete confirmation 
      */
-    handleOnDelete() {
+    async handleOnDelete() {
         //Make axios delete call
+        let token = localStorage.getItem('token')
+        let res = await axios.delete(`http://localhost:8000/api/feed/${this.state.eventId}/`, {
+            headers: {
+                'Authorization': `Token ${token}`,
+                'accept': 'application/json',
+                'Accept-Language': 'en-US,en;q=0.8',
+                'Content-Type': `multipart/form-data;`,
+            }
+        })
+        console.log(res.data)
         this.handleDeleteModalToggle()
         this.handleClickClose()
     }
@@ -104,7 +117,6 @@ export default class EventEditModal extends Component {
             this.setState({ event_descriptionError: true })
         }
         else {
-            console.log("inside submit hi")
             let token = localStorage.getItem('token')
 
             try {
@@ -232,6 +244,38 @@ export default class EventEditModal extends Component {
     };
 
     render() {
+        const styles = theme => ({
+            root: {
+                margin: 0,
+                padding: theme.spacing(2),
+            },
+            closeButton: {
+                position: 'absolute',
+                right: theme.spacing(1),
+                top: theme.spacing(1),
+                color: theme.palette.grey[500],
+            }
+        });
+        // const DialogContent = withStyles((theme) => ({
+        //     root: {
+        //         padding: theme.spacing(2),
+        //     },
+        // }))(MuiDialogContent);
+
+
+        const DialogTitle = withStyles(styles)((props) => {
+            const { children, classes, onClose, ...other } = props;
+            return (
+                <MuiDialogTitle disableTypography className={classes.root} {...other}>
+                    <Typography variant="h6">{children}</Typography>
+                    {onClose ? (
+                        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    ) : null}
+                </MuiDialogTitle>
+            );
+        });
         return (
             <div>
                 {/* Modal Toggle Button */}
@@ -243,9 +287,6 @@ export default class EventEditModal extends Component {
                 <Dialog onClose={this.handleClickClose} aria-labelledby="customized-dialog-title" open={this.state.modalOpen} disableBackdropClick disableEscapeKeyDown>
                     <DialogTitle id="customized-dialog-title" onClose={this.handleClickClose}>
                         Edit Campaign
-                         <IconButton aria-label="close" onClick={this.handleClickOpen} align="right">
-                            <CloseIcon />
-                        </IconButton>
                     </DialogTitle>
                     <DialogContent dividers>
                         <form>
@@ -416,6 +457,8 @@ export default class EventEditModal extends Component {
         )
     }
 }
+
+export default withStyles({ withTheme: true })(EventEditModal);
 
 
 

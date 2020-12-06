@@ -1,7 +1,8 @@
 import { Container, Typography, Button, DialogContentText, DialogActions } from '@material-ui/core'
 import React, { Component } from 'react'
 import axios from 'axios';
-
+import Confetti from '../../utils/Confetti';
+import refreshPage from '../../utils/refreshPage'
 
 export class ConfirmPayment extends Component {
 
@@ -9,12 +10,23 @@ export class ConfirmPayment extends Component {
         super(props);
 
         this.state = {
-            
+            confettiState: false,
 
         }
         this.handlePayNow = this.handlePayNow.bind(this);
         this.formatDate = this.formatDate.bind(this);
 
+    }
+
+
+    componentDidMount() {
+
+        this.setState({
+            confettiState: true
+        })
+        setTimeout(() => {
+            this.setState({ confettiState: false })
+        }, 10000);
     }
 
     //helper method
@@ -23,8 +35,8 @@ export class ConfirmPayment extends Component {
         return date.toLocaleDateString([], options);
     }
 
-    async handlePayNow() {
-
+    async handlePayNow(e) {
+        e.preventDefault()
         let token = localStorage.getItem('token')
 
         try {
@@ -54,7 +66,7 @@ export class ConfirmPayment extends Component {
                 }
             })
             console.log(res.data)
-            window.location.reload()
+
         } catch (e) {
             console.log(e)
         }
@@ -76,11 +88,17 @@ export class ConfirmPayment extends Component {
                     'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
                 }
             })
-            console.log(res)
+
         } catch (e) {
             console.log(e)
         }
+
+
+        //set confetti state here 
+
         this.props.handleClickOpen()
+        refreshPage()
+
 
 
 
@@ -92,6 +110,7 @@ export class ConfirmPayment extends Component {
         const { cardDetails, handleBack, orgDetails, eventDetails } = this.props
         return (
             <div>
+                {this.state.confettiState && <Confetti />}
 
                 <Container>
                     {/* cvc: '',

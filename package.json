@@ -18,11 +18,13 @@
         "material-ui-dropzone": "^3.5.0",
         "npm": "^6.14.9",
         "react": "^16.13.1",
+        "react-confetti": "^6.0.0",
         "react-credit-cards": "^0.8.3",
         "react-dom": "^16.13.1",
         "react-lorem-ipsum": "^1.4.7",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "^3.4.3"
+        "react-scripts": "^3.4.3",
+        "react-use": "^15.3.4"
     },
     "scripts": {
         "start": "react-scripts start",
