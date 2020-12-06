@@ -50,7 +50,7 @@ export class AmountValueDetail extends Component {
                     <Grid container className='App-form' direction={'column'} justify='center' spacing={3}>
                         <Grid item xs={12}>
                             <DialogContentText>
-                                <Typography variant="h3"> I want to donate {orgDetails.name} </Typography>
+                                <Typography variant="h4">I want to donate to {orgDetails.name}</Typography>
                             </DialogContentText>
                         </Grid>
 
@@ -74,7 +74,7 @@ export class AmountValueDetail extends Component {
 
                         <Grid item xs={12}>
                             <DialogContentText>
-                                <Typography variant="h3"> To support {eventDetails.event_title} </Typography>
+                                <Typography variant="h4"> and support {eventDetails.event_title} </Typography>
                             </DialogContentText>
                         </Grid>
                     </Grid>

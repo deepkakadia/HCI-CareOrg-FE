@@ -57,7 +57,7 @@ class DonationHistory extends Component {
 
         setTimeout(() => {
             this.setState({ confettiState: false })
-        }, 10000);
+        }, 6000);
     }
 
     render() {

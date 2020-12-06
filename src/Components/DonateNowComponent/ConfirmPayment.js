@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import Confetti from '../../utils/Confetti';
 import refreshPage from '../../utils/refreshPage'
+import ConfettiDonation from '../../utils/ConfettiDonation';
 
 export class ConfirmPayment extends Component {
 
@@ -26,7 +27,7 @@ export class ConfirmPayment extends Component {
         })
         setTimeout(() => {
             this.setState({ confettiState: false })
-        }, 10000);
+        }, 5000);
     }
 
     //helper method
@@ -110,7 +111,7 @@ export class ConfirmPayment extends Component {
         const { cardDetails, handleBack, orgDetails, eventDetails } = this.props
         return (
             <div>
-                {this.state.confettiState && <Confetti />}
+                {this.state.confettiState && <ConfettiDonation />}
 
                 <Container>
                     {/* cvc: '',
