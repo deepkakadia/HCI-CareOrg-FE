@@ -85,9 +85,7 @@ class EventTableAll extends Component {
         var len = this.props.feedItems.length
         var count = 1;
         if (this.state.pageCount == 1 && len > 6) {
-            if (len > 6) {
-                count += Math.floor(len / 6);
-            }
+            count += Math.floor(len / 6);
             this.setState({
                 pageCount: count
             })
