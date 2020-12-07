@@ -81,6 +81,17 @@ class EventTableAll extends Component {
         this.setState({ orgDict: orgDict })
     }
 
+    async componentDidUpdate() {
+        var len = this.props.feedItems.length
+        var count = 1;
+        if (this.state.pageCount == 1 && len > 6) {
+            count += Math.floor(len / 6);
+            this.setState({
+                pageCount: count
+            })
+        }
+
+    }
     handlePageChange(event, value) {
         this.setState(
             {
@@ -88,10 +99,11 @@ class EventTableAll extends Component {
             },
         );
     }
-   
+
     render() {
         var eventArray = this.props.feedItems;
         eventArray = eventArray.slice((this.state.page - 1) * 6, (this.state.page * 6));
+
         return (
             <Container maxWidth="lg">
                 <Grid container spacing={2}>
@@ -110,9 +122,9 @@ class EventTableAll extends Component {
 
                     </Grid>
                     {eventArray.map(currEvent => (
-                        
+
                         <Grid item xs={12} sm={6} md={4} key={currEvent.id}>
-                            <EventCardAll history={this.props.history} details = {currEvent} userDetails={this.props.userDetails} orgDetails={this.state.orgDict[currEvent.user_profile]} />
+                            <EventCardAll history={this.props.history} details={currEvent} userDetails={this.props.userDetails} orgDetails={this.state.orgDict[currEvent.user_profile]} />
                         </Grid>
                     ))}
                     <Grid container justify="center" style={{ padding: "10px" }}>
