@@ -193,7 +193,7 @@ class LoginForm extends React.Component {
                                 </Grid>
                                 <Grid item xs={6} style={{ textAlign: "center" }}>
                                     <Typography bottomGutter noWrap variant="h5" fontWeight="fontWeightBold">
-                                        For Indvidual Donors
+                                        For Individual Donors
                 </Typography>
                                     <Typography align="center">We help Individuals around the world search and donate to charities of their choice supporting cause close to their heart</Typography>
 
