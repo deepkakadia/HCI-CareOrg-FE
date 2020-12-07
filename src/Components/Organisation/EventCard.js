@@ -108,7 +108,7 @@ class EventCard extends Component {
                     <Typography variant="h5" component="h2">
                         {this.props.eventDetails.event_title}
                     </Typography>
-                    <Typography variant="body2">
+                    <Typography variant="body2" style={{ color: "#3f51b5", fontSize: "0.875rem", fontWeight: "500" }}>
                         {this.state.orgDetails.name}
                     </Typography>
                     <Typography gutterBottom variant="body2">

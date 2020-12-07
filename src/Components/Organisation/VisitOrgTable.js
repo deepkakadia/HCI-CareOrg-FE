@@ -22,6 +22,18 @@ class VisitOrgTable extends Component {
         this.handlePageChange = this.handlePageChange.bind(this);
     }
 
+    async componentDidUpdate() {
+        var len = this.props.orgEvents.length
+        var count = 1;
+        if (this.state.pageCount == 1 && len > 6) {
+            count += Math.floor(len / 6);
+            this.setState({
+                pageCount: count
+            })
+        }
+
+    }
+
     handlePageChange(event, value) {
         this.setState(
             {
