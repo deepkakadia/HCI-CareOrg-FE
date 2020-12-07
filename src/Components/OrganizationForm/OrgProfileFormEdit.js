@@ -132,9 +132,7 @@ export class OrgProfileFormEdit extends Component {
             this.handleOpen()
             this.hanldeClickClose()
 
-            //Refreshes the parent component
-            this.setState({ updateCalled: !this.state.updateCalled })
-            this.props.handleUpdateCalled(this.state.updateCalled)
+            refreshPage()
 
 
         }
